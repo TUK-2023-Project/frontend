@@ -1,8 +1,14 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import PlaygroudPage from "./pages/PlaygroudPage";
 
 function App() {
-  return <div>히힛</div>;
+  return (
+    <Routes>
+      <Route path="/playground" element={<PlaygroudPage />} />
+    </Routes>
+  );
 }
 
 export default App;
