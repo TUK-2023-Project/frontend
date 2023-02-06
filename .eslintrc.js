@@ -14,6 +14,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+          endOfLine: 'auto',
+      },
+  ],
+    
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
