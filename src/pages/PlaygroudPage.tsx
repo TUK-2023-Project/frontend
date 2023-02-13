@@ -9,7 +9,7 @@ function PlaygroudPage() {
       <h1>낙서장 페이지</h1>
       <button className={classNames("Button", "blue")}>button</button>
       <button className={classNames("Button", "gray")}>button</button>
-      <CameraDisplay />
+      <CameraDisplay cameraOn={true} />
     </div>
   );
 }
