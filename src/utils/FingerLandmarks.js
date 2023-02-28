@@ -41,7 +41,7 @@ export const drawHand = (predictions, ctx) => {
       // Grab landmarks
       const landmarks = prediction.landmarks;
 
-      // Loop through fingets
+      // Loop through fingers
       for (let j = 0; j < Object.keys(fingerJoints).length; j++) {
         const finger = Object.keys(fingerJoints)[j];
         // Loop through pairs of joints
