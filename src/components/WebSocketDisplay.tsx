@@ -16,7 +16,7 @@ function WebSocketDisplay({ click }: propsType) {
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
   const [sendMsg, setSendMsg] = useState<boolean>(false);
 
-  const webSocketUrl = `ws://0.0.0.0:8000/ws/sockettest/`;
+  const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
   // 웹소켓 연결 및 해제
   useEffect(() => {
