@@ -1,4 +1,4 @@
-export const correct = () => ({
+export const correctQuestion = () => ({
   type: "INCREASE_SCORE",
 });
 

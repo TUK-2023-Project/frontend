@@ -1,6 +1,6 @@
 const InitialState = {
   score: 0,
-  targetSignWord: null,
+  targetSignWord: "ㅇ",
 };
 
 /**
@@ -11,19 +11,19 @@ const InitialState = {
 
 export const SignQuizReducer = (state = InitialState, action: any) => {
   switch (action.type) {
-    case "CORRECT_ANSWER":
+    case "INCREASE_SCORE":
       return {
         ...state,
         score: state.score + 500,
       };
 
-    case "SET_TARGET_ANSWER":
+    case "UPDATE_TARGET_ANSWER":
       return {
         ...state,
         targetSignWord: action.data.targetWord,
       };
 
-    case "RESET_GAME":
+    case "SET_INITIAL_STATE":
       return InitialState;
 
     default:
