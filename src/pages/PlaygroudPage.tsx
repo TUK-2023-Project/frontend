@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames"; // 조건부로 css 클래스 넣어주는 라이브러리
 import "./PlaygroundPage.scss"; // scss 임포트
 import WebSocketDisplay from "../components/WebSocketDisplay";
+import QuizTimer from "../components/QuizTimer";
 
 function PlaygroudPage() {
   const [click, setClick] = useState<boolean | any>(false);
@@ -27,6 +28,11 @@ function PlaygroudPage() {
       </button>
       <button className={classNames("Button", "gray")}>button</button>
       {click === true ? <WebSocketDisplay click={click} /> : ""}
+
+      <div>
+        <h1>타이머</h1>
+        <QuizTimer time={5} />
+      </div>
     </div>
   );
 }
