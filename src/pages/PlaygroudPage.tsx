@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames"; // 조건부로 css 클래스 넣어주는 라이브러리
 import "./PlaygroundPage.scss"; // scss 임포트
 import WebSocketDisplay from "../components/WebSocketDisplay";
-import { useDispatch, useSelector } from "react-redux";
-import { incrementScore, resetScore } from "../redux/actions/TestActions";
 
 function PlaygroudPage() {
   const [click, setClick] = useState<boolean | any>(false);
-
-  const dispatch = useDispatch();
-  const score = useSelector(
-    (state: { Test: { score: number } }) => state.Test.score
-  );
 
   useEffect(() => {
     console.log(click);
@@ -34,14 +27,6 @@ function PlaygroudPage() {
       </button>
       <button className={classNames("Button", "gray")}>button</button>
       {click === true ? <WebSocketDisplay click={click} /> : ""}
-
-      <div>
-        <h1>Redux 데이터 테스트</h1>
-        <p>Score: {score}</p>
-        <button onClick={() => dispatch(incrementScore())}>증가</button>
-
-        <button onClick={() => dispatch(resetScore())}>초기화</button>
-      </div>
     </div>
   );
 }
