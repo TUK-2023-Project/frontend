@@ -1,0 +1,18 @@
+.FormButtonWrap {
+  width: 100%;
+  height: 10%;
+  margin-bottom: 1rem;
+
+  .FormButton {
+    width: 55%;
+    border: 3px solid black;
+    margin: 0 auto;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+}
