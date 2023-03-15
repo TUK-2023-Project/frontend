@@ -15,13 +15,7 @@ const gamePage = (): JSX.Element => {
   const renderPage = (): JSX.Element => {
     switch (stageState) {
       case 0:
-        return (
-          <QuizSelection
-            handleMovePage={() => {
-              setCurrentPage("page2");
-            }}
-          />
-        );
+        return <QuizSelection />;
       case 1:
         return <QuizSolve />;
       case 2:

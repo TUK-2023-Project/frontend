@@ -6,7 +6,7 @@ import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
 
 import { useDispatch, useSelector } from "react-redux";
-import { correctQuestion } from "redux/actions/SignQuizActions";
+import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
 interface propsType {
   click: boolean;
@@ -34,7 +34,7 @@ function WebSocketDisplay({ click }: propsType) {
   const handleSucess = () => {
     console.log("정답을 맞추었을 때");
     dispatch(correctQuestion());
-
+    dispatch(moveNextStage());
     // 1. 카메라 활성화 여부를 false로 두어 소켓데이터 읽는것을 멈추기
     // 2. 페이지를 이동시키거나 컴포넌트를 보여주기 (정답에 해당하는 설명페이지를 보여주어야한다.)
   };

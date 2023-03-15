@@ -2,12 +2,15 @@ import React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useTimer } from "react-timer-hook";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useDispatch } from "react-redux";
+import { moveNextStage, timeOut } from "redux/actions/SignQuizActions";
 
 interface propsType {
   time: number;
 }
 
 const QuizTimer = ({ time }: propsType) => {
+  const dispatch = useDispatch();
   const expiryTimestamp = new Date();
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + time);
@@ -17,7 +20,8 @@ const QuizTimer = ({ time }: propsType) => {
     expiryTimestamp,
     onExpire: () => {
       console.log("Timer expired");
-      // 타임 만료 로직 넣기
+      dispatch(timeOut());
+      dispatch(moveNextStage());
     },
   });
 

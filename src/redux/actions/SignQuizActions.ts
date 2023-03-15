@@ -13,3 +13,7 @@ export const gameOver = () => ({
 export const moveNextStage = () => ({
   type: "UPDATE_STAGE_STATE",
 });
+
+export const timeOut = () => ({
+  type: "TIME_OUT",
+});
