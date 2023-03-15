@@ -1,9 +1,14 @@
+$yellowbutton: #fad795; //공통 버튼 색
+
 .CommonBtn {
   width: 11rem;
   height: 4.4rem;
   border-radius: 1.5rem;
-  background: #fad795;
+  background: $yellowbutton;
   font-size: 1.5rem;
   font-weight: 900;
   border: 1.8px solid black;
+  &:hover {
+    background: darken($yellowbutton, 10%);
+  }
 }

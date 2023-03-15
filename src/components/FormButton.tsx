@@ -1,14 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./FormButton.scss";
 
 interface FormButtonProps {
   text: string;
+  allow: boolean;
+  url: string;
 }
 
-function FormButton({ text }: FormButtonProps) {
+function FormButton({ text, allow, url }: FormButtonProps) {
   return (
     <div className="FormButtonWrap">
-      <div className="FormButton">{text}</div>
+      <Link to={url}>
+        <button disabled={allow} className="FormButton">
+          {text}
+        </button>
+      </Link>
     </div>
   );
 }
