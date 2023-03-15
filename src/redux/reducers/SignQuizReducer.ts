@@ -1,6 +1,10 @@
 const InitialState = {
   score: 0,
-  targetSignWord: "ㅇ",
+  targetSignWord: {
+    id: 5,
+    data: "o",
+  },
+  stageState: 0,
 };
 
 /**
@@ -25,6 +29,12 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
 
     case "SET_INITIAL_STATE":
       return InitialState;
+
+    case "UPDATE_STAGE_STATE":
+      return {
+        ...state,
+        stageState: (state.stageState + 1) % 3,
+      };
 
     default:
       return state;

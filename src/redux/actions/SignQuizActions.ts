@@ -9,3 +9,7 @@ export const getNextQuestion = (data: string) => ({
 export const gameOver = () => ({
   type: "SET_INITIAL_STATE",
 });
+
+export const moveNextStage = () => ({
+  type: "UPDATE_STAGE_STATE",
+});

@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
-import { drawHand } from "../utils/FingerLandmarks";
+import { drawHand } from "utils/FingerLandmarks";
 
 import { useDispatch, useSelector } from "react-redux";
-import { correctQuestion } from "../redux/actions/SignQuizActions";
+import { correctQuestion } from "redux/actions/SignQuizActions";
 
 interface propsType {
   click: boolean;
