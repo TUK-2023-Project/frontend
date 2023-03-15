@@ -4,6 +4,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PlaygroudPage from "./pages/PlaygroudPage";
 import SignUpPage from "./pages/SignUpPage";
+import Game from "./pages/Game";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path={"/signin"} element={<SignInPage />} />
       <Route path={"/playground"} element={<PlaygroudPage />} />
       <Route path={"/"} element={<PlaygroudPage />} />
+      <Route path={"/game"} element={<Game />} />
     </Routes>
   );
 }
