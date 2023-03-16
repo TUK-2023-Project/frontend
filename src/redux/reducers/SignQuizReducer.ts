@@ -2,7 +2,7 @@ const InitialState = {
   score: 0,
   targetSignWord: {
     id: 5,
-    data: "o",
+    data: "ㅇ",
   },
   stageState: 0,
   isEnd: false,

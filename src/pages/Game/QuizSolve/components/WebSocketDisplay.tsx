@@ -27,8 +27,8 @@ function WebSocketDisplay({ click }: propsType) {
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
   const targetSignWord = useSelector(
-    (state: { SignQuiz: { targetSignWord: string } }) =>
-      state.SignQuiz.targetSignWord
+    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
+      state.SignQuiz.targetSignWord.data
   );
 
   const handleSucess = () => {
@@ -81,8 +81,10 @@ function WebSocketDisplay({ click }: propsType) {
       ws.current.onmessage = function (e: { data: string }) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
-
+        console.log(data.message);
+        console.log(targetSignWord);
         if (data.message === targetSignWord) {
+          console.log("정답");
           handleSucess();
         }
       };

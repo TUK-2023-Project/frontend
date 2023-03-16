@@ -1,12 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { timeOut, moveNextStage } from "redux/actions/SignQuizActions";
+import { moveNextStage } from "redux/actions/SignQuizActions";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   handleMovePage: () => void;
 }
 
 const QuizReview = ({ handleMovePage }: Props) => {
+  const navigate = useNavigate();
+  const redirectToRankPage = () => {
+    navigate("/rank");
+  };
   const dispatch = useDispatch();
   const isEnd = useSelector(
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
@@ -14,8 +19,7 @@ const QuizReview = ({ handleMovePage }: Props) => {
 
   const checkGameStage = () => {
     if (isEnd) {
-      dispatch(timeOut());
-      // 라우터 이동
+      redirectToRankPage();
     } else {
       dispatch(moveNextStage());
     }
