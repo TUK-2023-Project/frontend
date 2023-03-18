@@ -8,6 +8,9 @@ function SignInPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
+  const [pwErrorMsg, setPwErrorMsg] = useState<string>("");
+
   const [emailValid, setEmailValid] = useState<boolean>(false);
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
   const [notAllow, setNotAllow] = useState<boolean>(true);
@@ -19,27 +22,51 @@ function SignInPage() {
   const passwordRegex =
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
 
-  // 이메일 유효성 체크
+  // 이메일 입력값
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (emailRegex.test(email)) {
-      setEmailValid(true);
-    } else {
+  };
+  // 이메일 유효성 체크
+  const ckeckEmail = () => {
+    if (email === "") {
       setEmailValid(false);
+      setEmailErrorMsg("이메일을 입력해주세요!");
+    } else {
+      if (emailRegex.test(email)) {
+        setEmailValid(true);
+        setEmailErrorMsg("");
+      } else {
+        setEmailValid(false);
+        setEmailErrorMsg("이메일 형식에 맞지 않습니다!");
+      }
     }
   };
 
-  // 비밀번호 유효성 체크
+  // 패스워드 입력값
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (passwordRegex.test(password)) {
-      setPasswordValid(true);
-    } else {
+  };
+  // 비밀번호 유효성 체크
+  const ckeckPassword = () => {
+    console.log(password);
+    if (password === "") {
       setPasswordValid(false);
+      setPwErrorMsg("비밀번호를 입력해주세요!");
+    } else {
+      console.log(passwordRegex.test(password));
+      if (passwordRegex.test(password)) {
+        setPasswordValid(true);
+        setPwErrorMsg("");
+      } else {
+        setPasswordValid(false);
+        setPwErrorMsg(
+          "영문, 숫자, 특수문자 포함 8자 이상 20자 이하로 입력해주세요."
+        );
+      }
     }
   };
 
-  // 조건 다 충족되면 회원가입 버튼 활성화
+  // 조건 다 충족되면 로그인 버튼 활성화
   useEffect(() => {
     if (emailValid && passwordValid) {
       setNotAllow(false);
@@ -47,6 +74,7 @@ function SignInPage() {
     }
     setNotAllow(true);
   }, [emailValid, passwordValid]);
+
   return (
     <div className="FormWrap">
       <div className="Title">로그인</div>
@@ -55,20 +83,20 @@ function SignInPage() {
         text="이메일"
         type="text"
         placeholder="aa@gmail.com"
-        condition="올바른 이메일을 입력해주세요."
+        condition={emailErrorMsg}
         onChange={handleEmail}
         data={email}
-        valid={emailValid}
+        blurEvent={ckeckEmail}
       />
       <FormBox
         icon="images/password.svg"
         text="비밀번호"
         type="password"
         placeholder="••••••••"
-        condition="영문, 숫자, 특수문자 포함 8자 이상 입력해주세요."
+        condition={pwErrorMsg}
         onChange={handlePassword}
         data={password}
-        valid={passwordValid}
+        blurEvent={ckeckPassword}
       />
       <FormButton text="로그인" allow={notAllow} url="/main" />
       <div className="Move">

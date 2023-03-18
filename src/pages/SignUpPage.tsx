@@ -10,6 +10,11 @@ function SignUpPage() {
   const [password, setPassword] = useState<string>("");
   const [passwordConfrim, setPasswordConfirm] = useState<string>("");
 
+  const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
+  const [nicknameErrorMsg, setNicknameErrorMsg] = useState<string>("");
+  const [pwErrorMsg, setPwErrorMsg] = useState<string>("");
+  const [pwConfirmErrorMsg, setPwConfirmErrorMsg] = useState<string>("");
+
   const [emailValid, setEmailValid] = useState<boolean>(false);
   const [nicknameValid, setNickNameValid] = useState<boolean>(false);
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
@@ -24,40 +29,84 @@ function SignUpPage() {
   const passwordRegex =
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
 
-  // 이메일 유효성 체크
+  // 이메일 입력값
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (emailRegex.test(email)) {
-      setEmailValid(true);
-    } else {
+  };
+  // 이메일 유효성 체크
+  const ckeckEmail = () => {
+    if (email === "") {
       setEmailValid(false);
+      setEmailErrorMsg("이메일을 입력해주세요!");
+    } else {
+      if (emailRegex.test(email)) {
+        setEmailValid(true);
+        setEmailErrorMsg("");
+      } else {
+        setEmailValid(false);
+        setEmailErrorMsg("이메일 형식에 맞지 않습니다!");
+      }
     }
   };
-  // 닉네임 유효성 체크
+
+  // 닉네임 입력값
   const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
-    if (nickname.length > 0 && nickname.length < 9) {
-      setNickNameValid(true);
-    } else {
+  };
+  // 닉네임 유효성 체크
+  const ckeckNickname = () => {
+    console.log(nickname);
+    if (nickname === "") {
       setNickNameValid(false);
+      setNicknameErrorMsg("닉네임을 입력해주세요!");
+    } else {
+      setNickNameValid(true);
+      setNicknameErrorMsg("");
     }
   };
-  // 비밀번호 유효성 체크
+
+  // 패스워드 입력값
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (passwordRegex.test(password)) {
-      setPasswordValid(true);
-    } else {
+  };
+  // 비밀번호 유효성 체크
+  const ckeckPassword = () => {
+    console.log(password);
+    if (password === "") {
       setPasswordValid(false);
+      setPwErrorMsg("비밀번호를 입력해주세요!");
+    } else {
+      console.log(passwordRegex.test(password));
+      if (passwordRegex.test(password)) {
+        setPasswordValid(true);
+        setPwErrorMsg("");
+      } else {
+        setPasswordValid(false);
+        setPwErrorMsg(
+          "영문, 숫자, 특수문자 포함 8자 이상 20자 이하로 입력해주세요."
+        );
+      }
     }
   };
-  // 비밀번호 재확인 유효성 체크
+
+  // 패스워드 재확인 입력값
   const handlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordConfirm(e.target.value);
-    if (password === passwordConfrim) {
-      setPasswordConfirmValid(true);
-    } else {
+  };
+  // 비밀번호 재확인 유효성 체크
+  const ckeckPasswordConfirm = () => {
+    console.log(passwordConfrim);
+    if (passwordConfrim === "") {
       setPasswordConfirmValid(false);
+      setPwConfirmErrorMsg("비밀번호를 재확인 해주세요!");
+    } else {
+      if (password === passwordConfrim) {
+        setPasswordConfirmValid(true);
+        setPwConfirmErrorMsg("");
+      } else {
+        setPasswordConfirmValid(false);
+        setPwConfirmErrorMsg("입력하신 비밀번호와 일치하지 않습니다.");
+      }
     }
   };
 
@@ -78,40 +127,40 @@ function SignUpPage() {
         text="이메일"
         type="text"
         placeholder="aa@gmail.com"
-        condition="올바른 이메일을 입력해주세요."
+        condition={emailErrorMsg}
         onChange={handleEmail}
         data={email}
-        valid={emailValid}
+        blurEvent={ckeckEmail}
       />
       <FormBox
         icon="images/user.svg"
         text="닉네임"
         type="text"
         placeholder="홍길동"
-        condition="8글자 이하로 입력해주세요."
+        condition={nicknameErrorMsg}
         onChange={handleNickname}
         data={nickname}
-        valid={nicknameValid}
+        blurEvent={ckeckNickname}
       />
       <FormBox
         icon="images/password.svg"
         text="비밀번호"
         type="password"
         placeholder="••••••••"
-        condition="영문, 숫자, 특수문자 포함 8자 이상 입력해주세요."
+        condition={pwErrorMsg}
         onChange={handlePassword}
         data={password}
-        valid={passwordValid}
+        blurEvent={ckeckPassword}
       />
       <FormBox
         icon="images/password.svg"
         text="비밀번호 재입력"
         type="password"
         placeholder="••••••••"
-        condition="입력하신 비밀번호와 일치하지 않습니다."
+        condition={pwConfirmErrorMsg}
         onChange={handlePasswordConfirm}
         data={passwordConfrim}
-        valid={passwordConfirmValid}
+        blurEvent={ckeckPasswordConfirm}
       />
       <FormButton text="회원가입" allow={notAllow} url="/signin" />
       <div className="Move">

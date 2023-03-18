@@ -9,7 +9,7 @@ interface FormBoxProps {
   condition: string;
   onChange?: any;
   data: string;
-  valid: boolean;
+  blurEvent: () => void;
 }
 
 function FormBox({
@@ -20,7 +20,7 @@ function FormBox({
   condition,
   onChange = () => {},
   data,
-  valid,
+  blurEvent,
 }: FormBoxProps) {
   const [value, setValue] = useState<string>(data);
 
@@ -28,6 +28,7 @@ function FormBox({
     setValue(e.target.value);
     onChange({ target: { name: placeholder, value: e.target.value } });
   };
+
   return (
     <div className="FormBox">
       <div className="Form">
@@ -41,12 +42,11 @@ function FormBox({
             placeholder={placeholder}
             value={value}
             onChange={handleDataChange}
+            onBlur={blurEvent}
           />
         </div>
       </div>
-      {!valid && data.length > 0 && (
-        <div className="FormCondition">{condition}</div>
-      )}
+      <div className="FormCondition">{condition}</div>
     </div>
   );
 }
