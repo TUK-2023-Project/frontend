@@ -11,9 +11,40 @@ const QuizSolve = () => {
 
   return (
     <div>
-      <h1>맞춰야 하는 단어 : {targetSignWord} </h1>
+      <div
+        style={{
+          backgroundColor: "gray",
+          borderRadius: "20px",
+          opacity: 0.8,
+          justifyContent: "flex-end",
+          alignItems: "center",
+          position: "relative",
+          padding: "30px",
+          margin: "auto",
+          width: "90%",
+        }}
+      >
+        <h1
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "24px",
+          }}
+        >
+          {targetSignWord}
+        </h1>
+        <h1
+          style={{
+            textAlign: "center",
 
-      <QuizTimer time={20} />
+            fontSize: "16px",
+          }}
+        >
+          {"제한시간 내에 위 단어를 표현해주세요"}
+        </h1>
+
+        <QuizTimer time={200} />
+      </div>
       <WebSocketDisplay click />
     </div>
   );

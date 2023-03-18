@@ -23,9 +23,6 @@ function WebSocketDisplay({ click }: propsType) {
   const ws = useRef<any>(null);
 
   const dispatch = useDispatch();
-  const score = useSelector(
-    (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
-  );
   const targetSignWord = useSelector(
     (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
       state.SignQuiz.targetSignWord.data
@@ -148,20 +145,24 @@ function WebSocketDisplay({ click }: propsType) {
   }, [click]);
 
   return (
-    <div>
+    <div
+      style={{
+        position: "relative",
+        marginTop: "30px",
+      }}
+    >
       {click ? (
         <>
           <Webcam
             ref={webcamRef}
             style={{
               position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
+              margin: "auto",
               left: 0,
               right: 0,
-              textAlign: "center",
+
               zIndex: 9,
-              width: 640,
+              width: "100%",
               height: 480,
             }}
           />
@@ -169,19 +170,15 @@ function WebSocketDisplay({ click }: propsType) {
             ref={canvasRef}
             style={{
               position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
+              margin: "auto",
               left: 0,
               right: 0,
-              textAlign: "center",
+
               zIndex: 9,
-              width: 640,
+              width: "100%",
               height: 480,
             }}
           />
-          <div>
-            <p>Score: {score}</p>
-          </div>
         </>
       ) : (
         ""

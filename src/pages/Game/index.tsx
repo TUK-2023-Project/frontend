@@ -8,6 +8,9 @@ const gamePage = (): JSX.Element => {
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
   );
+  const score = useSelector(
+    (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
+  );
   const [currentPage, setCurrentPage] = useState<string>("page1");
 
   console.log(currentPage);
@@ -31,7 +34,27 @@ const gamePage = (): JSX.Element => {
     }
   };
 
-  return <div>{renderPage()}</div>;
+  return (
+    <div>
+      <div
+        style={{
+          zIndex: 10,
+          position: "absolute",
+          top: 0,
+          right: 0,
+          backgroundColor: "orange",
+          color: "red",
+          display: "inline-block",
+          padding: "10px",
+          fontWeight: "bold",
+          fontSize: "20px",
+        }}
+      >
+        {score}점
+      </div>
+      <div>{renderPage()}</div>
+    </div>
+  );
 };
 
 export default gamePage;
