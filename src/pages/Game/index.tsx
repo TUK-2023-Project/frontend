@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import QuizSolve from "./QuizSolve/index";
 import QuizSelection from "./QuizSelection/index";
 import QuizReview from "./QuizReview/index";
@@ -11,9 +11,7 @@ const gamePage = (): JSX.Element => {
   const score = useSelector(
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
-  const [currentPage, setCurrentPage] = useState<string>("page1");
 
-  console.log(currentPage);
   console.log(stageState);
   const renderPage = (): JSX.Element => {
     switch (stageState) {
@@ -22,13 +20,7 @@ const gamePage = (): JSX.Element => {
       case 1:
         return <QuizSolve />;
       case 2:
-        return (
-          <QuizReview
-            handleMovePage={() => {
-              setCurrentPage("page1");
-            }}
-          />
-        );
+        return <QuizReview />;
       default:
         return <div>Page Not Found</div>;
     }

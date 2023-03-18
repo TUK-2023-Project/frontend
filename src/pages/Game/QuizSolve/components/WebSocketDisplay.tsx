@@ -148,6 +148,8 @@ function WebSocketDisplay({ click }: propsType) {
     <div
       style={{
         position: "relative",
+        width: "100%",
+        margin: "auto",
         marginTop: "30px",
       }}
     >
@@ -162,7 +164,7 @@ function WebSocketDisplay({ click }: propsType) {
               right: 0,
 
               zIndex: 9,
-              width: "100%",
+              width: 640,
               height: 480,
             }}
           />
@@ -173,9 +175,8 @@ function WebSocketDisplay({ click }: propsType) {
               margin: "auto",
               left: 0,
               right: 0,
-
               zIndex: 9,
-              width: "100%",
+              width: 640,
               height: 480,
             }}
           />

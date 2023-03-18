@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  handleMovePage: () => void;
-}
-
-const QuizReview = ({ handleMovePage }: Props) => {
+const QuizReview = () => {
   const navigate = useNavigate();
   const redirectToRankPage = () => {
     navigate("/rank");
