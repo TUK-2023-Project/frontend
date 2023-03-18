@@ -162,7 +162,6 @@ function WebSocketDisplay({ click }: propsType) {
               margin: "auto",
               left: 0,
               right: 0,
-
               zIndex: 9,
               width: 640,
               height: 480,

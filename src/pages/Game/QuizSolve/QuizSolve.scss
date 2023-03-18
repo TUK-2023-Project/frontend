@@ -1,0 +1,17 @@
+.header {
+  background-color: gray;
+  border-radius: 20px;
+  opacity: 0.8;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  padding: 30px;
+  margin: auto;
+  width: 90%;
+
+  &__title {
+    text-align: center;
+    color: red;
+    font-size: 2rem;
+  }
+}

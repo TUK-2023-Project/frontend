@@ -3,7 +3,7 @@ import QuizSolve from "./QuizSolve/index";
 import QuizSelection from "./QuizSelection/index";
 import QuizReview from "./QuizReview/index";
 import { useSelector } from "react-redux";
-
+import "./game.scss";
 const gamePage = (): JSX.Element => {
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
@@ -28,22 +28,7 @@ const gamePage = (): JSX.Element => {
 
   return (
     <div>
-      <div
-        style={{
-          zIndex: 10,
-          position: "absolute",
-          top: 0,
-          right: 0,
-          backgroundColor: "orange",
-          color: "red",
-          display: "inline-block",
-          padding: "10px",
-          fontWeight: "bold",
-          fontSize: "20px",
-        }}
-      >
-        {score}점
-      </div>
+      <div className="score-wrapper">{score}점</div>
       <div>{renderPage()}</div>
     </div>
   );
