@@ -3,10 +3,15 @@ import styles from "./CommonButton.module.scss";
 
 interface CommonButtonProps {
   buttonName: string;
+  handleClick?: () => void;
 }
 
-function CommonButton({ buttonName }: CommonButtonProps) {
-  return <button className={styles["common-btn"]}>{buttonName}</button>;
+function CommonButton({ buttonName, handleClick }: CommonButtonProps) {
+  return (
+    <button className={styles["common-btn"]} onClick={handleClick}>
+      {buttonName}
+    </button>
+  );
 }
 
 export default CommonButton;
