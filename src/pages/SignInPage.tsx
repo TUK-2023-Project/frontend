@@ -2,7 +2,7 @@ import FormBox from "components/FormBox";
 import FormButton from "components/FormButton";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./SignPage.scss";
+import styles from "./SignPage.module.scss";
 
 function SignInPage() {
   const [email, setEmail] = useState<string>("");
@@ -76,8 +76,8 @@ function SignInPage() {
   }, [emailValid, passwordValid]);
 
   return (
-    <div className="FormWrap">
-      <div className="Title">로그인</div>
+    <div className={styles["form-wrap"]}>
+      <div className={styles["form-wrap__title"]}>로그인</div>
       <FormBox
         icon="images/user.svg"
         text="이메일"
@@ -99,7 +99,7 @@ function SignInPage() {
         blurEvent={ckeckPassword}
       />
       <FormButton text="로그인" allow={notAllow} url="/main" />
-      <div className="Move">
+      <div className={styles["form-wrap__move-wrap"]}>
         <span>계정이 없으신가요?</span>
         <Link to="/signup">회원가입</Link>
       </div>

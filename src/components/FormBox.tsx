@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from "react";
-import "./FormBox.scss";
+import styles from "./FormBox.module.scss";
 
 interface FormBoxProps {
   icon: string;
@@ -30,13 +31,15 @@ function FormBox({
   };
 
   return (
-    <div className="FormBox">
-      <div className="Form">
-        <div className="FormIcon">
+    <div className={styles["form-box"]}>
+      <div className={styles["form-box__form"]}>
+        <div className={styles["form-box__form__form-icon"]}>
           <img src={icon} alt="icon" />
         </div>
-        <div className="FormInput">
-          <div className="FormInfo">{text}</div>
+        <div className={styles["form-box__form__form-input"]}>
+          <div className={styles["form-box__form__form-input__form-info"]}>
+            {text}
+          </div>
           <input
             type={type}
             placeholder={placeholder}
@@ -46,7 +49,7 @@ function FormBox({
           />
         </div>
       </div>
-      <div className="FormCondition">{condition}</div>
+      <div className={styles["form-box__form-condition"]}>{condition}</div>
     </div>
   );
 }

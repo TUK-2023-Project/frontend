@@ -1,12 +1,12 @@
 import React from "react";
-import "./CommonButton.scss";
+import styles from "./CommonButton.module.scss";
 
 interface CommonButtonProps {
   buttonName: string;
 }
 
 function CommonButton({ buttonName }: CommonButtonProps) {
-  return <button className="CommonBtn">{buttonName}</button>;
+  return <button className={styles["common-btn"]}>{buttonName}</button>;
 }
 
 export default CommonButton;

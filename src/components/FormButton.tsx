@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./FormButton.scss";
+import styles from "./FormButton.module.scss";
 
 interface FormButtonProps {
   text: string;
@@ -10,9 +10,9 @@ interface FormButtonProps {
 
 function FormButton({ text, allow, url }: FormButtonProps) {
   return (
-    <div className="FormButtonWrap">
+    <div className={styles["form-btn-wrap"]}>
       <Link to={url}>
-        <button disabled={allow} className="FormButton">
+        <button disabled={allow} className={styles["form-btn-wrap__form-btn"]}>
           {text}
         </button>
       </Link>

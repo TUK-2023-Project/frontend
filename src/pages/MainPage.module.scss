@@ -1,4 +1,4 @@
-.MainWrap {
+.main-wrap {
   position: absolute;
   width: 55rem;
   height: 40rem;
@@ -19,7 +19,7 @@
     margin-bottom: 8rem;
   }
 
-  .CommonBtnWrap {
+  &__common-btn-wrap {
     width: 75%;
     display: flex;
     justify-content: space-between;
