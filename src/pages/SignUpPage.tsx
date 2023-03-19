@@ -1,8 +1,8 @@
 import FormBox from "components/FormBox";
 import FormButton from "components/FormButton";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import "./SignPage.scss";
+import styles from "./SignPage.module.scss";
 
 function SignUpPage() {
   const [email, setEmail] = useState<string>("");
@@ -30,18 +30,21 @@ function SignUpPage() {
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
 
   // 이메일 입력값
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  // 이메일 유효성 체크
+  const handleEmail = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currEmail = e.target.value;
+      setEmail(currEmail);
+    },
+    []
+  );
+
   const ckeckEmail = () => {
     if (email === "") {
       setEmailValid(false);
       setEmailErrorMsg("이메일을 입력해주세요!");
     } else {
       if (emailRegex.test(email)) {
-        setEmailValid(true);
-        setEmailErrorMsg("");
+        setEmailErrorMsg("이메일 중복확인을 해주세요");
       } else {
         setEmailValid(false);
         setEmailErrorMsg("이메일 형식에 맞지 않습니다!");
@@ -49,26 +52,89 @@ function SignUpPage() {
     }
   };
 
-  // 닉네임 입력값
-  const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
+  // 이메일 중복 체크
+  const checkDuplicateEmail = async () => {
+    try {
+      await fetch("../dummy/duplication.json", {
+        headers: {
+          Accept: "application / json",
+        },
+        method: "GET",
+      })
+        .then((response: { json: () => any }) => response.json())
+        .then((result: any) => {
+          if (result.check === "false") {
+            console.log("중복");
+            setEmailValid(false);
+            setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
+          } else {
+            setEmailValid(true);
+            console.log("중복아님");
+            setEmailErrorMsg("");
+          }
+        })
+        .catch((error: any) => {
+          console.log("error", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
-  // 닉네임 유효성 체크
+
+  // 닉네임 입력값
+  const handleNickname = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currNickname = e.target.value;
+      setNickname(currNickname);
+    },
+    []
+  );
+
   const ckeckNickname = () => {
-    console.log(nickname);
     if (nickname === "") {
       setNickNameValid(false);
       setNicknameErrorMsg("닉네임을 입력해주세요!");
     } else {
-      setNickNameValid(true);
-      setNicknameErrorMsg("");
+      setNicknameErrorMsg("닉네임 중복확인을 해주세요");
+    }
+  };
+
+  // 닉네임 중복체크
+  const checkDuplicateNickname = async () => {
+    try {
+      await fetch("../dummy/duplication.json", {
+        headers: {
+          Accept: "application / json",
+        },
+        method: "GET",
+      })
+        .then((response: { json: () => any }) => response.json())
+        .then((result: any) => {
+          if (result.check === "false") {
+            console.log(result);
+            setNickNameValid(false);
+            setNicknameErrorMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
+          } else {
+            setNickNameValid(true);
+            setNicknameErrorMsg("");
+          }
+        })
+        .catch((error: any) => {
+          console.log("error", error);
+        });
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // 패스워드 입력값
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const handlePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currPwd = e.target.value;
+      setPassword(currPwd);
+    },
+    []
+  );
   // 비밀번호 유효성 체크
   const ckeckPassword = () => {
     console.log(password);
@@ -90,9 +156,13 @@ function SignUpPage() {
   };
 
   // 패스워드 재확인 입력값
-  const handlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordConfirm(e.target.value);
-  };
+  const handlePasswordConfirm = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currPwdConfirm = e.target.value;
+      setPasswordConfirm(currPwdConfirm);
+    },
+    [password]
+  );
   // 비밀번호 재확인 유효성 체크
   const ckeckPasswordConfirm = () => {
     console.log(passwordConfrim);
@@ -120,8 +190,21 @@ function SignUpPage() {
   }, [emailValid, nicknameValid, passwordValid, passwordConfirmValid]);
 
   return (
-    <div className="FormWrap">
-      <div className="Title">회원가입</div>
+    <div className={styles["form-wrap"]}>
+      <div className={styles["form-wrap__title"]}>회원가입</div>
+      <div className={styles["form-wrap__check-wrap"]}>
+        <button
+          className={
+            !emailValid
+              ? styles["form-wrap__check-wrap__button--notvarified"]
+              : styles["form-wrap__check-wrap__button--varified"]
+          }
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onClick={checkDuplicateEmail}
+        >
+          중복 확인 *
+        </button>
+      </div>
       <FormBox
         icon="images/user.svg"
         text="이메일"
@@ -132,6 +215,19 @@ function SignUpPage() {
         data={email}
         blurEvent={ckeckEmail}
       />
+      <div className={styles["form-wrap__check-wrap"]}>
+        <button
+          className={
+            // !nicknameValid
+            styles["form-wrap__check-wrap__button--notvarified"]
+            // : styles["form-wrap__check-wrap__button--varified"]
+          }
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onClick={checkDuplicateNickname}
+        >
+          중복 확인 *
+        </button>
+      </div>
       <FormBox
         icon="images/user.svg"
         text="닉네임"
@@ -163,7 +259,7 @@ function SignUpPage() {
         blurEvent={ckeckPasswordConfirm}
       />
       <FormButton text="회원가입" allow={notAllow} url="/signin" />
-      <div className="Move">
+      <div className={styles["form-wrap__move-wrap"]}>
         <span>이미 계정이 있으신가요?</span>
         <Link to="/signin">로그인</Link>
       </div>
