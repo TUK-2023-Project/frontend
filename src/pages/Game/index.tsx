@@ -3,7 +3,7 @@ import QuizSolve from "./QuizSolve/index";
 import QuizSelection from "./QuizSelection/index";
 import QuizReview from "./QuizReview/index";
 import { useSelector } from "react-redux";
-import "./game.scss";
+import styles from "./game.module.scss";
 const gamePage = (): JSX.Element => {
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
@@ -28,7 +28,7 @@ const gamePage = (): JSX.Element => {
 
   return (
     <div>
-      <div className="score-wrapper">{score}점</div>
+      <div className={styles["score-wrapper"]}>{score}점</div>
       <div>{renderPage()}</div>
     </div>
   );

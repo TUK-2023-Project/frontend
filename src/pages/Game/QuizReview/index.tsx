@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
-import "./QuizReview.scss";
+import styles from "./QuizReview.module.scss";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -28,31 +28,31 @@ const QuizReview = () => {
 
   return (
     <div>
-      <div className="header">
-        <h1 className="header__title">{targetSignWord}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>{targetSignWord}</h1>
       </div>
 
-      <div className="content">
-        <div className="content__info">
-          <h1 className="content__info__title">
+      <div className={styles.content}>
+        <div className={styles.content__info}>
+          <h1 className={styles.content__info__title}>
             {isEnd ? "시간이 초과되었습니다" : "정답 입니다!"}
           </h1>
-          <p className="content__info__sub-title">
+          <p className={styles["content__info__sub-title"]}>
             단어 "ㄱ"은 오른손으로 손가락을 전부 편 모습입니다. 햇갈리지 않게
             조심해야합니다"
           </p>
         </div>
 
-        <div className="content__info">
+        <div className={styles.content__info}>
           <img
             src="https://www.korean.go.kr/asset/img/SJ/img_001_9.jpg"
             alt="이미지 설명"
-            className="content__info__image"
+            className={styles.content__info__image}
           />
         </div>
       </div>
 
-      <div className="content__button-wrapper">
+      <div className={styles["content__button-wrapper"]}>
         <button
           style={{
             width: "11rem",

@@ -8,6 +8,8 @@ import { drawHand } from "utils/FingerLandmarks";
 import { useDispatch, useSelector } from "react-redux";
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
+import styles from "./WebsocketDisplay.module.scss";
+
 interface propsType {
   click: boolean;
 }
@@ -145,39 +147,16 @@ function WebSocketDisplay({ click }: propsType) {
   }, [click]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        margin: "auto",
-        marginTop: "30px",
-      }}
-    >
+    <div className={styles["webcam-wrapper"]}>
       {click ? (
         <>
           <Webcam
+            className={styles["webcam-wrapper__webcam"]}
             ref={webcamRef}
-            style={{
-              position: "absolute",
-              margin: "auto",
-              left: 0,
-              right: 0,
-              zIndex: 9,
-              width: 640,
-              height: 480,
-            }}
           />
           <canvas
+            className={styles["webcam-wrapper__canvas"]}
             ref={canvasRef}
-            style={{
-              position: "absolute",
-              margin: "auto",
-              left: 0,
-              right: 0,
-              zIndex: 9,
-              width: 640,
-              height: 480,
-            }}
           />
         </>
       ) : (

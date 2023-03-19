@@ -2,6 +2,7 @@ import React from "react";
 import WebSocketDisplay from "./components/WebSocketDisplay";
 import QuizTimer from "./components/QuizTimer";
 import { useSelector } from "react-redux";
+import styles from "./QuizSolve.module.scss";
 
 const QuizSolve = () => {
   const targetSignWord = useSelector(
@@ -11,9 +12,9 @@ const QuizSolve = () => {
 
   return (
     <div>
-      <div className="header">
-        <h1 className="header__title">{targetSignWord}</h1>
-        <h1 className="header__sub-title">
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>{targetSignWord}</h1>
+        <h1 className={styles["header__sub-title"]}>
           {"제한시간 내에 위 단어를 표현해주세요"}
         </h1>
 
