@@ -1,8 +1,8 @@
-import FormBox from "components/FormBox";
-import FormButton from "components/FormButton";
+import FormBox from "../components/FormBox";
+import FormButton from "../components/FormButton";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "./SignPage.module.scss";
+import styles from "../Auth.module.scss";
 
 function SignInPage() {
   const [email, setEmail] = useState<string>("");

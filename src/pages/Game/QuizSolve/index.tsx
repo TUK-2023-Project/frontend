@@ -1,5 +1,5 @@
 import React from "react";
-import WebSocketDisplay from "./components/WebSocketDisplay";
+import WebSocketDisplay from "./components/WebsocketDisplay";
 import QuizTimer from "./components/QuizTimer";
 import { useSelector } from "react-redux";
 import styles from "./QuizSolve.module.scss";

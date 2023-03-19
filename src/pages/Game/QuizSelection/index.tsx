@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
-import CommonButton from "components/CommonButton";
+import CommonButton from "components/CommonButton/CommonButton";
 const QuizSelection = () => {
   const dispatch = useDispatch();
 
