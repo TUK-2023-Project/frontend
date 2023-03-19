@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TaskReducer } from "./reducers/TaskReducer";
-import { TestReducer } from "./reducers/TestReducer";
+import { SignQuizReducer } from "./reducers/SignQuizReducer";
 
 const store = configureStore({
   reducer: {
-    Task: TaskReducer,
-    Test: TestReducer,
+    SignQuiz: SignQuizReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

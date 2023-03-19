@@ -3,7 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
-import { drawHand } from "../utils/FingerLandmarks";
+import { drawHand } from "utils/FingerLandmarks";
+
+import { useDispatch, useSelector } from "react-redux";
+import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
+
+import styles from "./WebsocketDisplay.module.scss";
 
 interface propsType {
   click: boolean;
@@ -18,6 +23,21 @@ function WebSocketDisplay({ click }: propsType) {
 
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
+
+  const dispatch = useDispatch();
+  const targetSignWord = useSelector(
+    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
+      state.SignQuiz.targetSignWord.data
+  );
+
+  const handleSucess = () => {
+    console.log("정답을 맞추었을 때");
+    dispatch(correctQuestion());
+    dispatch(moveNextStage());
+    // 1. 카메라 활성화 여부를 false로 두어 소켓데이터 읽는것을 멈추기
+    // 2. 페이지를 이동시키거나 컴포넌트를 보여주기 (정답에 해당하는 설명페이지를 보여주어야한다.)
+  };
+
   // 웹소켓 연결 및 해제
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -60,8 +80,12 @@ function WebSocketDisplay({ click }: propsType) {
       ws.current.onmessage = function (e: { data: string }) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
-        console.log(data);
-        // console.log("send 30 data");
+        console.log(data.message);
+        console.log(targetSignWord);
+        if (data.message === targetSignWord) {
+          console.log("정답");
+          handleSucess();
+        }
       };
     }
   }, [sendMsg]);
@@ -113,7 +137,7 @@ function WebSocketDisplay({ click }: propsType) {
 
   // landmark 30개씩 모으기
   if (mediaPipe.length === 20) {
-    console.log(mediaPipe);
+    // console.log(mediaPipe);
     setMediaPipe([]);
   }
 
@@ -123,36 +147,16 @@ function WebSocketDisplay({ click }: propsType) {
   }, [click]);
 
   return (
-    <div>
+    <div className={styles["webcam-wrapper"]}>
       {click ? (
         <>
           <Webcam
+            className={styles["webcam-wrapper__webcam"]}
             ref={webcamRef}
-            style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 0,
-              right: 0,
-              textAlign: "center",
-              zIndex: 9,
-              width: 640,
-              height: 480,
-            }}
           />
           <canvas
+            className={styles["webcam-wrapper__canvas"]}
             ref={canvasRef}
-            style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 0,
-              right: 0,
-              textAlign: "center",
-              zIndex: 9,
-              width: 640,
-              height: 480,
-            }}
           />
         </>
       ) : (

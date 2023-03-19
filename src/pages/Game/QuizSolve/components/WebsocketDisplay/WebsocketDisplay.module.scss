@@ -1,0 +1,26 @@
+.webcam-wrapper {
+  position: relative;
+  width: 100%;
+  margin: auto;
+  margin-top: 30px;
+
+  &__webcam {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    width: 640px;
+    height: 480px;
+  }
+
+  &__canvas {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    width: 640px;
+    height: 480px;
+  }
+}
