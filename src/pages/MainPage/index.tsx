@@ -18,7 +18,11 @@ function MainPage() {
         <Link to="/signin">
           <CommonButton buttonName="랭킹확인" />
         </Link>
+<<<<<<< Updated upstream:src/pages/MainPage/index.tsx
         <Link to="/rank">
+=======
+        <Link to="/incorrectnote">
+>>>>>>> Stashed changes:src/pages/MainPage.tsx
           <CommonButton buttonName="오답노트" />
         </Link>
       </div>
