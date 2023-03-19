@@ -196,8 +196,8 @@ function SignUpPage() {
         <button
           className={
             !emailValid
-              ? styles["form-wrap__check-wrap__button--notvarified"]
-              : styles["form-wrap__check-wrap__button--varified"]
+              ? styles["form-wrap__check-wrap__button"]
+              : `${styles["form-wrap__check-wrap__button"]} ${styles["form-wrap__check-wrap__button--varified"]}`
           }
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={checkDuplicateEmail}
@@ -218,9 +218,9 @@ function SignUpPage() {
       <div className={styles["form-wrap__check-wrap"]}>
         <button
           className={
-            // !nicknameValid
-            styles["form-wrap__check-wrap__button--notvarified"]
-            // : styles["form-wrap__check-wrap__button--varified"]
+            !nicknameValid
+              ? styles["form-wrap__check-wrap__button"]
+              : `${styles["form-wrap__check-wrap__button"]} ${styles["form-wrap__check-wrap__button--varified"]}`
           }
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={checkDuplicateNickname}

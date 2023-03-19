@@ -66,22 +66,16 @@ $moveBlue: #318abc; //회원가입, 로그인 페이지 이동 버튼
       border-radius: 0.4rem;
       margin-bottom: 5px;
       cursor: pointer;
-      &--notvarified {
-        border: 1.5px solid red;
-        color: red;
-        &:focus {
-          outline: none;
-          box-shadow: none;
-        }
+      border: 1.5px solid red;
+      color: red;
+      &:focus {
+        outline: none;
+        box-shadow: none;
       }
       &--varified {
         border: 1.5px solid rgb(57, 57, 57);
         color: rgb(57, 57, 57);
         background-color: #f0b444;
-        &:focus {
-          outline: none;
-          box-shadow: none;
-        }
       }
     }
   }
