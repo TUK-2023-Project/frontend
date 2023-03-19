@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
+import CommonButton from "components/CommonButton";
 import styles from "./QuizReview.module.scss";
 
 const QuizReview = () => {
@@ -18,7 +19,7 @@ const QuizReview = () => {
       state.SignQuiz.targetSignWord.data
   );
 
-  const checkGameStage = () => {
+  const handleMove = () => {
     if (isEnd) {
       redirectToRankPage();
     } else {
@@ -53,20 +54,10 @@ const QuizReview = () => {
       </div>
 
       <div className={styles["content__button-wrapper"]}>
-        <button
-          style={{
-            width: "11rem",
-            height: "3rem",
-            borderRadius: "1.5rem",
-            background: "#fad795",
-            fontSize: "1.5rem",
-            fontWeight: 900,
-            border: "1.8px solid black",
-          }}
-          onClick={checkGameStage}
-        >
-          {isEnd ? "랭킹 확인" : "다음 문제 풀기"}
-        </button>
+        <CommonButton
+          handleClick={handleMove}
+          buttonName={isEnd ? "랭킹 확인" : "다음 문제 풀기"}
+        />
       </div>
     </div>
   );

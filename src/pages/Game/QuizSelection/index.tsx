@@ -2,9 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
-
+import CommonButton from "components/CommonButton";
 const QuizSelection = () => {
   const dispatch = useDispatch();
+
+  const handleMove = () => {
+    dispatch(moveNextStage());
+  };
 
   return (
     <div>
@@ -42,22 +46,7 @@ const QuizSelection = () => {
         </div>
       </div>
       <div className={styles["content__button-wrapper"]}>
-        <button
-          style={{
-            width: "11rem",
-            height: "3rem",
-            borderRadius: "1.5rem",
-            background: "#fad795",
-            fontSize: "1.5rem",
-            fontWeight: 900,
-            border: "1.8px solid black",
-          }}
-          onClick={() => {
-            dispatch(moveNextStage());
-          }}
-        >
-          {"문제 풀기"}
-        </button>
+        <CommonButton handleClick={handleMove} buttonName={"문제 풀기"} />
       </div>
     </div>
   );
