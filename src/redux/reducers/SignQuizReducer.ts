@@ -4,7 +4,7 @@ const InitialState = {
     id: 5,
     data: "ㅇ",
   },
-  stageState: 0,
+  stageState: -1,
   isEnd: false,
 };
 

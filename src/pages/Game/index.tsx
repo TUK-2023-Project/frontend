@@ -2,6 +2,7 @@ import React from "react";
 import QuizSolve from "./QuizSolve/index";
 import QuizSelection from "./QuizSelection/index";
 import QuizReview from "./QuizReview/index";
+import CategorySelection from "./CategorySelection/index";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
 const gamePage = (): JSX.Element => {
@@ -15,6 +16,8 @@ const gamePage = (): JSX.Element => {
   console.log(stageState);
   const renderPage = (): JSX.Element => {
     switch (stageState) {
+      case -1:
+        return <CategorySelection />;
       case 0:
         return <QuizSelection />;
       case 1:
