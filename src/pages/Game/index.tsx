@@ -1,8 +1,8 @@
 import React from "react";
-import QuizSolve from "./QuizSolve/index";
-import QuizSelection from "./QuizSelection/index";
-import QuizReview from "./QuizReview/index";
-import CategorySelection from "./CategorySelection/index";
+import QuizSolve from "./QuizSolve";
+import QuizSelection from "./QuizSelection";
+import QuizReview from "./QuizReview";
+import CategorySelection from "./CategorySelection";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
 const gamePage = (): JSX.Element => {

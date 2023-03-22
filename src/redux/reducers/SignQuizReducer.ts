@@ -1,5 +1,6 @@
 const InitialState = {
   score: 0,
+  categoryId: 0,
   targetSignWord: {
     id: 5,
     data: "ㅇ",
@@ -41,6 +42,12 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
       return {
         ...state,
         isEnd: true,
+      };
+
+    case "SET_CATEGORY":
+      return {
+        ...state,
+        categoryId: action.data.id,
       };
 
     default:

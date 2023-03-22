@@ -17,3 +17,7 @@ export const moveNextStage = () => ({
 export const timeOut = () => ({
   type: "TIME_OUT",
 });
+
+export const selectCategory = (id: number) => ({
+  type: "SET_CATEGORY",
+});

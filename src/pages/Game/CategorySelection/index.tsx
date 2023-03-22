@@ -1,22 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { moveNextStage } from "redux/actions/SignQuizActions";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectCategory, moveNextStage } from "redux/actions/SignQuizActions";
 import CommonButton from "components/CommonButton/CommonButton";
 import styles from "./CategorySelection.module.scss";
 
-const QuizReview = () => {
-  const navigate = useNavigate();
-  const redirectToRankPage = () => {
-    navigate("/rank");
-  };
+const CategorySelection = () => {
   const dispatch = useDispatch();
-  const isEnd = useSelector(
-    (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isSelected, setIsSelected] = useState(false);
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
     null
@@ -28,9 +17,8 @@ const QuizReview = () => {
   };
 
   const handleMove = () => {
-    if (isEnd) {
-      redirectToRankPage();
-    } else {
+    if (selectedButtonIndex !== null) {
+      dispatch(selectCategory(selectedButtonIndex));
       dispatch(moveNextStage());
     }
   };
@@ -43,7 +31,7 @@ const QuizReview = () => {
         </h1>
         <h1
           className={
-            isSelected
+            selectedButtonIndex !== null
               ? styles["header__sub-title"]
               : styles["header__sub-title"]
           }
@@ -92,4 +80,4 @@ const QuizReview = () => {
   );
 };
 
-export default QuizReview;
+export default CategorySelection;
