@@ -6,6 +6,7 @@ import PlaygroudPage from "./pages/Playground";
 import SignUpPage from "./pages/Auth/SignUpPage";
 import Game from "./pages/Game";
 import Ranking from "./pages/Ranking";
+import IncorrectNotePage from "pages/IncorrectNote/IncorrectNoteList";
 
 function App() {
   return (
