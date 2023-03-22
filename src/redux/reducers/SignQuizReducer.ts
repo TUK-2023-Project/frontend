@@ -47,7 +47,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
     case "SET_CATEGORY":
       return {
         ...state,
-        categoryId: action.data.id,
+        categoryId: action.id,
       };
 
     default:

@@ -5,6 +5,8 @@ import QuizReview from "./QuizReview";
 import CategorySelection from "./CategorySelection";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
+import WebSocketDisplay from "./components/WebSocketDisplay";
+
 const gamePage = (): JSX.Element => {
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
@@ -12,6 +14,17 @@ const gamePage = (): JSX.Element => {
   const score = useSelector(
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
+  const targetSignWord = useSelector(
+    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
+      state.SignQuiz.targetSignWord.data
+  );
+
+  const handleCameraOpen = (): boolean => {
+    if (stageState === -1 || stageState === 1) {
+      return true;
+    }
+    return false;
+  };
 
   console.log(stageState);
   const renderPage = (): JSX.Element => {
@@ -33,6 +46,12 @@ const gamePage = (): JSX.Element => {
     <div>
       <div className={styles["score-wrapper"]}>{score}점</div>
       <div>{renderPage()}</div>
+      <div style={{ display: handleCameraOpen() ? "block" : "none" }}>
+        <WebSocketDisplay
+          open={Boolean(handleCameraOpen())}
+          targetWord={targetSignWord}
+        />
+      </div>
     </div>
   );
 };

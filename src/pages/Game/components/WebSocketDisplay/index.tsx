@@ -5,16 +5,17 @@ import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
-import styles from "./WebsocketDisplay.module.scss";
+import styles from "./WebSocketDisplay.module.scss";
 
 interface propsType {
-  click: boolean;
+  open: boolean;
+  targetWord: string;
 }
 
-function WebSocketDisplay({ click }: propsType) {
+function WebSocketDisplay({ open, targetWord }: propsType) {
   const webcamRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
   const [mediaPipe, setMediaPipe] = useState([] as any);
@@ -25,17 +26,11 @@ function WebSocketDisplay({ click }: propsType) {
   const ws = useRef<any>(null);
 
   const dispatch = useDispatch();
-  const targetSignWord = useSelector(
-    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
-      state.SignQuiz.targetSignWord.data
-  );
 
   const handleSucess = () => {
     console.log("정답을 맞추었을 때");
     dispatch(correctQuestion());
     dispatch(moveNextStage());
-    // 1. 카메라 활성화 여부를 false로 두어 소켓데이터 읽는것을 멈추기
-    // 2. 페이지를 이동시키거나 컴포넌트를 보여주기 (정답에 해당하는 설명페이지를 보여주어야한다.)
   };
 
   // 웹소켓 연결 및 해제
@@ -62,8 +57,10 @@ function WebSocketDisplay({ click }: propsType) {
 
   // 웹소켓 연결 후, 30개씩 손좌표값 보내기
   useEffect(() => {
-    if (ws.current.readyState === WebSocket.OPEN && click) {
+    console.log(open, "..!!??");
+    if (open && ws.current.readyState === WebSocket.OPEN) {
       if (mediaPipe.length < 19) return;
+      console.log(mediaPipe.length);
       console.log("send");
       ws.current.send(
         JSON.stringify({
@@ -72,7 +69,7 @@ function WebSocketDisplay({ click }: propsType) {
       );
       setSendMsg(true);
     }
-  }, [click, mediaPipe, socketConnected]);
+  }, [mediaPipe, socketConnected]);
 
   // 손좌표값 보낸 후 응답값 반환
   useEffect(() => {
@@ -81,9 +78,8 @@ function WebSocketDisplay({ click }: propsType) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
-        console.log(targetSignWord);
-        if (data.message === targetSignWord) {
-          console.log("정답");
+        if (data.message === targetWord) {
+          console.log("정답입니다!");
           handleSucess();
         }
       };
@@ -136,7 +132,7 @@ function WebSocketDisplay({ click }: propsType) {
   };
 
   // landmark 30개씩 모으기
-  if (mediaPipe.length === 20) {
+  if (mediaPipe.length > 19) {
     // console.log(mediaPipe);
     setMediaPipe([]);
   }
@@ -144,11 +140,11 @@ function WebSocketDisplay({ click }: propsType) {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     runHandpose();
-  }, [click]);
+  }, [open]);
 
   return (
     <div className={styles["webcam-wrapper"]}>
-      {click ? (
+      {open ? (
         <>
           <Webcam
             className={styles["webcam-wrapper__webcam"]}
