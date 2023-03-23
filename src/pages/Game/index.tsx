@@ -46,7 +46,14 @@ const gamePage = (): JSX.Element => {
     <div>
       <div className={styles["score-wrapper"]}>{score}점</div>
       <div>{renderPage()}</div>
-      <div style={{ display: handleCameraOpen() ? "block" : "none" }}>
+
+      <div
+        className={
+          handleCameraOpen()
+            ? styles["camera-wrapper--visible"]
+            : styles["camera-wrapper"]
+        }
+      >
         <WebSocketDisplay
           open={Boolean(handleCameraOpen())}
           targetWord={targetSignWord}

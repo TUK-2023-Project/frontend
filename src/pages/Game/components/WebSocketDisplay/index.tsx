@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
@@ -57,7 +55,6 @@ function WebSocketDisplay({ open, targetWord }: propsType) {
 
   // 웹소켓 연결 후, 30개씩 손좌표값 보내기
   useEffect(() => {
-    console.log(open, "..!!??");
     if (open && ws.current.readyState === WebSocket.OPEN) {
       if (mediaPipe.length < 19) return;
       console.log(mediaPipe.length);
@@ -140,11 +137,11 @@ function WebSocketDisplay({ open, targetWord }: propsType) {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     runHandpose();
-  }, [open]);
+  }, []);
 
   return (
     <div className={styles["webcam-wrapper"]}>
-      {open ? (
+      {
         <>
           <Webcam
             className={styles["webcam-wrapper__webcam"]}
@@ -155,9 +152,7 @@ function WebSocketDisplay({ open, targetWord }: propsType) {
             ref={canvasRef}
           />
         </>
-      ) : (
-        ""
-      )}
+      }
     </div>
   );
 }

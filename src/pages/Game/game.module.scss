@@ -12,3 +12,10 @@
   font-weight: bold;
   font-size: 1.4rem;
 }
+
+.camera-wrapper {
+  display: none;
+}
+.camera-wrapper--visible {
+  display: block;
+}
