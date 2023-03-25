@@ -34,11 +34,11 @@ const Ranking = () => {
 
   return (
     <div>
+      {score !== 0 && <FlowerEfftect />}
       <div className={styles.content}>
         <></>
         {score !== 0 && (
           <>
-            <FlowerEfftect />
             <h1 className={styles.content__title}>점수 : {score}</h1>
             <h1 className={styles.content__title}>순위 : {"3등"}</h1>
           </>

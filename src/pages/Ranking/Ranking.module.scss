@@ -2,13 +2,13 @@
   background-color: gray;
   border-radius: 20px;
   opacity: 0.8;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 10px;
-  margin: auto;
   width: 90%;
-  height: auto;
+  max-height: 500px;
 
   &__title {
     text-align: center;
@@ -30,10 +30,13 @@
 }
 
 .footer {
-  padding-top: 50px;
+  bottom: 50px;
   display: flex;
+  position: absolute;
   justify-content: space-between;
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  left: 0;
+  right: 0;
 }
