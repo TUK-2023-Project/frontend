@@ -1,3 +1,17 @@
+@keyframes slide-in-top {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(80%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .score-wrapper {
   width: 100px;
   text-align: center;
@@ -18,4 +32,11 @@
 }
 .camera-wrapper--visible {
   display: block;
+}
+
+.camera-wrapper--first {
+  animation-name: slide-in-top; /* 애니메이션 이름 설정 */
+  animation-fill-mode: both; /* 애니메이션 실행 이후 상태 유지 */
+  animation-duration: 3s; /* 애니메이션 지속 시간 설정 */
+  animation-delay: 1s; /* 애니메이션 시작 지연 시간 설정 */
 }

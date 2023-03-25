@@ -52,11 +52,9 @@ const gamePage = (): JSX.Element => {
 
       {categoryId !== -1 && (
         <div
-          className={
-            handleCameraOpen()
-              ? styles["camera-wrapper--visible"]
-              : styles["camera-wrapper"]
-          }
+          className={`${styles["camera-wrapper"]} ${
+            stageState === -1 ? styles["camera-wrapper--first"] : ""
+          } ${handleCameraOpen() ? styles["camera-wrapper--visible"] : ""}`}
         >
           <WebSocketDisplay
             open={Boolean(handleCameraOpen())}
