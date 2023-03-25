@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton/CommonButton";
@@ -10,10 +10,14 @@ const QuizSelection = () => {
     dispatch(moveNextStage());
   };
 
+  const level = useSelector(
+    (state: { SignQuiz: { stageLevel: number } }) => state.SignQuiz.stageLevel
+  );
+
   return (
     <div>
       <div className={styles.header}>
-        <h1 className={styles.header__title}>{"1번 문제 입니다."}</h1>
+        <h1 className={styles.header__title}>{level}번 문제 입니다.</h1>
         <h1 className={styles["header__sub-title"]}>
           {"세 단어의 수어 동작을 모두 학습해주세요"}
         </h1>
