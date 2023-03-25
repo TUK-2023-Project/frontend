@@ -1,9 +1,15 @@
+interface signWordProps {
+  id: number;
+  data: string;
+}
+
 export const correctQuestion = () => ({
   type: "INCREASE_SCORE",
 });
 
-export const getNextQuestion = (data: string) => ({
+export const getNextQuestion = (data: signWordProps) => ({
   type: "UPDATE_TARGET_ANSWER",
+  data,
 });
 
 export const gameOver = () => ({

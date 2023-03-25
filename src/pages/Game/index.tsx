@@ -19,6 +19,10 @@ const gamePage = (): JSX.Element => {
       state.SignQuiz.targetSignWord.data
   );
 
+  const categoryId = useSelector(
+    (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
+
   const handleCameraOpen = (): boolean => {
     if (stageState === -1 || stageState === 1) {
       return true;
@@ -26,7 +30,6 @@ const gamePage = (): JSX.Element => {
     return false;
   };
 
-  console.log(stageState);
   const renderPage = (): JSX.Element => {
     switch (stageState) {
       case -1:
@@ -47,18 +50,21 @@ const gamePage = (): JSX.Element => {
       <div className={styles["score-wrapper"]}>{score}점</div>
       <div>{renderPage()}</div>
 
-      <div
-        className={
-          handleCameraOpen()
-            ? styles["camera-wrapper--visible"]
-            : styles["camera-wrapper"]
-        }
-      >
-        <WebSocketDisplay
-          open={Boolean(handleCameraOpen())}
-          targetWord={targetSignWord}
-        />
-      </div>
+      {categoryId !== -1 && (
+        <div
+          className={
+            handleCameraOpen()
+              ? styles["camera-wrapper--visible"]
+              : styles["camera-wrapper"]
+          }
+        >
+          <WebSocketDisplay
+            open={Boolean(handleCameraOpen())}
+            targetWord={targetSignWord}
+            isInit={stageState === -1}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
-
 import { useDispatch } from "react-redux";
+
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
 import styles from "./WebSocketDisplay.module.scss";
@@ -11,23 +11,23 @@ import styles from "./WebSocketDisplay.module.scss";
 interface propsType {
   open: boolean;
   targetWord: string;
+  isInit: boolean;
 }
 
-function WebSocketDisplay({ open, targetWord }: propsType) {
+function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const webcamRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
   const [mediaPipe, setMediaPipe] = useState([] as any);
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
   const [sendMsg, setSendMsg] = useState<boolean>(false);
-
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
-
   const dispatch = useDispatch();
 
   const handleSucess = () => {
-    console.log("정답을 맞추었을 때");
-    dispatch(correctQuestion());
+    if (!isInit) {
+      dispatch(correctQuestion());
+    }
     dispatch(moveNextStage());
   };
 
@@ -75,13 +75,14 @@ function WebSocketDisplay({ open, targetWord }: propsType) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
+        console.log("target :", targetWord);
         if (data.message === targetWord) {
           console.log("정답입니다!");
           handleSucess();
         }
       };
     }
-  }, [sendMsg]);
+  }, [targetWord, sendMsg]);
 
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {

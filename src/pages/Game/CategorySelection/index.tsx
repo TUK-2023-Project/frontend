@@ -7,20 +7,21 @@ import styles from "./CategorySelection.module.scss";
 const CategorySelection = () => {
   const dispatch = useDispatch();
 
-  const [selectedButtonIndex, setSelectedButtonIndex] = useState<number | null>(
-    null
-  );
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(-1);
   const handleClick = (index: number) => {
     if (selectedButtonIndex !== index) {
       setSelectedButtonIndex(index);
+      dispatch(selectCategory(selectedButtonIndex));
     }
   };
 
+  /**
+   * 작성자 : 정태원
+   * 날짜 : 3/25
+   * 내용 : handleMove 함수는 테스트를 목적으로 구현한 버튼으로 향후 사용되지 않습니다.
+   */
   const handleMove = () => {
-    if (selectedButtonIndex !== null) {
-      dispatch(selectCategory(selectedButtonIndex));
-      dispatch(moveNextStage());
-    }
+    dispatch(moveNextStage());
   };
 
   return (

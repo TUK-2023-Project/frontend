@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moveNextStage } from "redux/actions/SignQuizActions";
+import { moveNextStage, getNextQuestion } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton/CommonButton";
 const QuizSelection = () => {
@@ -13,6 +13,16 @@ const QuizSelection = () => {
   const level = useSelector(
     (state: { SignQuiz: { stageLevel: number } }) => state.SignQuiz.stageLevel
   );
+
+  useEffect(() => {
+    // api 호출
+    dispatch(
+      getNextQuestion({
+        id: 5,
+        data: "ㅇ",
+      })
+    );
+  }, []);
 
   return (
     <div>
