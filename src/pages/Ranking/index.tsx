@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styles from "./Ranking.module.scss";
 import CommonButton from "components/CommonButton/CommonButton";
 import { useNavigate } from "react-router-dom";
+import FlowerEfftect from "../Game/components/FlowerEffect";
 
 const Ranking = () => {
   const navigate = useNavigate();
@@ -10,12 +11,12 @@ const Ranking = () => {
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
 
-  const redirectToRankPage = () => {
-    navigate("/rank");
+  const redirectToMainPage = () => {
+    navigate("/main");
   };
 
   const handleMove = () => {
-    redirectToRankPage();
+    redirectToMainPage();
   };
 
   const data = [
@@ -34,8 +35,10 @@ const Ranking = () => {
   return (
     <div>
       <div className={styles.content}>
+        <></>
         {score !== 0 && (
           <>
+            <FlowerEfftect />
             <h1 className={styles.content__title}>점수 : {score}</h1>
             <h1 className={styles.content__title}>순위 : {"3등"}</h1>
           </>
@@ -65,7 +68,10 @@ const Ranking = () => {
       <div className={styles.footer}>
         <CommonButton handleClick={handleMove} buttonName={"오답노트 확인"} />
         <CommonButton handleClick={handleMove} buttonName={"공유하기"} />
-        <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
+        <CommonButton
+          handleClick={redirectToMainPage}
+          buttonName={"메인으로"}
+        />
       </div>
     </div>
   );
