@@ -4,11 +4,12 @@ import styles from "./DetailModal.module.scss";
 interface DetailProps {
   open: boolean;
   clickModal: (open: boolean) => void;
-  word: string;
-  img: string;
-  contents: string;
+  word?: string;
+  img?: string;
+  contents?: string;
 }
 
+// 오답노트 상세내용(모달)
 function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
@@ -39,11 +40,12 @@ function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
             </div>
 
             <div className={styles["modal-backdrop__modal-view__bottom"]}>
-              <div
+              <img
+                src={img}
                 className={styles["modal-backdrop__modal-view__bottom__image"]}
-              >
-                <img src={img} alt="수어 이미지" />
-              </div>
+                alt="수어 이미지"
+              />
+
               <div
                 className={
                   styles["modal-backdrop__modal-view__bottom__contents"]
