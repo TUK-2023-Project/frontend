@@ -1,9 +1,12 @@
 import React from "react";
-import QuizSolve from "./QuizSolve/index";
-import QuizSelection from "./QuizSelection/index";
-import QuizReview from "./QuizReview/index";
+import QuizSolve from "./QuizSolve";
+import QuizSelection from "./QuizSelection";
+import QuizReview from "./QuizReview";
+import CategorySelection from "./CategorySelection";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
+import WebSocketDisplay from "./components/WebSocketDisplay";
+
 const gamePage = (): JSX.Element => {
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
@@ -11,10 +14,26 @@ const gamePage = (): JSX.Element => {
   const score = useSelector(
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
+  const targetSignWord = useSelector(
+    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
+      state.SignQuiz.targetSignWord.data
+  );
 
-  console.log(stageState);
+  const categoryId = useSelector(
+    (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
+
+  const handleCameraOpen = (): boolean => {
+    if (stageState === -1 || stageState === 1) {
+      return true;
+    }
+    return false;
+  };
+
   const renderPage = (): JSX.Element => {
     switch (stageState) {
+      case -1:
+        return <CategorySelection />;
       case 0:
         return <QuizSelection />;
       case 1:
@@ -30,6 +49,20 @@ const gamePage = (): JSX.Element => {
     <div>
       <div className={styles["score-wrapper"]}>{score}점</div>
       <div>{renderPage()}</div>
+
+      {categoryId !== -1 && (
+        <div
+          className={`${styles["camera-wrapper"]} ${
+            stageState === -1 ? styles["camera-wrapper--first"] : ""
+          } ${handleCameraOpen() ? styles["camera-wrapper--visible"] : ""}`}
+        >
+          <WebSocketDisplay
+            open={Boolean(handleCameraOpen())}
+            targetWord={targetSignWord}
+            isInit={stageState === -1}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,12 @@
 const InitialState = {
   score: 0,
+  categoryId: -1,
   targetSignWord: {
+    data: "ㅂ",
     id: 5,
-    data: "ㅇ",
   },
-  stageState: 0,
+  stageState: -1,
+  stageLevel: 1,
   isEnd: false,
 };
 
@@ -20,12 +22,16 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
       return {
         ...state,
         score: state.score + 500,
+        stageLevel: state.stageLevel + 1,
       };
 
     case "UPDATE_TARGET_ANSWER":
       return {
         ...state,
-        targetSignWord: action.data.targetWord,
+        targetSignWord: {
+          id: action.data.id,
+          data: action.data.data,
+        },
       };
 
     case "SET_INITIAL_STATE":
@@ -41,6 +47,12 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
       return {
         ...state,
         isEnd: true,
+      };
+
+    case "SET_CATEGORY":
+      return {
+        ...state,
+        categoryId: action.id,
       };
 
     default:
