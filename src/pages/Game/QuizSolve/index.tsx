@@ -1,6 +1,5 @@
 import React from "react";
-import WebSocketDisplay from "./components/WebsocketDisplay";
-import QuizTimer from "./components/QuizTimer";
+import QuizTimer from "../components/QuizTimer";
 import { useSelector } from "react-redux";
 import styles from "./QuizSolve.module.scss";
 
@@ -17,10 +16,8 @@ const QuizSolve = () => {
         <h1 className={styles["header__sub-title"]}>
           {"제한시간 내에 위 단어를 표현해주세요"}
         </h1>
-
         <QuizTimer time={10} />
       </div>
-      <WebSocketDisplay click />
     </div>
   );
 };

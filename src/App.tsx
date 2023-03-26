@@ -1,9 +1,9 @@
 import MainPage from "./pages/MainPage";
-import SignInPage from "./pages/Auth/SignInPage";
+import SignInPage from "./pages/Auth/SignInPage/index";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PlaygroudPage from "./pages/Playground";
-import SignUpPage from "./pages/Auth/SignUpPage";
+import SignUpPage from "./pages/Auth/SignUpPage/index";
 import Game from "./pages/Game";
 import Ranking from "./pages/Ranking";
 

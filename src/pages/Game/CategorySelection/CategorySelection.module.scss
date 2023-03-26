@@ -1,0 +1,34 @@
+.header {
+  background-color: gray;
+  border-radius: 20px;
+  opacity: 0.8;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  padding: 30px;
+  margin: auto;
+  width: 90%;
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__sub-title {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  &__sub-title--invisible {
+    display: hidden;
+  }
+}
+
+.category-wrapper {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}

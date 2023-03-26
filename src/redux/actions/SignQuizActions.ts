@@ -1,9 +1,15 @@
+interface signWordProps {
+  id: number;
+  data: string;
+}
+
 export const correctQuestion = () => ({
   type: "INCREASE_SCORE",
 });
 
-export const getNextQuestion = (data: string) => ({
+export const getNextQuestion = (data: signWordProps) => ({
   type: "UPDATE_TARGET_ANSWER",
+  data,
 });
 
 export const gameOver = () => ({
@@ -16,4 +22,8 @@ export const moveNextStage = () => ({
 
 export const timeOut = () => ({
   type: "TIME_OUT",
+});
+
+export const selectCategory = (id: number) => ({
+  type: "SET_CATEGORY",
 });

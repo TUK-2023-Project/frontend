@@ -1,6 +1,6 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { moveNextStage } from "redux/actions/SignQuizActions";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { moveNextStage, getNextQuestion } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton/CommonButton";
 const QuizSelection = () => {
@@ -10,10 +10,24 @@ const QuizSelection = () => {
     dispatch(moveNextStage());
   };
 
+  const level = useSelector(
+    (state: { SignQuiz: { stageLevel: number } }) => state.SignQuiz.stageLevel
+  );
+
+  useEffect(() => {
+    // api 호출
+    dispatch(
+      getNextQuestion({
+        id: 5,
+        data: "ㅇ",
+      })
+    );
+  }, []);
+
   return (
     <div>
       <div className={styles.header}>
-        <h1 className={styles.header__title}>{"1번 문제 입니다."}</h1>
+        <h1 className={styles.header__title}>{level}번 문제 입니다.</h1>
         <h1 className={styles["header__sub-title"]}>
           {"세 단어의 수어 동작을 모두 학습해주세요"}
         </h1>
