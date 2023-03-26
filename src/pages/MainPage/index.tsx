@@ -15,10 +15,10 @@ function MainPage() {
         <Link to="/game">
           <CommonButton buttonName="시작하기" />
         </Link>
-        <Link to="/signin">
+        <Link to="/rank">
           <CommonButton buttonName="랭킹확인" />
         </Link>
-        <Link to="/rank">
+        <Link to="/incorrectnote">
           <CommonButton buttonName="오답노트" />
         </Link>
       </div>

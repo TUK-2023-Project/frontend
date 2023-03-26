@@ -1,0 +1,66 @@
+{
+  "자음": [
+    {
+      "id": 1,
+      "word": "ㄱ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/p0a2k9ei1y86ba82hfqq8curghfdyv4g/1",
+      "content": "오른 주먹의 1·5지를 펴서 1지 끝이 아래로 손등이 밖으로 향하게 세운다."
+    },
+    {
+      "word": "ㄴ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/9218jll211310le1nqgx6iglnx47dnhi/1",
+      "content": "오른 주먹의 1·5지를 펴서 1지 끝이 왼쪽으로 손등이 밖으로 향하게 한다."
+    },
+    {
+      "word": "ㄷ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/sbnu3swi3wqgrn1i72eryh5pne8hdplv/1",
+      "content": "오른 주먹의 1·2지를 펴서 벌려 끝이 왼쪽으로 손등이 밖으로 향하게 한다."
+    },
+    {
+      "word": "ㄹ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/z8buy5b7fj0sww2rgs8gyil4f0cfrjpu/1",
+      "content": "오른 주먹의 1·2·3지를 펴서 벌려 손끝이 왼쪽으로 손등이 밖으로 향하게 한다."
+    },
+    {
+      "word": "ㅁ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/pqk46zd9b8d9uuzop392wddlevngez8l/1",
+      "content": "손등이 안으로 향하게 세워 쥔 오른 주먹의 1·2지를 구부린다."
+    }
+  ],
+  "모음": [
+    {
+      "word": "ㅏ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/oxml87n5lug4ejbttluqwa1dx4x98kn1/1",
+      "content": "오른 주먹의 1지를 펴서 바닥이 밖으로 향하게 세운다."
+    },
+    {
+      "word": "ㅓ",
+      "img": "https://wis.seoul.go.kr/rest/file/download/1ivllyazyo15rgiu54goalayo2m6nfq6/1",
+      "content": "오른 주먹의 1지를 펴서 바닥이 왼쪽으로 끝이 밖으로 향하게 한다."
+    }
+  ],
+  "알파벳": [
+    {
+      "word": "a",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Sign_language_A.svg/68px-Sign_language_A.svg.png",
+      "content": "aaaaaaaa"
+    },
+    {
+      "word": "b",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Sign_language_B.svg/39px-Sign_language_B.svg.png",
+      "content": "bbbbbbbbb"
+    },
+    {
+      "word": "c",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sign_language_C.svg/84px-Sign_language_C.svg.png",
+      "content": "ccccccc"
+    }
+  ],
+  "숫자": [
+    {
+      "word": "1",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/1/1a/LSQ_1.jpg",
+      "content": "1111111"
+    }
+  ]
+}

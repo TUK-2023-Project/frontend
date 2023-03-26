@@ -6,6 +6,7 @@ import PlaygroudPage from "./pages/Playground";
 import SignUpPage from "./pages/Auth/SignUpPage/index";
 import Game from "./pages/Game";
 import Ranking from "./pages/Ranking";
+import IncorrectNotePage from "pages/IncorrectNote/IncorrectNoteList";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path={"/main"} element={<MainPage />} />
       <Route path={"/signup"} element={<SignUpPage />} />
       <Route path={"/signin"} element={<SignInPage />} />
+      <Route path={"/incorrectnote"} element={<IncorrectNotePage />} />
       <Route path={"/playground"} element={<PlaygroudPage />} />
       <Route path={"/game"} element={<Game />} />
       <Route path={"/rank"} element={<Ranking />} />
