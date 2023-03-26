@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState, useEffect } from "react";
 import styles from "./IncorrectNoteBox.module.scss";
 import Slider from "react-slick";
 import DetailModal from "../DetailModal";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import styled from "styled-components";
 
 interface incorrectData {
   word: string;
@@ -25,41 +23,15 @@ function IncorrectNoteBox({ label, data }: IncorrectNoteBoxProps) {
   const [selectedContent, setSelectedContent] = useState<string>("");
 
   const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    dots: false, // 슬라이드 밑에 점 여부
+    infinite: false, // 무한 반복 여부
+    speed: 500, // 속도
+    slidesToShow: 4, // 4장씩 보이도록
+    slidesToScroll: 1, // 1장씩 뒤로 넘어가게
     initialSlide: 0,
     arrows: true,
     vertical: false,
-
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    centerPadding: "0px", // 0px 하면 슬라이드 끝쪽 이미지가 안잘림
   };
 
   const clickModal = (open: boolean) => {
@@ -77,35 +49,51 @@ function IncorrectNoteBox({ label, data }: IncorrectNoteBoxProps) {
     <div className={styles["slide-wrap"]}>
       <div className={styles["slide-wrap__label"]}>{label}</div>
       <div className={styles["slide-wrap__slide"]}>
-        {data?.map((value, key) => (
-          <>
-            <Slider {...settings}>
-              <div className={styles["slide-wrap__detail"]}>
-                <div
-                  className={styles["slide-wrap__detail__word"]}
-                  onClick={(e) => {
-                    setOpenModal(true);
-                    handleClick(value);
-                  }}
-                >
-                  {value.word}
-                </div>
-              </div>
-            </Slider>
-            {openModal ? (
-              <DetailModal
-                open={true}
-                clickModal={clickModal}
-                word={selectedWord}
-                img={selectedImg}
-                contents={selectedContent}
-              />
-            ) : null}
-          </>
-        ))}
+        <StyledSlide {...settings}>
+          {data?.map((value, key) => (
+            <div
+              className={styles["slide-wrap__slide__word"]}
+              onClick={() => {
+                setOpenModal(true);
+                handleClick(value);
+              }}
+            >
+              {value.word}
+            </div>
+          ))}
+        </StyledSlide>
       </div>
+      {openModal ? (
+        <DetailModal
+          open={true}
+          clickModal={clickModal}
+          word={selectedWord}
+          img={selectedImg}
+          contents={selectedContent}
+        />
+      ) : null}
     </div>
   );
 }
 
 export default IncorrectNoteBox;
+
+export const StyledSlide = styled(Slider)`
+  /* Slider */
+  .slick-slide {
+    div {
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+    height: 100%;
+    min-height: 1px;
+  }
+
+  /* Arrows */
+  .slick-prev,
+  .slick-next {
+    &:before {
+      color: black;
+    }
+  }
+`;

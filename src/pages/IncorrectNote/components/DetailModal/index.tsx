@@ -19,6 +19,13 @@ function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
     clickModal(!isOpen);
   };
 
+  // 오답 노트 삭제
+  const onRemove = () => {
+    if (window.confirm("오답노트를 삭제하시겠습니까?")) {
+      alert("삭제되었습니다.");
+    }
+  };
+
   return (
     <>
       {isOpen ? (
@@ -53,6 +60,13 @@ function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
               >
                 {contents}
               </div>
+            </div>
+            <div
+              className={styles["modal-backdrop__modal-view__delete"]}
+              onClick={onRemove}
+            >
+              <p>오답노트 삭제</p>
+              <img src="images/delete.svg" alt="휴지통" />
             </div>
           </div>
         </div>

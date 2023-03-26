@@ -1,9 +1,10 @@
 @charset "UTF-8";
+
 .slide-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 
   &__label {
     width: 15%;
@@ -22,24 +23,13 @@
     width: 80%;
     margin-left: 3rem;
 
-    &__slider {
-      div {
-        cursor: pointer;
-        margin-right: 1rem;
-      }
-    }
-  }
-
-  &__detail {
-    width: 30%;
-    height: 4rem;
-    background: #5b717c;
-    border: 0px;
-    border-radius: 5px;
-
-    text-decoration: none;
-
     &__word {
+      width: 3rem;
+      height: 4rem;
+      background: #5b717c;
+      border: 0px;
+      border-radius: 5px;
+      text-decoration: none;
       color: white;
       font-size: 3rem;
       font-weight: 800;
@@ -49,13 +39,9 @@
       &:link &:active {
         text-decoration: none;
       }
+      &:hover {
+        background-color: #829fae;
+      }
     }
   }
-}
-
-.next {
-  width: 1rem;
-}
-.prev {
-  width: 1rem;
 }
