@@ -1,0 +1,23 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "word": "ㄱ",
+      "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5LJoGBjnmZ55ZcAj9gBsRZ1oyZnjIWoZakQ&usqp=CAU"
+    },
+    {
+      "id": 2,
+      "word": "ㄷ",
+      "photo_url": "http://www.1conomynews.co.kr/news/photo/202002/10724_10859_423.jpg"
+    },
+    {
+      "id": 3,
+      "word": "ㄴ",
+      "photo_url": "http://www.1conomynews.co.kr/news/photo/202002/10724_10859_423.jpg"
+    }
+  ],
+  "answer": {
+    "id": 2,
+    "word": "ㄷ"
+  }
+}

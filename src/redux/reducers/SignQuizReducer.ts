@@ -30,7 +30,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
         ...state,
         targetSignWord: {
           id: action.data.id,
-          data: action.data.data,
+          data: action.data.word,
         },
       };
 
