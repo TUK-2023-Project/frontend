@@ -26,4 +26,5 @@ export const timeOut = () => ({
 
 export const selectCategory = (id: number) => ({
   type: "SET_CATEGORY",
+  id,
 });

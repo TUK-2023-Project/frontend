@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moveNextStage, getNextQuestion } from "redux/actions/SignQuizActions";
+import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton/CommonButton";
 import { loadNewQuestion } from "../../../api/signLanguage";
@@ -15,8 +15,18 @@ const QuizSelection = () => {
   const level = useSelector(
     (state: { SignQuiz: { stageLevel: number } }) => state.SignQuiz.stageLevel
   );
+  const solvedQuestion = useSelector(
+    (state: { SignQuiz: { solvedQuestion: number[] } }) =>
+      state.SignQuiz.solvedQuestion
+  );
+  const categoryId = useSelector(
+    (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
 
-  const { isLoading, error, data } = loadNewQuestion();
+  const { isLoading, error, data } = loadNewQuestion(
+    solvedQuestion,
+    categoryId
+  );
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (isLoading) {
