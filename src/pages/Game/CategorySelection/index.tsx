@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectCategory, moveNextStage } from "redux/actions/SignQuizActions";
-import CommonButton from "components/CommonButton/CommonButton";
+import CommonButton from "components/CommonButton";
 import styles from "./CategorySelection.module.scss";
 
 const CategorySelection = () => {

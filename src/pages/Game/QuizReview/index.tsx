@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
-import CommonButton from "components/CommonButton/CommonButton";
+import CommonButton from "components/CommonButton";
 import styles from "./QuizReview.module.scss";
 import { reviewQuizData } from "../../../api/signLanguage";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { gameOver } from "redux/actions/SignQuizActions";
 import styles from "./Ranking.module.scss";
-import CommonButton from "components/CommonButton/CommonButton";
+import CommonButton from "components/CommonButton";
 import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
 

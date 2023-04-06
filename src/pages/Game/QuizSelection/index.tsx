@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
-import CommonButton from "components/CommonButton/CommonButton";
-import { loadNewQuestion } from "../../../api/signLanguage";
+import CommonButton from "components/CommonButton";
+import LoadingSpinner from "components/LoadingSpinner";
+import { loadNewQuestion } from "api/signLanguage";
 
 const QuizSelection = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const QuizSelection = () => {
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <LoadingSpinner />;
   }
 
   return (
