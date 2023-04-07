@@ -4,6 +4,12 @@ import { getNextQuestion } from "../redux/actions/SignQuizActions";
 import axios from "axios";
 // import axios from "./baseAxios";
 
+interface SignLanguageInfo {
+  word: string;
+  context: string;
+  photo_url: string;
+}
+
 const getQuizList = async (solvedQuestion: number[], categoryId: number) => {
   console.log(categoryId);
   console.log(solvedQuestion);
@@ -26,13 +32,27 @@ const getQuizList = async (solvedQuestion: number[], categoryId: number) => {
   return data;
 };
 
-const getQuizInfo = async (quizId: number) => {
+const getQuizInfo = async (quizId: number): Promise<SignLanguageInfo> => {
   console.log(quizId);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
-  const res = await axios.get("../dummy/quizData.json");
-  const data = res.data;
-  return data;
+  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  // const res = await axios.get("../dummy/quizData.json");
+  // const data = res.data;
+
+  const formData = new FormData();
+  formData.append("sign_id", quizId.toString());
+
+  const response = await axios.post<{ sign_language_info: SignLanguageInfo }>(
+    "http://localhost:8000/api/v1/signlanguage/info/",
+    formData,
+    {
+      headers: {
+        access: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgwODc4NjYyLCJpYXQiOjE2ODA4NzE0NjIsImp0aSI6ImZkZGRmMGVlMjZjMTQxOGRiYThiNzRjNjIyY2M0NmNiIiwidXNlcl9pZCI6MX0.jk5rUUDorRomSVksbxcoE8Lzmtobrd05sPpjWL7730k`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return response.data.sign_language_info;
 };
 
 export const loadNewQuestion = (

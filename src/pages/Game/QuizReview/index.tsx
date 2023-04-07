@@ -46,14 +46,12 @@ const QuizReview = () => {
           <h1 className={styles.content__info__title}>
             {isEnd ? "시간이 초과되었습니다" : "정답 입니다!"}
           </h1>
-          <p className={styles["content__info__sub-title"]}>
-            {data.sign_language_info.context}
-          </p>
+          <p className={styles["content__info__sub-title"]}>{data?.context}</p>
         </div>
 
         <div className={styles.content__info}>
           <img
-            src={data.sign_language_info.photo_url}
+            src={data?.photo_url}
             alt="이미지 설명"
             className={styles.content__info__image}
           />
