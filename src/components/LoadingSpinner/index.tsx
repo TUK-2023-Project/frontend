@@ -1,14 +1,14 @@
 import React from "react";
-import PuffLoader from "react-spinners/PuffLoader";
+import RiseLoader from "react-spinners/RiseLoader";
+import styles from "./LoadingSpinner.module.scss";
 
 const LoadingSpinner = () => {
   return (
-    <div className="sweet-loading">
-      <PuffLoader
-        color={"green"}
+    <div className={styles["spinner-wrapper"]}>
+      <RiseLoader
+        color={"orange"}
         loading
-        // cssOverride={override}
-        size={150}
+        size={20}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

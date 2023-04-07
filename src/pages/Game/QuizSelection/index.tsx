@@ -29,7 +29,6 @@ const QuizSelection = () => {
     categoryId
   );
 
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (isLoading) {
     return <LoadingSpinner />;
   }

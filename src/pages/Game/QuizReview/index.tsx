@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CommonButton from "components/CommonButton";
 import styles from "./QuizReview.module.scss";
 import { reviewQuizData } from "../../../api/signLanguage";
+import LoadingSpinner from "components/LoadingSpinner";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const QuizReview = () => {
   const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <LoadingSpinner />;
   }
 
   return (
