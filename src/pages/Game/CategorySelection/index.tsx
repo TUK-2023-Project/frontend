@@ -64,19 +64,6 @@ const CategorySelection = () => {
           isSelected={selectedButtonIndex === 2}
         />
       </div>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          right: "50%",
-        }}
-      >
-        <CommonButton
-          handleClick={handleMove}
-          buttonName={"넘어가기용 데모 버튼(향후 삭제)"}
-        />
-      </div>
     </div>
   );
 };
