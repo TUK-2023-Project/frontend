@@ -2,7 +2,7 @@ import React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useTimer } from "react-timer-hook";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage, timeOut } from "redux/actions/SignQuizActions";
 
 interface propsType {

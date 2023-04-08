@@ -7,7 +7,7 @@ import "index.css";
 import store from "./redux/configStore";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = new QueryClient(); // 리액트 쿼리 사용을 위한 client에 연결하는 작업
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

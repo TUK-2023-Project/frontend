@@ -4,7 +4,8 @@ import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
 import CommonButton from "components/CommonButton";
 import styles from "./QuizReview.module.scss";
-import { reviewQuizData } from "../../../api/signLanguage";
+import { reviewQuizData } from "api/signLanguage";
+import { useUpdateRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 
 const QuizReview = () => {
@@ -13,6 +14,11 @@ const QuizReview = () => {
     navigate("/rank");
   };
   const dispatch = useDispatch();
+
+  const score = useSelector(
+    (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
+  );
+
   const isEnd = useSelector(
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
   );
@@ -21,15 +27,18 @@ const QuizReview = () => {
       state.SignQuiz.targetSignWord
   );
 
+  const { submitRank } = useUpdateRank();
+
+  const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
+
   const handleMove = () => {
     if (isEnd) {
+      submitRank(score);
       redirectToRankPage();
     } else {
       dispatch(moveNextStage());
     }
   };
-
-  const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   if (isLoading) {
     return <LoadingSpinner />;

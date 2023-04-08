@@ -5,6 +5,14 @@ import styles from "./Ranking.module.scss";
 import CommonButton from "components/CommonButton";
 import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
+import { loadRankList } from "api/rank";
+import LoadingSpinner from "components/LoadingSpinner";
+
+interface Rank {
+  rank: number;
+  user_name: string;
+  score: number;
+}
 
 const Ranking = () => {
   const navigate = useNavigate();
@@ -25,18 +33,11 @@ const Ranking = () => {
     redirectToMainPage();
   };
 
-  const data = [
-    { rank: 1, name: "Alice", score: 100 },
-    { rank: 2, name: "Bob", score: 90 },
-    { rank: 3, name: "Charlie", score: 80 },
-    { rank: 4, name: "David", score: 70 },
-    { rank: 6, name: "Eve", score: 50 },
-    { rank: 7, name: "Eve", score: 50 },
-    { rank: 7, name: "Eve", score: 50 },
-    { rank: 8, name: "Eve", score: 50 },
-    { rank: 9, name: "Eve", score: 50 },
-    { rank: 10, name: "Eve", score: 50 },
-  ];
+  const { isLoading, error, data } = loadRankList();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div>
@@ -59,10 +60,10 @@ const Ranking = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
+              {data?.map((item: Rank) => (
                 <tr key={item.rank}>
                   <td>{item.rank}</td>
-                  <td>{item.name}</td>
+                  <td>{item.user_name}</td>
                   <td>{item.score}</td>
                 </tr>
               ))}
