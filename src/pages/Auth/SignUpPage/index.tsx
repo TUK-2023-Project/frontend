@@ -1,10 +1,13 @@
 import FormBox from "../components/FormBox";
 import FormButton from "../components/FormButton";
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../Auth.module.scss";
+import { registerUserData, checkDuplicateEmail } from "api/authAxios";
 
 function SignUpPage() {
+  const moveLogin = useNavigate();
+
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -38,7 +41,16 @@ function SignUpPage() {
     []
   );
 
-  const ckeckEmail = () => {
+  // 조건 다 충족되면 회원가입 버튼 활성화
+  useEffect(() => {
+    if (emailValid && nicknameValid && passwordValid && passwordConfirmValid) {
+      setNotAllow(false);
+      return;
+    }
+    setNotAllow(true);
+  }, [emailValid, nicknameValid, passwordValid, passwordConfirmValid]);
+
+  const checkEmail = () => {
     if (email === "") {
       setEmailValid(false);
       setEmailErrorMsg("이메일을 입력해주세요!");
@@ -51,35 +63,54 @@ function SignUpPage() {
       }
     }
   };
-
   // 이메일 중복 체크
-  const checkDuplicateEmail = async () => {
-    try {
-      await fetch("../dummy/duplication.json", {
-        headers: {
-          Accept: "application / json",
-        },
-        method: "GET",
-      })
-        .then((response: { json: () => any }) => response.json())
-        .then((result: any) => {
-          if (result.check === "false") {
-            console.log("중복");
-            setEmailValid(false);
-            setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
-          } else {
-            setEmailValid(true);
-            console.log("중복아님");
-            setEmailErrorMsg("");
-          }
-        })
-        .catch((error: any) => {
-          console.log("error", error);
-        });
-    } catch (error) {
-      console.log(error);
+  const { checkDupliEmail, isLoading, error, data, isSuccess1 } =
+    checkDuplicateEmail();
+  const sendDuplicateEmail = () => {
+    checkDupliEmail(email);
+    if (isLoading) {
+      setEmailValid(false);
+      setEmailErrorMsg("중복확인 중입니다.");
+    }
+    if (isSuccess1) {
+      if (data.status === 400) {
+        console.log("중복");
+        setEmailValid(false);
+        setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
+      } else if (data.status === 200) {
+        setEmailValid(true);
+        console.log("중복아님");
+        setEmailErrorMsg("");
+      }
     }
   };
+  // const checkDuplicateEmail = async () => {
+  //   try {
+  //     await fetch("../dummy/duplication.json", {
+  //       headers: {
+  //         Accept: "application / json",
+  //       },
+  //       method: "GET",
+  //     })
+  //       .then((response: { json: () => any }) => response.json())
+  //       .then((result: any) => {
+  //         if (result.check === "false") {
+  //           console.log("중복");
+  //           setEmailValid(false);
+  //           setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
+  //         } else {
+  //           setEmailValid(true);
+  //           console.log("중복아님");
+  //           setEmailErrorMsg("");
+  //         }
+  //       })
+  //       .catch((error: any) => {
+  //         console.log("error", error);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // 닉네임 입력값
   const handleNickname = useCallback(
@@ -90,7 +121,7 @@ function SignUpPage() {
     []
   );
 
-  const ckeckNickname = () => {
+  const checkNickname = () => {
     if (nickname === "") {
       setNickNameValid(false);
       setNicknameErrorMsg("닉네임을 입력해주세요!");
@@ -100,6 +131,11 @@ function SignUpPage() {
   };
 
   // 닉네임 중복체크
+  // const { checkDupliNickname } = checkDuplicateNickname();
+
+  // const sendDuplicateNickname = () => {
+  //   checkDupliNickname(nickname);
+  // };
   const checkDuplicateNickname = async () => {
     try {
       await fetch("../dummy/duplication.json", {
@@ -180,14 +216,20 @@ function SignUpPage() {
     }
   };
 
-  // 조건 다 충족되면 회원가입 버튼 활성화
-  useEffect(() => {
-    if (emailValid && nicknameValid && passwordValid && passwordConfirmValid) {
-      setNotAllow(false);
-      return;
+  const { submitUserData, isSuccess2 } = registerUserData();
+
+  const sendRegister = () => {
+    console.log("클릭");
+    console.log(notAllow);
+    console.log(isSuccess2);
+    if (!notAllow) {
+      console.log("회원가입 전송");
+      submitUserData({ username: nickname, mail: email, pw: password });
+      if (isSuccess2) {
+        moveLogin("/signin");
+      }
     }
-    setNotAllow(true);
-  }, [emailValid, nicknameValid, passwordValid, passwordConfirmValid]);
+  };
 
   return (
     <div className={styles["form-wrap"]}>
@@ -200,7 +242,7 @@ function SignUpPage() {
               : `${styles["form-wrap__check-wrap__button"]} ${styles["form-wrap__check-wrap__button--varified"]}`
           }
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onClick={checkDuplicateEmail}
+          onClick={sendDuplicateEmail}
         >
           중복 확인 *
         </button>
@@ -213,7 +255,7 @@ function SignUpPage() {
         condition={emailErrorMsg}
         onChange={handleEmail}
         data={email}
-        blurEvent={ckeckEmail}
+        blurEvent={checkEmail}
       />
       <div className={styles["form-wrap__check-wrap"]}>
         <button
@@ -236,7 +278,7 @@ function SignUpPage() {
         condition={nicknameErrorMsg}
         onChange={handleNickname}
         data={nickname}
-        blurEvent={ckeckNickname}
+        blurEvent={checkNickname}
       />
       <FormBox
         icon="images/password.svg"
@@ -258,7 +300,12 @@ function SignUpPage() {
         data={passwordConfrim}
         blurEvent={ckeckPasswordConfirm}
       />
-      <FormButton text="회원가입" allow={notAllow} url="/signin" />
+      <FormButton
+        text="회원가입"
+        allow={notAllow}
+        url="/signin"
+        onClick={sendRegister}
+      />
       <div className={styles["form-wrap__move-wrap"]}>
         <span>이미 계정이 있으신가요?</span>
         <Link to="/signin">로그인</Link>

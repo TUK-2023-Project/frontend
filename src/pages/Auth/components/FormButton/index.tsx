@@ -1,21 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "./FormButton.module.scss";
 
 interface FormButtonProps {
   text: string;
   allow: boolean;
-  url: string;
+  url?: string;
+  onClick?: () => void;
 }
 
-function FormButton({ text, allow, url }: FormButtonProps) {
+function FormButton({ text, allow, url, onClick = () => {} }: FormButtonProps) {
   return (
-    <div className={styles["form-btn-wrap"]}>
-      <Link to={url}>
-        <button disabled={allow} className={styles["form-btn-wrap__form-btn"]}>
-          {text}
-        </button>
-      </Link>
+    <div className={styles["form-btn-wrap"]} onClick={onClick}>
+      <button disabled={allow} className={styles["form-btn-wrap__form-btn"]}>
+        {text}
+      </button>
     </div>
   );
 }
