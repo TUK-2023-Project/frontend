@@ -62,7 +62,7 @@ export const registerUserData = () => {
 
 // 회원가입 중복 체크 api
 const duplicateEmail = async (mail: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   const { data } = await baseAxios.post("users/emailcheck/", {
     email: mail,
   });

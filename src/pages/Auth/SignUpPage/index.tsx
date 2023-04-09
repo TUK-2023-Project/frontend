@@ -67,11 +67,11 @@ function SignUpPage() {
     }
   };
   // 이메일 중복 체크
-  const { checkDupliEmail, data, isSuccess1 } = checkDuplicateEmail();
+  const { checkDupliEmail, data } = checkDuplicateEmail();
 
-  const sendDuplicateEmail = () => {
-    checkDupliEmail(email);
-    if (isSuccess1) {
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (data) {
       if (data.status === 400) {
         console.log("중복");
         setEmailValid(false);
@@ -82,6 +82,19 @@ function SignUpPage() {
         setEmailErrorMsg("");
       }
     }
+  }, [data]);
+
+  const sendDuplicateEmail = () => {
+    checkDupliEmail(email);
+    // if (data.status === 400) {
+    //   console.log("중복");
+    //   setEmailValid(false);
+    //   setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
+    // } else if (data.status === 200) {
+    //   setEmailValid(true);
+    //   console.log("중복아님");
+    //   setEmailErrorMsg("");
+    // }
   };
 
   // 닉네임 입력값
@@ -104,13 +117,11 @@ function SignUpPage() {
   };
 
   // 닉네임 중복체크
-  const { checkDupliNickname, dataNickname, isSuccess3 } =
-    checkDuplicateNickname();
+  const { checkDupliNickname, dataNickname } = checkDuplicateNickname();
 
-  const sendDuplicateNickname = () => {
-    checkDupliNickname(nickname);
+  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (isSuccess3) {
+    if (dataNickname) {
       if (dataNickname.status === 400) {
         setNickNameValid(false);
         setNicknameErrorMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
@@ -119,6 +130,10 @@ function SignUpPage() {
         setNicknameErrorMsg("");
       }
     }
+  }, [dataNickname]);
+
+  const sendDuplicateNickname = () => {
+    checkDupliNickname(nickname);
   };
 
   // 패스워드 입력값
