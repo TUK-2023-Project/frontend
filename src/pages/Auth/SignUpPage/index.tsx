@@ -1,13 +1,15 @@
 import FormBox from "../components/FormBox";
 import FormButton from "../components/FormButton";
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../Auth.module.scss";
-import { registerUserData, checkDuplicateEmail } from "api/authAxios";
+import {
+  registerUserData,
+  checkDuplicateEmail,
+  checkDuplicateNickname,
+} from "api/authAxios";
 
 function SignUpPage() {
-  const moveLogin = useNavigate();
-
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -37,6 +39,7 @@ function SignUpPage() {
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const currEmail = e.target.value;
       setEmail(currEmail);
+      setEmailValid(false);
     },
     []
   );
@@ -64,14 +67,10 @@ function SignUpPage() {
     }
   };
   // 이메일 중복 체크
-  const { checkDupliEmail, isLoading, error, data, isSuccess1 } =
-    checkDuplicateEmail();
+  const { checkDupliEmail, data, isSuccess1 } = checkDuplicateEmail();
+
   const sendDuplicateEmail = () => {
     checkDupliEmail(email);
-    if (isLoading) {
-      setEmailValid(false);
-      setEmailErrorMsg("중복확인 중입니다.");
-    }
     if (isSuccess1) {
       if (data.status === 400) {
         console.log("중복");
@@ -84,39 +83,13 @@ function SignUpPage() {
       }
     }
   };
-  // const checkDuplicateEmail = async () => {
-  //   try {
-  //     await fetch("../dummy/duplication.json", {
-  //       headers: {
-  //         Accept: "application / json",
-  //       },
-  //       method: "GET",
-  //     })
-  //       .then((response: { json: () => any }) => response.json())
-  //       .then((result: any) => {
-  //         if (result.check === "false") {
-  //           console.log("중복");
-  //           setEmailValid(false);
-  //           setEmailErrorMsg("이미 등록된 이메일입니다. 다시 입력해주세요.");
-  //         } else {
-  //           setEmailValid(true);
-  //           console.log("중복아님");
-  //           setEmailErrorMsg("");
-  //         }
-  //       })
-  //       .catch((error: any) => {
-  //         console.log("error", error);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   // 닉네임 입력값
   const handleNickname = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const currNickname = e.target.value;
       setNickname(currNickname);
+      setNickNameValid(false);
     },
     []
   );
@@ -131,35 +104,20 @@ function SignUpPage() {
   };
 
   // 닉네임 중복체크
-  // const { checkDupliNickname } = checkDuplicateNickname();
+  const { checkDupliNickname, dataNickname, isSuccess3 } =
+    checkDuplicateNickname();
 
-  // const sendDuplicateNickname = () => {
-  //   checkDupliNickname(nickname);
-  // };
-  const checkDuplicateNickname = async () => {
-    try {
-      await fetch("../dummy/duplication.json", {
-        headers: {
-          Accept: "application / json",
-        },
-        method: "GET",
-      })
-        .then((response: { json: () => any }) => response.json())
-        .then((result: any) => {
-          if (result.check === "false") {
-            console.log(result);
-            setNickNameValid(false);
-            setNicknameErrorMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
-          } else {
-            setNickNameValid(true);
-            setNicknameErrorMsg("");
-          }
-        })
-        .catch((error: any) => {
-          console.log("error", error);
-        });
-    } catch (error) {
-      console.log(error);
+  const sendDuplicateNickname = () => {
+    checkDupliNickname(nickname);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (isSuccess3) {
+      if (dataNickname.status === 400) {
+        setNickNameValid(false);
+        setNicknameErrorMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
+      } else if (dataNickname.status === 200) {
+        setNickNameValid(true);
+        setNicknameErrorMsg("");
+      }
     }
   };
 
@@ -225,9 +183,6 @@ function SignUpPage() {
     if (!notAllow) {
       console.log("회원가입 전송");
       submitUserData({ username: nickname, mail: email, pw: password });
-      if (isSuccess2) {
-        moveLogin("/signin");
-      }
     }
   };
 
@@ -265,7 +220,7 @@ function SignUpPage() {
               : `${styles["form-wrap__check-wrap__button"]} ${styles["form-wrap__check-wrap__button--varified"]}`
           }
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onClick={checkDuplicateNickname}
+          onClick={sendDuplicateNickname}
         >
           중복 확인 *
         </button>

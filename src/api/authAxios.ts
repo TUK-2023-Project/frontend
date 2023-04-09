@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import baseAxios from "./baseAxios";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 회원가입 api
 interface UserDataType {
@@ -10,7 +10,7 @@ interface UserDataType {
 }
 
 const registerUser = async ({ username, mail, pw }: UserDataType) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   await baseAxios.post("users/register/", {
     name: username,
     email: mail,
@@ -19,7 +19,7 @@ const registerUser = async ({ username, mail, pw }: UserDataType) => {
 };
 
 export const registerUserData = () => {
-  const success = false;
+  const moveLogin = useNavigate();
   const {
     mutate,
     isLoading,
@@ -38,6 +38,7 @@ export const registerUserData = () => {
     },
     onSuccess: (data, variables, context) => {
       console.log("success", data, variables, context);
+      moveLogin("/signin");
     },
     onSettled: () => {
       console.log("end");
@@ -60,7 +61,6 @@ export const registerUserData = () => {
 };
 
 // 회원가입 중복 체크 api
-
 const duplicateEmail = async (mail: string) => {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   const { data } = await baseAxios.post("users/emailcheck/", {
@@ -90,33 +90,52 @@ export const checkDuplicateEmail = () => {
     mutate(email);
   };
 
-  return { isLoading, error, data, isSuccess1, checkDupliEmail };
+  return {
+    isLoading,
+    error,
+    data,
+    isSuccess1,
+    checkDupliEmail,
+  };
 };
 
-// const duplicateNickname = async (username: string) => {
-//   await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
-//   await baseAxios.post("users/emailcheck", {
-//     name: username,
-//   });
-// };
+const duplicateNickname = async (username: string) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  const { data } = await baseAxios.post("users/namecheck/", {
+    name: username,
+  });
+  return data;
+};
 
-// export const checkDuplicateNickname = () => {
-//   const { isLoading, error, mutate } = useMutation(duplicateNickname, {
-//     onError: (error) => {
-//       console.log("중복 확인 실패", error);
-//     },
-//     onSuccess: (data, variables, context) => {
-//       console.log("중복 확인 성공");
-//       console.log("success", data, variables, context);
-//     },
-//   });
+export const checkDuplicateNickname = () => {
+  const {
+    isLoading,
+    error,
+    mutate,
+    data: dataNickname,
+    isSuccess: isSuccess3,
+  } = useMutation(duplicateNickname, {
+    onError: (error) => {
+      console.log("중복 확인 실패", error);
+    },
+    onSuccess: (data, variables) => {
+      console.log("중복 확인 성공");
+      console.log("success", data, variables);
+    },
+  });
+  const checkDupliNickname = (nickname: string) => {
+    mutate(nickname);
+  };
 
-//   const checkDupliNickname = (nickname: string) => {
-//     mutate(nickname);
-//   };
-
-//   return { isLoading, error, mutate, checkDupliNickname };
-// };
+  return {
+    isLoading,
+    error,
+    mutate,
+    isSuccess3,
+    dataNickname,
+    checkDupliNickname,
+  };
+};
 
 // 로그인 api
 interface LoginUser {
@@ -125,7 +144,7 @@ interface LoginUser {
 }
 
 const loginUser = async ({ mail, pw }: LoginUser) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   const { data } = await baseAxios.post("users/login/", {
     email: mail,
     password: pw,
@@ -134,6 +153,7 @@ const loginUser = async ({ mail, pw }: LoginUser) => {
 };
 
 export const loginUserData = () => {
+  const moveHome = useNavigate();
   const { mutate, isLoading, isError, error, isSuccess, data } = useMutation(
     loginUser,
     {
@@ -147,6 +167,7 @@ export const loginUserData = () => {
       },
       onSuccess: (data, variables, context) => {
         console.log("success", data, variables, context);
+        moveHome("/");
         localStorage.clear();
         localStorage.setItem("token", data.access);
       },

@@ -6,8 +6,6 @@ import styles from "../Auth.module.scss";
 import { loginUserData } from "api/authAxios";
 
 function SignInPage() {
-  const moveHome = useNavigate();
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -86,9 +84,6 @@ function SignInPage() {
     if (!notAllow) {
       console.log("로그인 전송");
       submitLogin({ mail: email, pw: password });
-      if (isSuccess) {
-        moveHome("/");
-      }
     }
   };
 
