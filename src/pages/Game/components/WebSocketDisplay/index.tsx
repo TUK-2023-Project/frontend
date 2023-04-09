@@ -11,7 +11,7 @@ import styles from "./WebSocketDisplay.module.scss";
 interface propsType {
   open: boolean;
   targetWord: string;
-  isInit: number;
+  isInit: boolean;
 }
 
 function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
@@ -25,7 +25,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const dispatch = useDispatch();
 
   const handleSucess = () => {
-    if (isInit !== -1) {
+    if (isInit) {
       dispatch(correctQuestion());
     }
     dispatch(moveNextStage());
@@ -82,7 +82,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
         }
       };
     }
-  }, [targetWord, sendMsg]);
+  }, [targetWord, isInit, sendMsg]);
 
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {
