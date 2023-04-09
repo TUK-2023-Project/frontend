@@ -46,8 +46,12 @@ const Ranking = () => {
         <></>
         {isEnd && (
           <>
-            <h1 className={styles.content__title}>점수 : {score}</h1>
-            <h1 className={styles.content__title}>순위 : {"3등"}</h1>
+            <h1 className={styles.content__title}>
+              이번 게임의 점수 : {score}
+            </h1>
+            <h1 className={styles.content__title}>
+              당신의 최고 순위 : {"3등"}
+            </h1>
           </>
         )}
         <div>

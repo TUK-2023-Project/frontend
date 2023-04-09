@@ -27,14 +27,13 @@ const QuizReview = () => {
       state.SignQuiz.targetSignWord
   );
 
-  const { submitRank } = useUpdateRank();
+  const { submitRank } = useUpdateRank(redirectToRankPage);
 
   const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   const handleMove = () => {
     if (isEnd) {
       submitRank(score);
-      redirectToRankPage();
     } else {
       dispatch(moveNextStage());
     }

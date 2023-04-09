@@ -12,13 +12,14 @@ const getRankInfo = async () => {
   return response.data;
 };
 
-export const useUpdateRank = () => {
+export const useUpdateRank = (onSuccess: () => void) => {
   const { isLoading, error, mutate } = useMutation(updateRankInfo, {
     onError: (error) => {
       console.log("랭킹 등록 실패", error);
     },
     onSuccess: () => {
       console.log("랭킹 등록 성공");
+      onSuccess();
     },
   });
 

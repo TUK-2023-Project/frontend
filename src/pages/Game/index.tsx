@@ -59,7 +59,7 @@ const gamePage = (): JSX.Element => {
           <WebSocketDisplay
             open={Boolean(handleCameraOpen())}
             targetWord={targetSignWord}
-            isInit={stageState === -1}
+            isInit={stageState}
           />
         </div>
       )}

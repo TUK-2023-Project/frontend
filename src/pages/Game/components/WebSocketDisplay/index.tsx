@@ -11,7 +11,7 @@ import styles from "./WebSocketDisplay.module.scss";
 interface propsType {
   open: boolean;
   targetWord: string;
-  isInit: boolean;
+  isInit: number;
 }
 
 function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
@@ -25,7 +25,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const dispatch = useDispatch();
 
   const handleSucess = () => {
-    if (!isInit) {
+    if (isInit !== -1) {
       dispatch(correctQuestion());
     }
     dispatch(moveNextStage());
