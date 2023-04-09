@@ -4,10 +4,15 @@ import { getNextQuestion } from "../redux/actions/SignQuizActions";
 import axios from "./baseAxios";
 
 const getQuizList = async (solvedQuestion: number[], categoryId: number) => {
+  let solvedListString: string | number = 0; // 기본값으로 0 할당
+  if (solvedQuestion.length > 0) {
+    solvedListString = solvedQuestion.join(","); // solvedQuestion 배열을 문자열로 변환
+  }
+
   const response = await axios.get("signlanguage/three/", {
     params: {
       category_id: categoryId,
-      solvedlist: "1",
+      solvedlist: solvedListString,
     },
   });
   return response.data;

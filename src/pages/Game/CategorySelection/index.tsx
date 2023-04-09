@@ -11,7 +11,7 @@ const CategorySelection = () => {
   const handleClick = (index: number) => {
     if (selectedButtonIndex !== index) {
       setSelectedButtonIndex(index);
-      dispatch(selectCategory(index));
+      dispatch(selectCategory(index + 1));
     }
   };
 
