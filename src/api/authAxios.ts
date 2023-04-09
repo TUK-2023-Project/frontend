@@ -117,3 +117,49 @@ export const checkDuplicateEmail = () => {
 
 //   return { isLoading, error, mutate, checkDupliNickname };
 // };
+
+// 로그인 api
+interface LoginUser {
+  mail: string;
+  pw: string;
+}
+
+const loginUser = async ({ mail, pw }: LoginUser) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  const { data } = await baseAxios.post("users/login/", {
+    email: mail,
+    password: pw,
+  });
+  return data;
+};
+
+export const loginUserData = () => {
+  const { mutate, isLoading, isError, error, isSuccess, data } = useMutation(
+    loginUser,
+    {
+      onMutate: (variable) => {
+        console.log("onMutate", variable);
+      },
+      onError: (error, variable, context) => {
+        console.log(error);
+        console.log(variable);
+        console.log(context);
+      },
+      onSuccess: (data, variables, context) => {
+        console.log("success", data, variables, context);
+        localStorage.clear();
+        localStorage.setItem("token", data.access);
+      },
+      onSettled: (data, error, variables, context) => {
+        console.log("end");
+        console.log("settled", data, error, variables, context);
+      },
+    }
+  );
+
+  const submitLogin = ({ mail, pw }: LoginUser) => {
+    mutate({ mail, pw });
+  };
+
+  return { mutate, isLoading, isError, error, isSuccess, submitLogin, data };
+};
