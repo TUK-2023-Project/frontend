@@ -35,6 +35,7 @@ export const registerUserData = () => {
       console.log(error);
       console.log(variable);
       console.log(context);
+      alert("회원 등록을 실패하였습니다. 다시 이용해주세요!");
     },
     onSuccess: (data, variables, context) => {
       console.log("success", data, variables, context);
@@ -100,7 +101,7 @@ export const checkDuplicateEmail = () => {
 };
 
 const duplicateNickname = async (username: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
+  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   const { data } = await baseAxios.post("users/namecheck/", {
     name: username,
   });
@@ -164,6 +165,7 @@ export const loginUserData = () => {
         console.log(error);
         console.log(variable);
         console.log(context);
+        alert("존재하지 않는 정보입니다. 다시 입력해주세요!");
       },
       onSuccess: (data, variables, context) => {
         console.log("success", data, variables, context);
