@@ -5,7 +5,7 @@ import styles from "./Ranking.module.scss";
 import CommonButton from "components/CommonButton";
 import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
-import { loadRankList } from "api/rank";
+import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 
 interface Rank {
@@ -34,8 +34,9 @@ const Ranking = () => {
   };
 
   const { isLoading, error, data } = loadRankList();
+  const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank();
 
-  if (isLoading) {
+  if (isLoading || selfRankLoading) {
     return <LoadingSpinner />;
   }
 
@@ -50,7 +51,7 @@ const Ranking = () => {
               이번 게임의 점수 : {score}
             </h1>
             <h1 className={styles.content__title}>
-              당신의 최고 순위 : {"3등"}
+              당신의 최고 순위 : {selfRank.rank} 등
             </h1>
           </>
         )}

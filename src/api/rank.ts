@@ -12,6 +12,11 @@ const getRankInfo = async () => {
   return response.data;
 };
 
+const getSelfRank = async () => {
+  const response = await axios.get("ranks/self");
+  return response.data;
+};
+
 export const useUpdateRank = (onSuccess: () => void) => {
   const { isLoading, error, mutate } = useMutation(updateRankInfo, {
     onError: (error) => {
@@ -35,6 +40,20 @@ export const loadRankList = () => {
     ["getRankInfo"],
     async () => {
       return await getRankInfo();
+    },
+    {
+      retry: 0,
+    }
+  );
+
+  return { isLoading, error, data };
+};
+
+export const loadSelfRank = () => {
+  const { isLoading, error, data } = useQuery(
+    ["getSelfRank"],
+    async () => {
+      return await getSelfRank();
     },
     {
       retry: 0,
