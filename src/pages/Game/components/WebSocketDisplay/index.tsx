@@ -25,7 +25,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const dispatch = useDispatch();
 
   const handleSucess = () => {
-    if (isInit) {
+    if (!isInit) {
       dispatch(correctQuestion());
     }
     dispatch(moveNextStage());
