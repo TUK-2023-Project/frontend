@@ -171,7 +171,7 @@ export const loginUserData = () => {
         console.log("success", data, variables, context);
         moveHome("/");
         localStorage.clear();
-        localStorage.setItem("token", data.access);
+        localStorage.setItem("accessToken", data.access);
       },
       onSettled: (data, error, variables, context) => {
         console.log("end");
