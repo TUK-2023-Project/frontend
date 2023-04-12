@@ -2,8 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
-import CommonButton from "components/CommonButton/CommonButton";
+import CommonButton from "components/CommonButton";
 import styles from "./QuizReview.module.scss";
+import { reviewQuizData } from "api/signLanguage";
+import { useUpdateRank } from "api/rank";
+import LoadingSpinner from "components/LoadingSpinner";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -11,26 +14,39 @@ const QuizReview = () => {
     navigate("/rank");
   };
   const dispatch = useDispatch();
+
+  const score = useSelector(
+    (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
+  );
+
   const isEnd = useSelector(
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
   );
   const targetSignWord = useSelector(
-    (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
-      state.SignQuiz.targetSignWord.data
+    (state: { SignQuiz: { targetSignWord: { data: string; id: number } } }) =>
+      state.SignQuiz.targetSignWord
   );
+
+  const { submitRank } = useUpdateRank(redirectToRankPage);
+
+  const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   const handleMove = () => {
     if (isEnd) {
-      redirectToRankPage();
+      submitRank(score);
     } else {
       dispatch(moveNextStage());
     }
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div>
       <div className={styles.header}>
-        <h1 className={styles.header__title}>{targetSignWord}</h1>
+        <h1 className={styles.header__title}>{targetSignWord.data}</h1>
       </div>
 
       <div className={styles.content}>
@@ -39,14 +55,13 @@ const QuizReview = () => {
             {isEnd ? "시간이 초과되었습니다" : "정답 입니다!"}
           </h1>
           <p className={styles["content__info__sub-title"]}>
-            단어 "ㄱ"은 오른손으로 손가락을 전부 편 모습입니다. 햇갈리지 않게
-            조심해야합니다"
+            {data.sign_language_info.context}
           </p>
         </div>
 
         <div className={styles.content__info}>
           <img
-            src="https://www.korean.go.kr/asset/img/SJ/img_001_9.jpg"
+            src={data.sign_language_info.photo_url}
             alt="이미지 설명"
             className={styles.content__info__image}
           />

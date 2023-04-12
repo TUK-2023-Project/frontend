@@ -82,7 +82,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
         }
       };
     }
-  }, [targetWord, sendMsg]);
+  }, [targetWord, isInit, sendMsg]);
 
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {

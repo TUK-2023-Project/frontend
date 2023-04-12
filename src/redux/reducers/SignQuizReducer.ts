@@ -8,6 +8,7 @@ const InitialState = {
   stageState: -1,
   stageLevel: 1,
   isEnd: false,
+  solvedQuestion: [] as number[],
 };
 
 /**
@@ -23,6 +24,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
         ...state,
         score: state.score + 500,
         stageLevel: state.stageLevel + 1,
+        solvedQuestion: [...state.solvedQuestion, state.targetSignWord.id],
       };
 
     case "UPDATE_TARGET_ANSWER":
@@ -30,7 +32,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
         ...state,
         targetSignWord: {
           id: action.data.id,
-          data: action.data.data,
+          data: action.data.word,
         },
       };
 

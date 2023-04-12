@@ -1,4 +1,4 @@
-import CommonButton from "components/CommonButton/CommonButton";
+import CommonButton from "components/CommonButton";
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";

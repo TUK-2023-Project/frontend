@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { selectCategory, moveNextStage } from "redux/actions/SignQuizActions";
-import CommonButton from "components/CommonButton/CommonButton";
+import { selectCategory } from "redux/actions/SignQuizActions";
+import CommonButton from "components/CommonButton";
 import styles from "./CategorySelection.module.scss";
 
 const CategorySelection = () => {
@@ -11,17 +11,8 @@ const CategorySelection = () => {
   const handleClick = (index: number) => {
     if (selectedButtonIndex !== index) {
       setSelectedButtonIndex(index);
-      dispatch(selectCategory(selectedButtonIndex));
+      dispatch(selectCategory(index + 1));
     }
-  };
-
-  /**
-   * 작성자 : 정태원
-   * 날짜 : 3/25
-   * 내용 : handleMove 함수는 테스트를 목적으로 구현한 버튼으로 향후 사용되지 않습니다.
-   */
-  const handleMove = () => {
-    dispatch(moveNextStage());
   };
 
   return (
@@ -62,19 +53,6 @@ const CategorySelection = () => {
             handleClick(2);
           }}
           isSelected={selectedButtonIndex === 2}
-        />
-      </div>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          right: "50%",
-        }}
-      >
-        <CommonButton
-          handleClick={handleMove}
-          buttonName={"넘어가기용 데모 버튼(향후 삭제)"}
         />
       </div>
     </div>
