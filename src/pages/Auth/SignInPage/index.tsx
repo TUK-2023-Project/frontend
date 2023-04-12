@@ -1,8 +1,9 @@
 import FormBox from "../components/FormBox";
 import FormButton from "../components/FormButton";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../Auth.module.scss";
+import { loginUserData } from "api/authAxios";
 
 function SignInPage() {
   const [email, setEmail] = useState<string>("");
@@ -75,6 +76,17 @@ function SignInPage() {
     setNotAllow(true);
   }, [emailValid, passwordValid]);
 
+  const { submitLogin, isSuccess } = loginUserData();
+
+  const sendLogin = () => {
+    console.log("클릭");
+    console.log(notAllow);
+    if (!notAllow) {
+      console.log("로그인 전송");
+      submitLogin({ mail: email, pw: password });
+    }
+  };
+
   return (
     <div className={styles["form-wrap"]}>
       <div className={styles["form-wrap__title"]}>로그인</div>
@@ -98,7 +110,13 @@ function SignInPage() {
         data={password}
         blurEvent={ckeckPassword}
       />
-      <FormButton text="로그인" allow={notAllow} url="/main" />
+      <FormButton
+        text="로그인"
+        allow={notAllow}
+        url="/main"
+        onClick={sendLogin}
+      />
+
       <div className={styles["form-wrap__move-wrap"]}>
         <span>계정이 없으신가요?</span>
         <Link to="/signup">회원가입</Link>
