@@ -19,7 +19,13 @@
     margin-bottom: 8rem;
   }
 
-  &__common-btn-wrap {
+  &__common-btn-wrap-no {
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__common-btn-wrap-yes {
     width: 75%;
     display: flex;
     justify-content: space-between;
