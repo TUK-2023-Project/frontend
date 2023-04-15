@@ -5,6 +5,19 @@ import styles from "./MainPage.module.scss";
 import LogoutBtn from "pages/Auth/components/LogoutBtn";
 import AboutModal from "./components/AboutModal";
 
+interface LottieAnimationData {
+  v: string;
+  fr: number;
+  ip: number;
+  op: number;
+  w: number;
+  h: number;
+  nm: string;
+  ddd: number;
+  assets: never[];
+  layers: never[];
+}
+
 function MainPage() {
   const navigate = useNavigate();
 
