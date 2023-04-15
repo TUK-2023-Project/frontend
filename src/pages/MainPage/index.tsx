@@ -89,6 +89,6 @@ function MainPage() {
       <AboutModal open={modalOpen} clickModal={clickModal} />
     </>
   );
-}
+};
 
 export default MainPage;
