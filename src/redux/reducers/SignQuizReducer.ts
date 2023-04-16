@@ -2,8 +2,8 @@ const InitialState = {
   score: 0,
   categoryId: -1,
   targetSignWord: {
-    data: "ㅂ",
-    id: 5,
+    data: "ㅊ",
+    id: 9,
   },
   stageState: -1,
   stageLevel: 1,
