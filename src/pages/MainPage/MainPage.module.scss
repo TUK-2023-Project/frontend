@@ -18,6 +18,23 @@
     line-height: 7rem;
     margin-bottom: 8rem;
   }
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5rem;
+
+    p {
+      margin: 0;
+    }
+
+    &__aboutImg {
+      width: 3rem;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+  }
 
   &__common-btn-wrap {
     width: 75%;
