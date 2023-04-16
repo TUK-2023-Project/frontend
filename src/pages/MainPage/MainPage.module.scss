@@ -33,6 +33,11 @@
       margin-left: 2rem;
       margin-bottom: 1rem;
       cursor: pointer;
+      color: #e69f23;
+      &:hover {
+        filter: invert(65%) sepia(91%) saturate(691%) hue-rotate(346deg)
+          brightness(96%) contrast(88%);
+      }
     }
   }
 
