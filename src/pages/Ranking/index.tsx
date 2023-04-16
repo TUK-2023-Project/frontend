@@ -1,4 +1,5 @@
 import React from "react";
+import Lottie from "react-lottie";
 import { useDispatch, useSelector } from "react-redux";
 import { gameOver } from "redux/actions/SignQuizActions";
 import styles from "./Ranking.module.scss";
@@ -7,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
 import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
+import { getLottieOptions } from "utils/lottie";
+import handLottie from "lotties/rank.json";
 
 interface Rank {
   rank: number;
@@ -43,11 +46,21 @@ const Ranking = () => {
   return (
     <div>
       {isEnd && <FlowerEfftect />}
+
       <div className={styles.content}>
-        <></>
+        <div className={styles.content__title}>
+          <h1 className={styles.content__title__text}>랭킹</h1>
+          <div className={styles.content__title__image}>
+            <Lottie
+              options={getLottieOptions(handLottie)}
+              height={100}
+              width={100}
+            />
+          </div>
+        </div>
         {isEnd && (
           <>
-            <h1 className={styles.content__title}>
+            <h1 className={styles["content__sub-title"]}>
               이번 게임의 점수 : {score}
             </h1>
             <h1 className={styles.content__title}>
