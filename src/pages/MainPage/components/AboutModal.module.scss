@@ -30,6 +30,10 @@
         margin-right: 2rem;
         width: 3.5rem;
       }
+      &:hover {
+        filter: invert(65%) sepia(91%) saturate(691%) hue-rotate(346deg)
+          brightness(96%) contrast(88%);
+      }
     }
 
     &__title {

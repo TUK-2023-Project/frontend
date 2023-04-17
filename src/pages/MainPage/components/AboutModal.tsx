@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AboutModal.module.scss";
 
 interface AboutModalProps {
@@ -7,16 +7,13 @@ interface AboutModalProps {
 }
 
 function AboutModal({ open, clickModal }: AboutModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(open);
-
   // 모달 상태 변경
   const openModalHandler = () => {
-    setIsOpen(!isOpen);
-    clickModal(!isOpen);
+    clickModal(!open);
   };
   return (
     <>
-      {isOpen ? (
+      {open ? (
         <div className={styles["modal-backdrop"]} onClick={openModalHandler}>
           <div
             className={styles["modal-backdrop__modal-view"]}

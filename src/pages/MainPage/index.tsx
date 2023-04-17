@@ -1,11 +1,15 @@
 import CommonButton from "components/CommonButton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import AboutModal from "./components/AboutModal";
 
 function MainPage() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(modalOpen);
+  }, [modalOpen]);
 
   const clickModal = (open: boolean) => {
     setModalOpen(open);
@@ -24,9 +28,6 @@ function MainPage() {
               onClick={() => {
                 setModalOpen(true);
               }}
-              // onMouseOver={() => {
-              //   setModalOpen(true);
-              // }}
             />
           </div>
           Sign-language-Quiz
@@ -43,7 +44,7 @@ function MainPage() {
           </Link>
         </div>
       </div>
-      {modalOpen ? <AboutModal open={true} clickModal={clickModal} /> : null}
+      <AboutModal open={modalOpen} clickModal={clickModal} />
     </>
   );
 }
