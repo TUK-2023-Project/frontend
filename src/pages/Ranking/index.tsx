@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Lottie from "react-lottie";
 import { useDispatch, useSelector } from "react-redux";
 import { gameOver } from "redux/actions/SignQuizActions";
@@ -38,6 +38,16 @@ const Ranking = () => {
 
   const { isLoading, error, data } = loadRankList();
   const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank();
+
+  useEffect(() => {
+    if (isEnd) {
+      const endAudio = new Audio("/sounds/end.mp3");
+
+      endAudio.play().catch((error) => {
+        console.error("오디오 에러:", error);
+      });
+    }
+  }, []);
 
   if (isLoading || selfRankLoading) {
     return <LoadingSpinner />;
