@@ -46,6 +46,12 @@ const Ranking = () => {
       endAudio.play().catch((error) => {
         console.error("오디오 에러:", error);
       });
+
+      return () => {
+        endAudio.pause();
+        endAudio.currentTime = 0;
+        endAudio.src = "";
+      };
     }
   }, []);
 
