@@ -176,7 +176,6 @@ export const loginUserData = () => {
           alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요!");
         } else {
           moveHome("/");
-          localStorage.clear();
           localStorage.setItem("accessToken", data.access);
         }
       },
