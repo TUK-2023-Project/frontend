@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "index.css";
 import store from "./redux/configStore";
@@ -14,13 +13,13 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
+  // StrictMode는 개발모드에서만 활성화되고, 프로덕션 빌드에서는 활성화 안됨
+  // 제거하면 alert창 한번 띄워짐
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

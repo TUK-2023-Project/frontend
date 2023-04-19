@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IncorrectNoteBox from "../components/ListCarousel";
 import styles from "./IncorrectNoteListPage.module.scss";
+import { Link } from "react-router-dom";
 
 function IncorrectNotePage() {
   interface incorrectData {
@@ -41,6 +42,10 @@ function IncorrectNotePage() {
 
   return (
     <div className={styles["incorrect-wrap"]}>
+      <Link to="/main" className={styles["incorrect-wrap__home"]}>
+        <img src="images/home.svg" alt="home" />
+      </Link>
+
       <h1 className={styles["incorrect-wrap__title"]}>오답노트</h1>
       <div className={styles["incorrect-wrap__incorrectlist"]}>
         <IncorrectNoteBox label="자음" data={consonant} />

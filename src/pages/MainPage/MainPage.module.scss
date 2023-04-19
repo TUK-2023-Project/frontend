@@ -1,8 +1,13 @@
+.logout {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 .content {
   position: absolute;
   width: 55rem;
   height: 40rem;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -41,7 +46,13 @@
     }
   }
 
-  &__common-btn-wrap {
+  &__common-btn-wrap-no {
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  &__common-btn-wrap-yes {
     width: 75%;
     display: flex;
     justify-content: space-between;

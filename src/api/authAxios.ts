@@ -169,9 +169,15 @@ export const loginUserData = () => {
       },
       onSuccess: (data, variables, context) => {
         console.log("success", data, variables, context);
-        moveHome("/");
-        localStorage.clear();
-        localStorage.setItem("accessToken", data.access);
+        console.log(data.CODE);
+        if (data.CODE === "004") {
+          alert("이메일이 일치하지 않습니다. 다시 입력해주세요!");
+        } else if (data.CODE === "003") {
+          alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요!");
+        } else {
+          moveHome("/");
+          localStorage.setItem("accessToken", data.access);
+        }
       },
       onSettled: (data, error, variables, context) => {
         console.log("end");
