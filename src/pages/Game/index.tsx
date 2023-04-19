@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import QuizSolve from "./QuizSolve";
 import QuizSelection from "./QuizSelection";
 import QuizReview from "./QuizReview";
@@ -8,6 +8,8 @@ import styles from "./game.module.scss";
 import WebSocketDisplay from "./components/WebSocketDisplay";
 
 const gamePage = (): JSX.Element => {
+  const [scoreValue, setScoreValue] = useState(0);
+
   const stageState = useSelector(
     (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
   );
@@ -45,9 +47,40 @@ const gamePage = (): JSX.Element => {
     }
   };
 
+  useEffect(() => {
+    const animationDuration = 200;
+    const step = 10;
+
+    let currentScore = scoreValue;
+    const targetScore = score;
+
+    const animationFrame = setInterval(() => {
+      const diff = targetScore - currentScore;
+      const sign = Math.sign(diff);
+      const delta =
+        sign * Math.ceil((Math.abs(diff) * step) / animationDuration);
+
+      currentScore += delta;
+
+      if (
+        (sign > 0 && currentScore >= targetScore) ||
+        (sign < 0 && currentScore <= targetScore)
+      ) {
+        currentScore = targetScore;
+        clearInterval(animationFrame);
+      }
+
+      setScoreValue(currentScore);
+    }, step);
+
+    return () => {
+      clearInterval(animationFrame);
+    };
+  }, [score]);
+
   return (
     <div>
-      <div className={styles["score-wrapper"]}>{score}점</div>
+      <div className={styles["score-wrapper"]}>{scoreValue}점</div>
       <div>{renderPage()}</div>
 
       {categoryId !== -1 && (

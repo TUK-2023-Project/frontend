@@ -9,19 +9,6 @@ import quizBoardLottie from "lotties/quizBoard.json";
 import handLottie from "lotties/hand.json";
 import { getLottieOptions } from "utils/lottie";
 
-interface LottieAnimationData {
-  v: string;
-  fr: number;
-  ip: number;
-  op: number;
-  w: number;
-  h: number;
-  nm: string;
-  ddd: number;
-  assets: never[];
-  layers: never[];
-}
-
 function MainPage() {
   const navigate = useNavigate();
 
