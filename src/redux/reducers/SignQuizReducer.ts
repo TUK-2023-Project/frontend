@@ -22,7 +22,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
     case "INCREASE_SCORE":
       return {
         ...state,
-        score: state.score + 500,
+        score: state.score + (Math.floor(Math.random() * 201) + 300),
         stageLevel: state.stageLevel + 1,
         solvedQuestion: [...state.solvedQuestion, state.targetSignWord.id],
       };
