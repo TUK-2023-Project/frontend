@@ -1,19 +1,31 @@
 import CommonButton from "components/CommonButton";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import LogoutBtn from "pages/Auth/components/LogoutBtn";
+import AboutModal from "./components/AboutModal";
 
 function MainPage() {
   const navigate = useNavigate();
 
   const isAuth = localStorage.getItem("accessToken");
 
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   useEffect(() => {
     if (isAuth == null) {
       navigate("/");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    console.log(modalOpen);
+  }, [modalOpen]);
+
+  const clickModal = (open: boolean) => {
+    setModalOpen(open);
+  };
+
   return (
     <>
       {isAuth == null ? (
@@ -25,11 +37,20 @@ function MainPage() {
       )}
       <div className={styles.content}>
         <h1>
-          수 퀴즈
-          <br />
+          <div className={styles.content__title}>
+            <p>수 퀴즈</p>
+            <img
+              className={styles.content__title__aboutImg}
+              src="images/about.svg"
+              alt="about"
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            />
+          </div>
           Sign-language-Quiz
         </h1>
-        {isAuth == null ? (
+         {isAuth == null ? (
           <div className={styles["content__common-btn-wrap-no"]}>
             <Link to="/signin">
               <CommonButton buttonName="시작하기" />
@@ -52,6 +73,7 @@ function MainPage() {
           </div>
         )}
       </div>
+      <AboutModal open={modalOpen} clickModal={clickModal} />
     </>
   );
 }

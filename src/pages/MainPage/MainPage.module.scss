@@ -23,6 +23,28 @@
     line-height: 7rem;
     margin-bottom: 8rem;
   }
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5rem;
+
+    p {
+      margin: 0;
+    }
+
+    &__aboutImg {
+      width: 3rem;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      color: #e69f23;
+      &:hover {
+        filter: invert(65%) sepia(91%) saturate(691%) hue-rotate(346deg)
+          brightness(96%) contrast(88%);
+      }
+    }
+  }
 
   &__common-btn-wrap-no {
     width: 75%;
