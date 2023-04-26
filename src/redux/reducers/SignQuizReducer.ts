@@ -2,8 +2,8 @@ const InitialState = {
   score: 0,
   categoryId: -1,
   targetSignWord: {
-    data: "ㅂ",
-    id: 5,
+    data: "ㅊ",
+    id: 9,
   },
   stageState: -1,
   stageLevel: 1,
@@ -22,7 +22,7 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
     case "INCREASE_SCORE":
       return {
         ...state,
-        score: state.score + 500,
+        score: state.score + (Math.floor(Math.random() * 201) + 300),
         stageLevel: state.stageLevel + 1,
         solvedQuestion: [...state.solvedQuestion, state.targetSignWord.id],
       };

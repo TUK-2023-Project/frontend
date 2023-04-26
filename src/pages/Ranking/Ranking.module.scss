@@ -8,9 +8,24 @@
   transform: translate(-50%, -50%);
   padding: 10px;
   width: 90%;
-  max-height: 500px;
 
   &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &__text {
+      margin-right: 20px;
+    }
+
+    &__image {
+      position: absolute;
+      left: calc(50% + 10px);
+    }
+  }
+
+  &__sub-title {
     text-align: center;
     font-size: 1.8rem;
   }

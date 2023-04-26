@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import LogoutBtn from "pages/Auth/components/LogoutBtn";
 import AboutModal from "./components/AboutModal";
+import Lottie from "react-lottie";
+import quizBoardLottie from "lotties/quizBoard.json";
+import handLottie from "lotties/hand.json";
+import { getLottieOptions } from "utils/lottie";
 
 function MainPage() {
   const navigate = useNavigate();
@@ -28,6 +32,23 @@ function MainPage() {
 
   return (
     <>
+      <div className={styles["background-wrapper"]}>
+        <div className={styles["background-wrapper__right"]}>
+          <Lottie
+            options={getLottieOptions(quizBoardLottie)}
+            height={300}
+            width={300}
+          />
+        </div>
+        <div className={styles["background-wrapper__left"]}>
+          <Lottie
+            options={getLottieOptions(handLottie)}
+            height={200}
+            width={200}
+          />
+        </div>
+      </div>
+
       {isAuth == null ? (
         <></>
       ) : (
@@ -50,7 +71,7 @@ function MainPage() {
           </div>
           Sign-language-Quiz
         </h1>
-         {isAuth == null ? (
+        {isAuth == null ? (
           <div className={styles["content__common-btn-wrap-no"]}>
             <Link to="/signin">
               <CommonButton buttonName="시작하기" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +38,22 @@ const QuizReview = () => {
       dispatch(moveNextStage());
     }
   };
+
+  useEffect(() => {
+    const endAudio = new Audio(
+      isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3"
+    );
+
+    endAudio.play().catch((error) => {
+      console.error("오디오 에러:", error);
+    });
+
+    return () => {
+      endAudio.pause();
+      endAudio.currentTime = 0;
+      endAudio.src = "";
+    };
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;

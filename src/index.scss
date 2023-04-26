@@ -1,0 +1,49 @@
+/*
+    - KCC 차썜체 (https://noonnu.cc/font_page/1097)
+*/
+@font-face {
+  font-family: "KCCChassam";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCChassam.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+    - 휴먼 범석체 (https://noonnu.cc/font_page/1097)
+*/
+@font-face {
+  font-family: "Humanbumsuk";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Humanbumsuk.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+    - KCC간판체 (https://noonnu.cc/font_page/1095)
+*/
+@font-face {
+  font-family: "KCC-Ganpan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  height: 100%;
+}
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/images/background.png");
+  background-size: cover;
+  overflow: hidden;
+  font-family: "KCCChassam", sans-serif; /* 폰트 적용 */
+}
+
+button {
+  font-family: "KCC-Ganpan", sans-serif; /* 폰트 적용 */
+}
