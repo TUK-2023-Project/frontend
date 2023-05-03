@@ -62,11 +62,11 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
       if (mediaPipe.length < 19) return;
       console.log(mediaPipe.length);
       console.log("send");
-      console.log("send", categoryId);
+
       ws.current.send(
         JSON.stringify({
           message: mediaPipe,
-          categoryId,
+          categoryId: isInit ? 1 : categoryId,
         })
       );
       setSendMsg(true);
