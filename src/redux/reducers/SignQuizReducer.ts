@@ -1,3 +1,5 @@
+import { categoryMultiplier } from "utils/constants";
+
 const InitialState = {
   score: 0,
   categoryId: -1,
@@ -22,11 +24,20 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
     case "INCREASE_SCORE":
       return {
         ...state,
-        score: state.score + (Math.floor(Math.random() * 201) + 300),
+        score:
+          state.score +
+          Math.floor(
+            Math.floor(
+              Math.random() * 201 + 300 * (1 + (0.5 * state.stageState) / 100)
+            ) *
+              (!Number.isNaN(state.categoryId) &&
+              categoryMultiplier[state.categoryId] !== 0
+                ? categoryMultiplier[state.categoryId]
+                : 1)
+          ),
         stageLevel: state.stageLevel + 1,
         solvedQuestion: [...state.solvedQuestion, state.targetSignWord.id],
       };
-
     case "UPDATE_TARGET_ANSWER":
       return {
         ...state,
