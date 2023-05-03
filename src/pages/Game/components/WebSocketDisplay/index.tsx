@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
@@ -22,6 +22,9 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const [sendMsg, setSendMsg] = useState<boolean>(false);
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
+  const categoryId = useSelector(
+    (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
   const dispatch = useDispatch();
 
   const handleSucess = () => {
@@ -59,9 +62,11 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
       if (mediaPipe.length < 19) return;
       console.log(mediaPipe.length);
       console.log("send");
+      console.log("send", categoryId);
       ws.current.send(
         JSON.stringify({
           message: mediaPipe,
+          categoryId,
         })
       );
       setSendMsg(true);
