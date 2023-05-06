@@ -177,6 +177,7 @@ export const loginUserData = () => {
         } else {
           moveHome("/");
           localStorage.setItem("accessToken", data.access);
+          localStorage.setItem("refreshToken", data.refresh);
         }
       },
       onSettled: (data, error, variables, context) => {

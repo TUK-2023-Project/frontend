@@ -6,7 +6,7 @@ function LogoutBtn() {
   const clickLogoutBtn = () => {
     if (confirm("정말로 로그아웃을 하시겠습니까?")) {
       localStorage.removeItem("accessToken");
-      // localStorage.removeItem("refreshToken");
+      localStorage.removeItem("refreshToken");
       navigate("/");
     } else {
       console.log("로그아웃 취소");
