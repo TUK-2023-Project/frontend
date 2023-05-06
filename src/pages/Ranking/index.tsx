@@ -10,6 +10,7 @@ import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
+import { shareKakao } from "../..//utils/shareKakaoLink";
 
 interface Rank {
   rank: number;
@@ -36,6 +37,22 @@ const Ranking = () => {
     redirectToMainPage();
   };
 
+  const handleShare = () => {
+    dispatch(gameOver());
+    shareKakao(selfRank.rank, score);
+  };
+
+  // 카카오톡 공유하기 sdk 추가
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const { isLoading, error, data } = loadRankList();
   const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank();
 
@@ -58,7 +75,6 @@ const Ranking = () => {
   if (isLoading || selfRankLoading) {
     return <LoadingSpinner />;
   }
-
   return (
     <div>
       {isEnd && <FlowerEfftect />}
@@ -108,7 +124,7 @@ const Ranking = () => {
 
       <div className={styles.footer}>
         <CommonButton handleClick={handleMove} buttonName={"오답노트 확인"} />
-        <CommonButton handleClick={handleMove} buttonName={"공유하기"} />
+        <CommonButton handleClick={handleShare} buttonName={"공유하기"} />
         <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
       </div>
     </div>
