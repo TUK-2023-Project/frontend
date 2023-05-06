@@ -7,6 +7,7 @@ import styles from "./QuizReview.module.scss";
 import { reviewQuizData } from "api/signLanguage";
 import { useUpdateRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
+import { playAudio } from "utils/audioPlayer";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const QuizReview = () => {
   const score = useSelector(
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
-
   const isEnd = useSelector(
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
   );
@@ -28,7 +28,6 @@ const QuizReview = () => {
   );
 
   const { submitRank } = useUpdateRank(redirectToRankPage);
-
   const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   const handleMove = () => {
@@ -40,19 +39,14 @@ const QuizReview = () => {
   };
 
   useEffect(() => {
-    const endAudio = new Audio(
-      isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3"
-    );
+    void (async () => {
+      const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
+      const { pause } = await playAudio(sound);
 
-    endAudio.play().catch((error) => {
-      console.error("오디오 에러:", error);
-    });
-
-    return () => {
-      endAudio.pause();
-      endAudio.currentTime = 0;
-      endAudio.src = "";
-    };
+      return () => {
+        pause();
+      };
+    })();
   }, []);
 
   if (isLoading) {

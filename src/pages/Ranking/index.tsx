@@ -11,6 +11,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
 import { shareKakao } from "../..//utils/shareKakaoLink";
+import { playAudio } from "utils/audioPlayer";
 
 interface Rank {
   rank: number;
@@ -57,17 +58,14 @@ const Ranking = () => {
 
   useEffect(() => {
     if (isEnd) {
-      const endAudio = new Audio("/sounds/end.mp3");
+      void (async () => {
+        const sound = "/sounds/end.mp3";
+        const { pause } = await playAudio(sound);
 
-      endAudio.play().catch((error) => {
-        console.error("오디오 에러:", error);
-      });
-
-      return () => {
-        endAudio.pause();
-        endAudio.currentTime = 0;
-        endAudio.src = "";
-      };
+        return () => {
+          pause();
+        };
+      })();
     }
   }, []);
 
@@ -110,7 +108,7 @@ const Ranking = () => {
             </thead>
             <tbody>
               {data?.map((item: Rank) => (
-                <tr key={item.rank}>
+                <tr key={item.user_name}>
                   <td>{item.rank}</td>
                   <td>{item.user_name}</td>
                   <td>{item.score}</td>
