@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
@@ -22,6 +22,9 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const [sendMsg, setSendMsg] = useState<boolean>(false);
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
+  const categoryId = useSelector(
+    (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
   const dispatch = useDispatch();
 
   const handleSucess = () => {
@@ -31,7 +34,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
     dispatch(moveNextStage());
   };
 
-  // 웹소켓 연결 및 해제
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!ws.current) {
@@ -48,7 +50,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
       ws.current.onclose = (error: any) => {
         console.log("disconnected");
         console.log(error);
-        // automatically try to reconnect on connection loss
       };
     }
   }, []);
@@ -59,9 +60,11 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
       if (mediaPipe.length < 19) return;
       console.log(mediaPipe.length);
       console.log("send");
+
       ws.current.send(
         JSON.stringify({
           message: mediaPipe,
+          categoryId: isInit ? 1 : categoryId,
         })
       );
       setSendMsg(true);
@@ -87,8 +90,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {
     const net = await handpose.load();
-    console.log("Handpose model loaded");
-    // Loop and detect hands
+
     setInterval(() => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       detect(net);
@@ -131,7 +133,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
 
   // landmark 30개씩 모으기
   if (mediaPipe.length > 19) {
-    // console.log(mediaPipe);
     setMediaPipe([]);
   }
 

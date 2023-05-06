@@ -1,3 +1,5 @@
+import { categoryMultiplier } from "utils/constants";
+
 const InitialState = {
   score: 0,
   categoryId: -1,
@@ -11,22 +13,25 @@ const InitialState = {
   solvedQuestion: [] as number[],
 };
 
-/**
- * 작성자 : 정태원
- * 날짜 : 3/11
- * 내용 :  CORRECT_ANSWER 함수에 대해 추후 난이도나 시간에 따라 점수를 추가하거나 랜덤성을 부여하는 것도 고려하면 좋을 것 같습니다.
- */
-
 export const SignQuizReducer = (state = InitialState, action: any) => {
   switch (action.type) {
     case "INCREASE_SCORE":
       return {
         ...state,
-        score: state.score + (Math.floor(Math.random() * 201) + 300),
+        score:
+          state.score +
+          Math.floor(
+            Math.floor(
+              Math.random() * 201 + 300 * (1 + (0.5 * state.stageState) / 100)
+            ) *
+              (!Number.isNaN(state.categoryId) &&
+              categoryMultiplier[state.categoryId] !== 0
+                ? categoryMultiplier[state.categoryId]
+                : 1)
+          ),
         stageLevel: state.stageLevel + 1,
         solvedQuestion: [...state.solvedQuestion, state.targetSignWord.id],
       };
-
     case "UPDATE_TARGET_ANSWER":
       return {
         ...state,
