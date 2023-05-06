@@ -42,15 +42,25 @@ const Ranking = () => {
   useEffect(() => {
     if (isEnd) {
       const endAudio = new Audio("/sounds/end.mp3");
+      let isPlaying = false;
 
-      endAudio.play().catch((error) => {
-        console.error("오디오 에러:", error);
-      });
+      const playAudio = async () => {
+        try {
+          await endAudio.play();
+          isPlaying = true;
+        } catch (error) {
+          console.error("오디오 에러:", error);
+        }
+      };
+
+      void playAudio();
 
       return () => {
-        endAudio.pause();
-        endAudio.currentTime = 0;
-        endAudio.src = "";
+        if (isPlaying) {
+          endAudio.pause();
+          endAudio.currentTime = 0;
+          endAudio.src = "";
+        }
       };
     }
   }, []);

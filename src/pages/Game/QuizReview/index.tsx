@@ -18,7 +18,6 @@ const QuizReview = () => {
   const score = useSelector(
     (state: { SignQuiz: { score: number } }) => state.SignQuiz.score
   );
-
   const isEnd = useSelector(
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
   );
@@ -28,7 +27,6 @@ const QuizReview = () => {
   );
 
   const { submitRank } = useUpdateRank(redirectToRankPage);
-
   const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
 
   const handleMove = () => {
@@ -43,15 +41,25 @@ const QuizReview = () => {
     const endAudio = new Audio(
       isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3"
     );
+    let isPlaying = false;
 
-    endAudio.play().catch((error) => {
-      console.error("오디오 에러:", error);
-    });
+    const playAudio = async () => {
+      try {
+        await endAudio.play();
+        isPlaying = true;
+      } catch (error) {
+        console.error("오디오 에러:", error);
+      }
+    };
+
+    void playAudio();
 
     return () => {
-      endAudio.pause();
-      endAudio.currentTime = 0;
-      endAudio.src = "";
+      if (isPlaying) {
+        endAudio.pause();
+        endAudio.currentTime = 0;
+        endAudio.src = "";
+      }
     };
   }, []);
 
