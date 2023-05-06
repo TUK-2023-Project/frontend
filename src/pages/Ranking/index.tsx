@@ -105,7 +105,7 @@ const Ranking = () => {
             </thead>
             <tbody>
               {data?.map((item: Rank) => (
-                <tr key={item.rank}>
+                <tr key={item.user_name}>
                   <td>{item.rank}</td>
                   <td>{item.user_name}</td>
                   <td>{item.score}</td>
