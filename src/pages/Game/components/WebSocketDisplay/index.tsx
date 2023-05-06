@@ -34,7 +34,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
     dispatch(moveNextStage());
   };
 
-  // 웹소켓 연결 및 해제
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!ws.current) {
@@ -51,7 +50,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
       ws.current.onclose = (error: any) => {
         console.log("disconnected");
         console.log(error);
-        // automatically try to reconnect on connection loss
       };
     }
   }, []);
@@ -92,8 +90,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {
     const net = await handpose.load();
-    console.log("Handpose model loaded");
-    // Loop and detect hands
+
     setInterval(() => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       detect(net);
@@ -136,7 +133,6 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
 
   // landmark 30개씩 모으기
   if (mediaPipe.length > 19) {
-    // console.log(mediaPipe);
     setMediaPipe([]);
   }
 
