@@ -38,7 +38,6 @@ const Ranking = () => {
   };
 
   const handleShare = () => {
-    dispatch(gameOver());
     shareKakao(selfRank.rank, score);
   };
 
@@ -121,12 +120,17 @@ const Ranking = () => {
           </table>
         </div>
       </div>
-
-      <div className={styles.footer}>
-        <CommonButton handleClick={handleMove} buttonName={"오답노트 확인"} />
-        <CommonButton handleClick={handleShare} buttonName={"공유하기"} />
-        <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
-      </div>
+      {isEnd ? (
+        <div className={styles.footer}>
+          <CommonButton handleClick={handleMove} buttonName={"오답노트 확인"} />
+          <CommonButton handleClick={handleShare} buttonName={"공유하기"} />
+          <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
+        </div>
+      ) : (
+        <div className={styles["footer-no"]}>
+          <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
+        </div>
+      )}
     </div>
   );
 };
