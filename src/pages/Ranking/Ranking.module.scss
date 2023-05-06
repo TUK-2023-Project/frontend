@@ -48,10 +48,14 @@
   bottom: 50px;
   display: flex;
   position: absolute;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   width: 80%;
   margin: 0 auto;
   left: 0;
   right: 0;
+}
+.footer-no {
+  @extend .footer;
+  justify-content: center;
 }
