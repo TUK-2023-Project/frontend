@@ -20,26 +20,5 @@ export const shareKakao = (rank: number, score: number) => {
         DESC: `해당 라운드에서의 점수는 ${score}이고, 최고 등수는 ${rank}등을 기록하였습니다. 수어를 배우며 순위를 기록해보시겠습니까?`,
       },
     });
-    // kakao.Link.sendDefault({
-    //   objectType: "feed",
-    //   content: {
-    //     title: "수어 학습 퀴즈(수퀴즈)",
-    //     description: `해당 라운드에서의 점수는 ${score}이고, 최고 등수는 ${rank}등을 기록하였습니다. 수어를 배우며 순위를 기록해보시겠습니까?`,
-    //     imageUrl: ,
-    //     link: {
-    //       mobileWebUrl: route,
-    //       webUrl: route,
-    //     },
-    //   },
-    //   buttons: [
-    //     {
-    //       title: "수퀴즈",
-    //       link: {
-    //         mobileWebUrl: route,
-    //         webUrl: route,
-    //       },
-    //     },
-    //   ],
-    // });
   }
 };
