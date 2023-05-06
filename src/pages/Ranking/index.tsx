@@ -10,6 +10,7 @@ import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
+import { playAudio } from "utils/audioPlayer";
 
 interface Rank {
   rank: number;
@@ -41,27 +42,14 @@ const Ranking = () => {
 
   useEffect(() => {
     if (isEnd) {
-      const endAudio = new Audio("/sounds/end.mp3");
-      let isPlaying = false;
+      void (async () => {
+        const sound = "/sounds/end.mp3";
+        const { pause } = await playAudio(sound);
 
-      const playAudio = async () => {
-        try {
-          await endAudio.play();
-          isPlaying = true;
-        } catch (error) {
-          console.error("오디오 에러:", error);
-        }
-      };
-
-      void playAudio();
-
-      return () => {
-        if (isPlaying) {
-          endAudio.pause();
-          endAudio.currentTime = 0;
-          endAudio.src = "";
-        }
-      };
+        return () => {
+          pause();
+        };
+      })();
     }
   }, []);
 

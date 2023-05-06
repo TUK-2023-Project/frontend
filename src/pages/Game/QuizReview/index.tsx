@@ -7,6 +7,7 @@ import styles from "./QuizReview.module.scss";
 import { reviewQuizData } from "api/signLanguage";
 import { useUpdateRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
+import { playAudio } from "utils/audioPlayer";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -38,29 +39,14 @@ const QuizReview = () => {
   };
 
   useEffect(() => {
-    const endAudio = new Audio(
-      isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3"
-    );
-    let isPlaying = false;
+    void (async () => {
+      const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
+      const { pause } = await playAudio(sound);
 
-    const playAudio = async () => {
-      try {
-        await endAudio.play();
-        isPlaying = true;
-      } catch (error) {
-        console.error("오디오 에러:", error);
-      }
-    };
-
-    void playAudio();
-
-    return () => {
-      if (isPlaying) {
-        endAudio.pause();
-        endAudio.currentTime = 0;
-        endAudio.src = "";
-      }
-    };
+      return () => {
+        pause();
+      };
+    })();
   }, []);
 
   if (isLoading) {
