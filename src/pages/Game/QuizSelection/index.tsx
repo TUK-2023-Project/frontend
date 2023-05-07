@@ -5,10 +5,8 @@ import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton";
 import LoadingSpinner from "components/LoadingSpinner";
 import { loadNewQuestion } from "api/signLanguage";
-import {
-  usePreventGoBackEffect,
-  usePreventCloseEffect,
-} from "utils/moveControl";
+import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
 
 const QuizSelection = () => {
   usePreventGoBackEffect();

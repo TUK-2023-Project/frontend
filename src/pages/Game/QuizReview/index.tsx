@@ -8,10 +8,8 @@ import { reviewQuizData } from "api/signLanguage";
 import { useUpdateRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { playAudio } from "utils/audioPlayer";
-import {
-  usePreventGoBackEffect,
-  usePreventCloseEffect,
-} from "utils/moveControl";
+import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
+import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
 
 const QuizReview = () => {
   const navigate = useNavigate();
