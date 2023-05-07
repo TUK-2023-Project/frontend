@@ -11,15 +11,6 @@ import {
 } from "utils/moveControl";
 
 const QuizSelection = () => {
-  // const [data, setData] = useState({
-  //   questions: [
-  //     { photo_url: "", word: "" },
-  //     { photo_url: "", word: "" },
-  //     { photo_url: "", word: "" },
-  //   ],
-  // });
-  // const [isLoading, setIsLoading] = useState(true);
-
   usePreventGoBackEffect();
   usePreventCloseEffect();
 
