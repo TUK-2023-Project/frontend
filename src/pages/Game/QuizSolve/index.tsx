@@ -2,12 +2,17 @@ import React from "react";
 import QuizTimer from "../components/QuizTimer";
 import { useSelector } from "react-redux";
 import styles from "./QuizSolve.module.scss";
+import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
 
 const QuizSolve = () => {
   const targetSignWord = useSelector(
     (state: { SignQuiz: { targetSignWord: { data: string } } }) =>
       state.SignQuiz.targetSignWord.data
   );
+
+  usePreventGoBackEffect();
+  usePreventCloseEffect();
 
   return (
     <div>

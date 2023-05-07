@@ -9,14 +9,14 @@ import Ranking from "./pages/Ranking";
 import IncorrectNotePage from "pages/IncorrectNote/IncorrectNoteList";
 import PrivatePage from "pages/Auth/components/DivisionAuth/PrivatePage";
 import Root from "pages/Root";
-import ErrorPage from "./pages/ErrorPage";
+import NotFound from "./pages/NotFound";
 import PublicPage from "pages/Auth/components/DivisionAuth/PublicPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFound />,
     children: [
       { path: "/", element: <MainPage /> },
       { path: "/main", element: <MainPage /> },
