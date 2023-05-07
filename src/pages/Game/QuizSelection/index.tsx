@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton";
 import LoadingSpinner from "components/LoadingSpinner";
 import { loadNewQuestion } from "api/signLanguage";
+import {
+  usePreventGoBackEffect,
+  usePreventCloseEffect,
+} from "utils/moveControl";
 
 const QuizSelection = () => {
+  // const [data, setData] = useState({
+  //   questions: [
+  //     { photo_url: "", word: "" },
+  //     { photo_url: "", word: "" },
+  //     { photo_url: "", word: "" },
+  //   ],
+  // });
+  // const [isLoading, setIsLoading] = useState(true);
+
+  usePreventGoBackEffect();
+  usePreventCloseEffect();
+
   const dispatch = useDispatch();
 
   const handleMove = () => {
