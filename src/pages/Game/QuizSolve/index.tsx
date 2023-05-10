@@ -13,6 +13,7 @@ const QuizSolve = () => {
 
   usePreventGoBackEffect();
   usePreventCloseEffect();
+  // FIXME: 개선사항 1. 각 이미지를 클릭했을때 상세 정보가 표현되면 좋을 듯
 
   return (
     <div>

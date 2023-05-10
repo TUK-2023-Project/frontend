@@ -193,3 +193,10 @@ export const loginUserData = () => {
 
   return { mutate, isLoading, isError, error, isSuccess, submitLogin, data };
 };
+
+export const updateAccessToken = async (refreshToken: string) => {
+  const response = await baseAxios.post("users/login/refresh/", {
+    refresh: refreshToken,
+  });
+  return response.data.access;
+};
