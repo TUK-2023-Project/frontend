@@ -10,6 +10,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import { playAudio } from "utils/audioPlayer";
 import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import { addIncorrectData } from "api/incorrectNote";
 
 const QuizReview = () => {
   const navigate = useNavigate();
@@ -53,6 +54,11 @@ const QuizReview = () => {
       };
     })();
   }, []);
+
+  if (isEnd) {
+    const { isLoading, error, data } = addIncorrectData(targetSignWord.id);
+    console.log(data);
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
