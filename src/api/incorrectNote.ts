@@ -46,18 +46,19 @@ export const addIncorrectData = (signId: number) => {
   );
   return { isLoading, error, data };
 };
-export const deleteIncorrectData = (signId: number) => {
-  const { isLoading, error, data } = useQuery(
-    ["deleteIncorrect"],
+export const deleteIncorrectData = (click: boolean, signId: number) => {
+  const { isLoading, error, data, isSuccess, isError } = useQuery(
+    ["deleteIncorrect", signId],
     async () => await deleteIncorrectNote(signId),
     {
+      enabled: click,
       retry: 0,
       onSuccess: () => {
         console.log("성공");
       },
     }
   );
-  return { isLoading, error, data };
+  return { isLoading, error, data, isSuccess, isError };
 };
 export const getIncorrectListData = () => {
   const { isLoading, error, data } = useQuery(
@@ -79,7 +80,7 @@ export const getIncorrectItemData = (signId: number) => {
     {
       retry: 0,
       onSuccess: () => {
-        console.log("성공", data);
+        console.log("성공");
       },
     }
   );

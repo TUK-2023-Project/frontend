@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./IncorrectNoteBox.module.scss";
 import Slider from "react-slick";
 import DetailModal from "../DetailModal";
 import styled from "styled-components";
+import { getIncorrectItemData } from "api/incorrectNote";
 
 interface incorrectData {
+  sign_id: number;
   word: string;
-  content: string;
-  img: string;
+  wordtype: string;
 }
 
 interface IncorrectNoteBoxProps {
   label: string;
-  data?: incorrectData[];
+  item?: incorrectData[];
 }
 
 // 오답노트 리스트
-function IncorrectNoteBox({ label, data }: IncorrectNoteBoxProps) {
+function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selectedWord, setSelectedWord] = useState<string>("");
-  const [selectedImg, setSelectedImg] = useState<string>("");
-  const [selectedContent, setSelectedContent] = useState<string>("");
-
+  const [signId, setSignId] = useState<number>(-1);
+  const [clickData, setClickData] = useState<number>(-1);
   const settings = {
     dots: false, // 슬라이드 밑에 점 여부
     infinite: false, // 무한 반복 여부
@@ -38,24 +37,26 @@ function IncorrectNoteBox({ label, data }: IncorrectNoteBoxProps) {
     setOpenModal(open);
   };
 
-  const handleClick = (select: any) => {
-    console.log(select);
-    setSelectedWord(select.word);
-    setSelectedImg(select.img);
-    setSelectedContent(select.content);
+  const handleClick = (signId: number) => {
+    console.log(signId);
+    setClickData(signId);
   };
+
+  const { data } = getIncorrectItemData(clickData);
 
   return (
     <div className={styles["slide-wrap"]}>
       <div className={styles["slide-wrap__label"]}>{label}</div>
       <div className={styles["slide-wrap__slide"]}>
         <StyledSlide {...settings}>
-          {data?.map((value, key) => (
+          {item?.map((value: incorrectData, key: number) => (
             <div
               className={styles["slide-wrap__slide__word"]}
+              key={key}
               onClick={() => {
                 setOpenModal(true);
-                handleClick(value);
+                handleClick(value.sign_id);
+                setSignId(value.sign_id);
               }}
             >
               {value.word}
@@ -67,9 +68,10 @@ function IncorrectNoteBox({ label, data }: IncorrectNoteBoxProps) {
         <DetailModal
           open={true}
           clickModal={clickModal}
-          word={selectedWord}
-          img={selectedImg}
-          contents={selectedContent}
+          signId={signId}
+          word={data?.sign_language_info.word}
+          img={data?.sign_language_info.photo_url}
+          contents={data?.sign_language_info.context}
         />
       ) : null}
     </div>
