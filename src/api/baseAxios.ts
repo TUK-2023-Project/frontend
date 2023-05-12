@@ -24,20 +24,29 @@ baseAxios.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     console.log(error);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+
+    /**
+     * //TODO
+     *  현재는 token_not_valid라는 예외처리로 refreshToken의 만료를 처리하고있지만 백엔드의
+     * 에러코드를 업데이트하면 맞춰서 수정작업을 진행해야합니다.
+     */
+
     if (
       error.response.status === 401 &&
       error.response.data.code !== "token_not_valid"
     ) {
-      console.log(error.response.status);
       const refreshToken = localStorage.getItem("refreshToken");
 
       if (refreshToken != null) {
         const refreshedAccessToken = await updateAccessToken(refreshToken);
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (refreshedAccessToken) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          originalRequest.headers.access = `Bearer ${refreshedAccessToken}`;
+
+        if (
+          refreshedAccessToken !== null &&
+          refreshedAccessToken !== undefined
+        ) {
+          originalRequest.headers.access = `Bearer ${
+            refreshedAccessToken as string
+          }`;
 
           localStorage.setItem("accessToken", refreshedAccessToken);
           return await baseAxios(originalRequest);
