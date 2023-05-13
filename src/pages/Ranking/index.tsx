@@ -10,7 +10,7 @@ import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
-import { shareKakao } from "../..//utils/shareKakaoLink";
+import { shareKakao } from "../../utils/shareKakaoLink";
 import { playAudio } from "utils/audioPlayer";
 
 interface Rank {

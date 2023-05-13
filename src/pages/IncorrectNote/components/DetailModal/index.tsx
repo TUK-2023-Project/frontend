@@ -44,11 +44,11 @@ function DetailModal({
     if (isSuccess) {
       alert("삭제되었습니다.");
       setClick(false);
-      setIsOpen(!isOpen);
+      clickModal(!isOpen);
     } else if (isError) {
       setClick(false);
       alert("삭제를 실패하였습니다.");
-      setIsOpen(!isOpen);
+      clickModal(!isOpen);
     }
   }, [isSuccess, isError]);
 
