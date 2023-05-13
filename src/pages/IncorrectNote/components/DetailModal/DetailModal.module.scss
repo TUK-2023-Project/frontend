@@ -26,9 +26,14 @@
       padding: 5px 10px;
       display: flex;
       justify-content: flex-end;
+      cursor: pointer;
       img {
         margin-right: 2rem;
         width: 3.5rem;
+      }
+      &:hover {
+        filter: invert(65%) sepia(91%) saturate(691%) hue-rotate(346deg)
+          brightness(96%) contrast(88%);
       }
     }
 
@@ -47,6 +52,7 @@
       justify-content: center;
       align-items: center;
       margin: 1rem;
+      cursor: pointer;
       p {
         font-size: 1.3rem;
         text-align: center;
@@ -57,6 +63,9 @@
         width: 1.3rem;
         margin-bottom: 5px;
       }
+      &:hover {
+        background-color: #e99551;
+      }
     }
 
     &__bottom {
@@ -64,7 +73,7 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      height: 55%;
+      height: 45%;
       &__image {
         width: 40%;
         object-fit: contain;

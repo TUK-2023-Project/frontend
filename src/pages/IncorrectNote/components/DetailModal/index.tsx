@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./DetailModal.module.scss";
+import { deleteIncorrectData } from "api/incorrectNote";
 
 interface DetailProps {
   open: boolean;
   clickModal: (open: boolean) => void;
+  signId: number;
   word?: string;
   img?: string;
   contents?: string;
 }
 
 // 오답노트 상세내용(모달)
-function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
+function DetailModal({
+  open,
+  clickModal,
+  signId,
+  word,
+  img,
+  contents,
+}: DetailProps) {
   const [isOpen, setIsOpen] = useState<boolean>(open);
+  const [clickData, setClickData] = useState<number>(-1);
+  const [click, setClick] = useState<boolean>(false);
 
   // 모달 상태 변경
   const openModalHandler = () => {
@@ -22,9 +33,23 @@ function DetailModal({ open, clickModal, word, img, contents }: DetailProps) {
   // 오답 노트 삭제
   const onRemove = () => {
     if (window.confirm("오답노트를 삭제하시겠습니까?")) {
-      alert("삭제되었습니다.");
+      setClickData(signId);
+      setClick(true);
     }
   };
+
+  const { isSuccess, isError } = deleteIncorrectData(clickData);
+  useEffect(() => {
+    if (isSuccess) {
+      alert("삭제되었습니다.");
+      setClick(false);
+      clickModal(!isOpen);
+    } else if (isError) {
+      setClick(false);
+      alert("삭제를 실패하였습니다.");
+      clickModal(!isOpen);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <>

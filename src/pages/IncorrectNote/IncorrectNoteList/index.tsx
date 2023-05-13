@@ -2,56 +2,58 @@ import React, { useEffect, useState } from "react";
 import IncorrectNoteBox from "../components/ListCarousel";
 import styles from "./IncorrectNoteListPage.module.scss";
 import { Link } from "react-router-dom";
+import { getIncorrectListData } from "api/incorrectNote";
+import LoadingSpinner from "components/LoadingSpinner";
+import { WORD_TYPE } from "utils/constants";
 
+interface incorrectData {
+  sign_id: number;
+  word: string;
+  wordtype: string;
+}
+interface labelData {
+  labelName: string;
+  labelList: incorrectData[];
+}
 function IncorrectNotePage() {
-  interface incorrectData {
-    word: string;
-    content: string;
-    img: string;
-  }
-  const [consonant, setConsonant] = useState<incorrectData[]>();
-  const [vowel, setVowel] = useState<incorrectData[]>();
-  const [alphabet, setAlphabet] = useState<incorrectData[]>();
-  const [number, setNumber] = useState<incorrectData[]>();
-  // 오답노트 리스트 가져오기
-  async function getIncorrectNoteData() {
-    try {
-      await fetch("../dummy/incorrectNote.json", {
-        headers: {
-          Accept: "application/json",
-        },
-        method: "GET",
-      })
-        .then((response: { json: () => any }) => response.json())
-        .then((result: any) => {
-          setConsonant(result.자음);
-          setVowel(result.모음);
-          setAlphabet(result.알파벳);
-          setNumber(result.숫자);
-        })
-        .catch((error: any) => {
-          console.log("error", error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  useEffect(() => {
-    void getIncorrectNoteData();
-  }, []);
+  const [label, setLabel] = useState<labelData[]>([]);
 
+  // 오답노트 리스트 가져오기
+  const { isLoading, error, data } = getIncorrectListData();
+
+  useEffect(() => {
+    if (data !== undefined) {
+      console.log(data);
+      setLabel([
+        {
+          labelName: WORD_TYPE[1],
+          labelList: data.filter((item: any) => item.wordtype === "1"),
+        },
+        {
+          labelName: WORD_TYPE[2],
+          labelList: data.filter((item: any) => item.wordtype === "2"),
+        },
+      ]);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <div className={styles["incorrect-wrap"]}>
       <Link to="/main" className={styles["incorrect-wrap__home"]}>
         <img src="images/home.svg" alt="home" />
       </Link>
-
       <h1 className={styles["incorrect-wrap__title"]}>오답노트</h1>
       <div className={styles["incorrect-wrap__incorrectlist"]}>
-        <IncorrectNoteBox label="자음" data={consonant} />
-        <IncorrectNoteBox label="모음" data={vowel} />
-        <IncorrectNoteBox label="알파벳" data={alphabet} />
-        <IncorrectNoteBox label="숫자" data={number} />
+        {label?.map((data, index) => (
+          <IncorrectNoteBox
+            key={index}
+            label={data.labelName}
+            item={data.labelList}
+          />
+        ))}
       </div>
     </div>
   );

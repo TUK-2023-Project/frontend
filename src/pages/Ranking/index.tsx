@@ -30,13 +30,13 @@ const Ranking = () => {
     (state: { SignQuiz: { isEnd: boolean } }) => state.SignQuiz.isEnd
   );
 
-  const redirectToMainPage = () => {
-    navigate("/main");
+  const redirectToOtherPage = (page: string) => {
+    navigate(`/${page}`);
   };
 
-  const handleMove = () => {
+  const handleMove = (page: string) => {
     dispatch(gameOver());
-    redirectToMainPage();
+    redirectToOtherPage(page);
   };
 
   const handleShare = () => {
@@ -125,13 +125,28 @@ const Ranking = () => {
       </div>
       {isEnd ? (
         <div className={styles.footer}>
-          <CommonButton handleClick={handleMove} buttonName={"오답노트 확인"} />
+          <CommonButton
+            handleClick={() => {
+              handleMove("incorrectnote");
+            }}
+            buttonName={"오답노트 확인"}
+          />
           <CommonButton handleClick={handleShare} buttonName={"공유하기"} />
-          <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
+          <CommonButton
+            handleClick={() => {
+              handleMove("main");
+            }}
+            buttonName={"메인으로"}
+          />
         </div>
       ) : (
         <div className={styles["footer-no"]}>
-          <CommonButton handleClick={handleMove} buttonName={"메인으로"} />
+          <CommonButton
+            handleClick={() => {
+              handleMove("main");
+            }}
+            buttonName={"메인으로"}
+          />
         </div>
       )}
     </div>
