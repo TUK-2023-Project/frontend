@@ -38,9 +38,8 @@ function DetailModal({
     }
   };
 
-  const { isSuccess, isError } = deleteIncorrectData(click, clickData);
+  const { isSuccess, isError } = deleteIncorrectData(clickData);
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess) {
       alert("삭제되었습니다.");
       setClick(false);

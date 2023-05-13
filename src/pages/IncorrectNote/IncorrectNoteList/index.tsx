@@ -4,30 +4,37 @@ import styles from "./IncorrectNoteListPage.module.scss";
 import { Link } from "react-router-dom";
 import { getIncorrectListData } from "api/incorrectNote";
 import LoadingSpinner from "components/LoadingSpinner";
+
 interface incorrectData {
   sign_id: number;
   word: string;
   wordtype: string;
 }
+interface labelData {
+  labelName: string;
+  labelList: incorrectData[];
+}
 function IncorrectNotePage() {
-  const [consonant, setConsonant] = useState<incorrectData[]>();
-  const [vowel, setVowel] = useState<incorrectData[]>();
+  const [label, setLabel] = useState<labelData[]>([]);
 
   // 오답노트 리스트 가져오기
   const { isLoading, error, data } = getIncorrectListData();
 
   useEffect(() => {
-    const consonantList = [];
-    const vowelList = [];
-    for (let i = 0; i < data?.length; i++) {
-      if (data[i].wordtype === "1") {
-        consonantList.push(data[i]);
-      } else if (data[i].wordtype === "2") {
-        vowelList.push(data[i]);
-      }
+    if (data !== undefined) {
+      const consonantList = data.filter((item: any) => item.wordtype === "1");
+      const vowelList = data.filter((item: any) => item.wordtype === "2");
+      setLabel([
+        {
+          labelName: "자음",
+          labelList: consonantList,
+        },
+        {
+          labelName: "모음",
+          labelList: vowelList,
+        },
+      ]);
     }
-    setConsonant(consonantList);
-    setVowel(vowelList);
   }, [data]);
 
   if (isLoading) {
@@ -40,8 +47,13 @@ function IncorrectNotePage() {
       </Link>
       <h1 className={styles["incorrect-wrap__title"]}>오답노트</h1>
       <div className={styles["incorrect-wrap__incorrectlist"]}>
-        <IncorrectNoteBox label="자음" item={consonant} />
-        <IncorrectNoteBox label="모음" item={vowel} />
+        {label?.map((data, index) => (
+          <IncorrectNoteBox
+            key={index}
+            label={data.labelName}
+            item={data.labelList}
+          />
+        ))}
       </div>
     </div>
   );

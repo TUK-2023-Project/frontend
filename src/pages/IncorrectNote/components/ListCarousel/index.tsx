@@ -21,6 +21,7 @@ function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [signId, setSignId] = useState<number>(-1);
   const [clickData, setClickData] = useState<number>(-1);
+
   const settings = {
     dots: false, // 슬라이드 밑에 점 여부
     infinite: false, // 무한 반복 여부
@@ -38,7 +39,6 @@ function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
   };
 
   const handleClick = (signId: number) => {
-    console.log(signId);
     setClickData(signId);
   };
 
