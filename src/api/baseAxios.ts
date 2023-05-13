@@ -55,7 +55,8 @@ baseAxios.interceptors.response.use(
     }
     localStorage.clear();
     alert("로그인 정보가 만료되었습니다. 다시 로그인해주세요");
-    originalRequest.history.push("/");
+    // originalRequest.history.push("/");
+    window.location.href = "/";
 
     return await Promise.reject(error);
   }

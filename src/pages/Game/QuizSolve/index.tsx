@@ -3,7 +3,6 @@ import QuizTimer from "../components/QuizTimer";
 import { useSelector } from "react-redux";
 import styles from "./QuizSolve.module.scss";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
-import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
 
 const QuizSolve = () => {
   const targetSignWord = useSelector(
@@ -12,7 +11,7 @@ const QuizSolve = () => {
   );
 
   usePreventGoBackEffect();
-  usePreventCloseEffect();
+
   // FIXME: 개선사항 1. 각 이미지를 클릭했을때 상세 정보가 표현되면 좋을 듯
 
   return (
