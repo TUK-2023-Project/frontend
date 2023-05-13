@@ -31,12 +31,14 @@ export const loadNewQuestion = (
       retry: 0,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        dispatch(getNextQuestion(data.answer));
+        dispatch(getNextQuestion(data.state === "clear" ? -1 : data.answer));
       },
     }
   );
 
-  return { isLoading, error, data };
+  const allQuestionsSolved: boolean = Boolean(data) && data.state === "clear";
+
+  return { isLoading, error, data, allQuestionsSolved };
 };
 
 const getQuizInfo = async (quizId: number) => {

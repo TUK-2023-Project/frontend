@@ -27,10 +27,14 @@ const QuizSelection = () => {
     (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
   );
 
-  const { isLoading, error, data } = loadNewQuestion(
+  const { isLoading, error, data, allQuestionsSolved } = loadNewQuestion(
     solvedQuestion,
     categoryId
   );
+
+  if (allQuestionsSolved) {
+    return <LoadingSpinner />;
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
