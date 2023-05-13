@@ -12,7 +12,7 @@ const addIncorrectNote = async (signId: number) => {
 };
 
 const deleteIncorrectNote = async (signId: number) => {
-  const response = await axios.get("incorrect/delete", {
+  const response = await axios.get("incorrect/delete/", {
     params: {
       sign_id: signId,
     },

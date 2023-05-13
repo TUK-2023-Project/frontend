@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./DetailModal.module.scss";
 import { deleteIncorrectData } from "api/incorrectNote";
-import { isError } from "react-query";
 
 interface DetailProps {
   open: boolean;
