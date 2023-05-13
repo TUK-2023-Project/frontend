@@ -4,6 +4,7 @@ import styles from "./IncorrectNoteListPage.module.scss";
 import { Link } from "react-router-dom";
 import { getIncorrectListData } from "api/incorrectNote";
 import LoadingSpinner from "components/LoadingSpinner";
+import { WORD_TYPE } from "utils/constants";
 
 interface incorrectData {
   sign_id: number;
@@ -22,16 +23,15 @@ function IncorrectNotePage() {
 
   useEffect(() => {
     if (data !== undefined) {
-      const consonantList = data.filter((item: any) => item.wordtype === "1");
-      const vowelList = data.filter((item: any) => item.wordtype === "2");
+      console.log(data);
       setLabel([
         {
-          labelName: "자음",
-          labelList: consonantList,
+          labelName: WORD_TYPE[1],
+          labelList: data.filter((item: any) => item.wordtype === "1"),
         },
         {
-          labelName: "모음",
-          labelList: vowelList,
+          labelName: WORD_TYPE[2],
+          labelList: data.filter((item: any) => item.wordtype === "2"),
         },
       ]);
     }
