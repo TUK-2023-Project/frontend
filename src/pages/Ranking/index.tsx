@@ -10,8 +10,9 @@ import { loadRankList, loadSelfRank } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
-import { shareKakao } from "../..//utils/shareKakaoLink";
+import { shareKakao } from "../../utils/shareKakaoLink";
 import { playAudio } from "utils/audioPlayer";
+import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
 
 interface Rank {
   rank: number;
@@ -41,6 +42,10 @@ const Ranking = () => {
   const handleShare = () => {
     shareKakao(selfRank.rank, score);
   };
+
+  if (isEnd) {
+    usePreventGoBackEffect();
+  }
 
   // 카카오톡 공유하기 sdk 추가
   useEffect(() => {

@@ -10,7 +10,6 @@ interface UserDataType {
 }
 
 const registerUser = async ({ username, mail, pw }: UserDataType) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   await baseAxios.post("users/register/", {
     name: username,
     email: mail,
@@ -63,7 +62,6 @@ export const registerUserData = () => {
 
 // 회원가입 중복 체크 api
 const duplicateEmail = async (mail: string) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000)); // Loading 테스트
   const { data } = await baseAxios.post("users/emailcheck/", {
     email: mail,
   });
@@ -177,6 +175,7 @@ export const loginUserData = () => {
         } else {
           moveHome("/");
           localStorage.setItem("accessToken", data.access);
+          localStorage.setItem("refreshToken", data.refresh);
         }
       },
       onSettled: (data, error, variables, context) => {
@@ -191,4 +190,11 @@ export const loginUserData = () => {
   };
 
   return { mutate, isLoading, isError, error, isSuccess, submitLogin, data };
+};
+
+export const updateAccessToken = async (refreshToken: string) => {
+  const response = await baseAxios.post("users/login/refresh/", {
+    refresh: refreshToken,
+  });
+  return response.data.access;
 };

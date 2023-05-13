@@ -6,11 +6,9 @@ import CommonButton from "components/CommonButton";
 import LoadingSpinner from "components/LoadingSpinner";
 import { loadNewQuestion } from "api/signLanguage";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
-import { usePreventCloseEffect } from "hooks/usePreventCloseEffect";
 
 const QuizSelection = () => {
   usePreventGoBackEffect();
-  usePreventCloseEffect();
 
   const dispatch = useDispatch();
 

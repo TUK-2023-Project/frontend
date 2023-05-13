@@ -7,7 +7,7 @@ import {
   registerUserData,
   checkDuplicateEmail,
   checkDuplicateNickname,
-} from "api/authAxios";
+} from "api/auth";
 
 function SignUpPage() {
   const [email, setEmail] = useState<string>("");
