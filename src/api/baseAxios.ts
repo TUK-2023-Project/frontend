@@ -1,5 +1,5 @@
 import axios from "axios";
-import { updateAccessToken } from "api/authAxios";
+import { updateAccessToken } from "api/auth";
 
 const baseAxios = axios.create({
   baseURL: "http://localhost:8000/api/v1/",
@@ -55,7 +55,6 @@ baseAxios.interceptors.response.use(
     }
     localStorage.clear();
     alert("로그인 정보가 만료되었습니다. 다시 로그인해주세요");
-    // originalRequest.history.push("/");
     window.location.href = "/";
 
     return await Promise.reject(error);

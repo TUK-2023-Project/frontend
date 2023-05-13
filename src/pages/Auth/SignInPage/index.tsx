@@ -3,7 +3,7 @@ import FormButton from "../components/FormButton";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../Auth.module.scss";
-import { loginUserData } from "api/authAxios";
+import { loginUserData } from "api/auth";
 
 function SignInPage() {
   const [email, setEmail] = useState<string>("");
