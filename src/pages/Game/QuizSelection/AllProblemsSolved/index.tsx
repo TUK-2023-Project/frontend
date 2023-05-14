@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import CommonButton from "components/CommonButton";
+import FireworksEffect from "../../components/FireworksEffect";
 import styles from "./AllProblemsSolved.module.scss";
 
 import { useUpdateRank } from "api/rank";
@@ -40,9 +41,13 @@ const AllProblemsSolved = () => {
         justifyContent: "center",
         minHeight: "100vh",
         fontFamily: "Arial, sans-serif",
-        backgroundColor: "rgb(240 240 240 / 70%)",
+        backgroundColor: "rgb(240 240 240 / 0%)",
       }}
     >
+      <div style={{ zIndex: -1 }}>
+        <FireworksEffect />
+      </div>
+
       <h1
         style={{
           fontSize: "2rem",
