@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
@@ -33,42 +33,16 @@ const AllProblemsSolved = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "rgb(240 240 240 / 0%)",
-      }}
-    >
-      <div style={{ zIndex: -1 }}>
+    <div className={styles.wrapper}>
+      <div className={styles.wrapper__firework_effect}>
         <FireworksEffect />
       </div>
 
-      <h1
-        style={{
-          fontSize: "2rem",
-          fontWeight: "bold",
-          color: "#333",
-          marginBottom: "1rem",
-        }}
-      >
+      <h1 className={styles.wrapper__title}>
         {`${WORD_TYPE[categoryId]} 카테고리에 대한 모든 문제를 풀이하셨습니다`}
       </h1>
 
-      <p
-        style={{
-          textAlign: "center",
-          fontSize: "1.5rem",
-          fontWeight: "normal",
-          color: "#555",
-          marginBottom: "2rem",
-          whiteSpace: "pre",
-        }}
-      >
+      <p className={styles["wrapper__sub-title"]}>
         {
           "축하드립니다!! \n 수어 전문가에 한 발짝 더 가까워졌습니다. 계속해서 새로운 카테고리에 도전해보세요!"
         }

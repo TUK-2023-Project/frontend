@@ -1,19 +1,29 @@
-.header {
-  background-color: gray;
-  border-radius: 20px;
-  opacity: 0.8;
-  justify-content: flex-end;
+.wrapper {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  padding: 30px;
-  margin: auto;
-  margin-bottom: 30px;
-  width: 90%;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgba(250, 250, 250, 0);
+
+  &__firework_effect {
+    z-index: -1;
+  }
 
   &__title {
-    text-align: center;
-    color: red;
     font-size: 2rem;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 1rem;
+  }
+
+  &__sub-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: rgb(250, 250, 250);
+    margin-bottom: 2rem;
+    white-space: pre;
   }
 }
 
@@ -23,28 +33,6 @@
   align-items: center;
   height: 100%;
   background-color: #ebffdb;
-
-  &__info {
-    margin-top: 10px;
-    flex: 1;
-
-    &__title {
-      text-align: center;
-      font-size: 2rem;
-    }
-
-    &__sub-title {
-      text-align: center;
-      font-size: 3em;
-    }
-
-    &__image {
-      width: 100%;
-      height: 50vh;
-      min-height: 300px;
-      object-fit: fit;
-    }
-  }
 
   &__button-wrapper {
     display: flex;
