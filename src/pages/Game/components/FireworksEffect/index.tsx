@@ -9,6 +9,9 @@ const FireworksEffect = () => {
 
   const options = {
     preset: "fireworks",
+    sounds: {
+      enable: false,
+    },
   };
 
   return <Particles options={options} init={customInit} />;
