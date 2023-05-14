@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
 import CommonButton from "components/CommonButton";
 import LoadingSpinner from "components/LoadingSpinner";
+import AllProblemsSolved from "./AllProblemsSolved";
 import { loadNewQuestion } from "api/signLanguage";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
 
@@ -33,7 +34,7 @@ const QuizSelection = () => {
   );
 
   if (allQuestionsSolved) {
-    return <LoadingSpinner />;
+    return <AllProblemsSolved />;
   }
 
   if (isLoading) {
