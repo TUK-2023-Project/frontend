@@ -21,7 +21,7 @@ export const moveNextStage = () => ({
 });
 
 export const timeOut = () => ({
-  type: "TIME_OUT",
+  type: "GAME_OVER",
 });
 
 export const selectCategory = (id: number) => ({

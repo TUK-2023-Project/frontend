@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { timeOut } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
 import CommonButton from "components/CommonButton";
 import FireworksEffect from "../../components/FireworksEffect";
@@ -13,6 +13,7 @@ import { WORD_TYPE } from "utils/constants";
 const AllProblemsSolved = () => {
   usePreventGoBackEffect();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const redirectToRankPage = () => {
     navigate("/rank");
@@ -29,6 +30,7 @@ const AllProblemsSolved = () => {
   const { submitRank } = useUpdateRank(redirectToRankPage);
 
   const handleMove = () => {
+    dispatch(timeOut());
     submitRank(score);
   };
 
