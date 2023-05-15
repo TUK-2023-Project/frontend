@@ -1,21 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "./baseAxios";
+import { variable } from "@tensorflow/tfjs";
+import { useCallback } from "react";
 
 // 오답노트 추가
 const addIncorrectNote = async (signId: number) => {
-  const response = await axios.get("incorrect/add/", {
-    params: {
-      sign_id: signId,
-    },
-  });
+  const response = await axios.post("incorrect/add/", { sign_id: signId });
+  console.log("api호출");
   return response.data;
 };
 
 const deleteIncorrectNote = async (signId: number) => {
-  const response = await axios.get("incorrect/delete/", {
-    params: {
-      sign_id: signId,
-    },
+  const response = await axios.post("incorrect/delete/", {
+    sign_id: signId,
   });
   return response.data;
 };
@@ -36,29 +33,52 @@ const getIncorrectNoteListItem = async (signId: number) => {
   return response.data;
 };
 
-export const addIncorrectData = (signId: number) => {
-  const { isLoading, error, data } = useQuery(
-    ["addIncorrect"],
-    async () => await addIncorrectNote(signId),
+export const addIncorrectData = () => {
+  const { mutate, isLoading, isSuccess, isError, data } = useMutation(
+    addIncorrectNote,
     {
-      retry: 0,
-    }
-  );
-  return { isLoading, error, data };
-};
-export const deleteIncorrectData = (signId: number) => {
-  const { isLoading, error, data, isSuccess, isError } = useQuery(
-    ["deleteIncorrect", signId],
-    async () => await deleteIncorrectNote(signId),
-    {
-      enabled: signId !== -1,
-      retry: 0,
-      onSuccess: () => {
-        console.log("성공");
+      onMutate: (variable) => {},
+      onError: (error, variable, context) => {
+        console.log(error);
       },
+      onSuccess: (data, variable, context) => {
+        console.log("오답노트 추가", variable);
+      },
+      onSettled: () => {},
     }
   );
-  return { isLoading, error, data, isSuccess, isError };
+  const addIncorrectList = useCallback(
+    (signId: number) => {
+      mutate(signId);
+      console.log("ss");
+    },
+    [mutate]
+  );
+
+  return { isLoading, data, isSuccess, addIncorrectList };
+};
+
+export const deleteIncorrectData = () => {
+  const { mutate, isLoading, data, isSuccess, isError } = useMutation(
+    deleteIncorrectNote,
+    {
+      onMutate: (variable) => {},
+      onError: (error, variable, context) => {
+        console.log(error);
+      },
+      onSuccess: (data, variable, context) => {
+        console.log("오답노트 삭제", variable);
+      },
+      onSettled: () => {},
+    }
+  );
+  const deleteIncorrectList = useCallback(
+    (signId: number) => {
+      mutate(signId);
+    },
+    [mutate]
+  );
+  return { isLoading, data, isSuccess, isError, deleteIncorrectList };
 };
 export const getIncorrectListData = () => {
   const { isLoading, error, data } = useQuery(
@@ -66,9 +86,7 @@ export const getIncorrectListData = () => {
     async () => await getIncorrectNoteList(),
     {
       retry: 0,
-      onSuccess: () => {
-        console.log("성공");
-      },
+      onSuccess: () => {},
     }
   );
   return { isLoading, error, data };
@@ -80,9 +98,7 @@ export const getIncorrectItemData = (signId: number) => {
     {
       enabled: signId !== -1,
       retry: 0,
-      onSuccess: () => {
-        console.log("성공");
-      },
+      onSuccess: () => {},
     }
   );
   return { isLoading, error, data };

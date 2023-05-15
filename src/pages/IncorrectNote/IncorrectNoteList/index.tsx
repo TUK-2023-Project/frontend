@@ -23,7 +23,6 @@ function IncorrectNotePage() {
 
   useEffect(() => {
     if (data !== undefined) {
-      console.log(data);
       setLabel([
         {
           labelName: WORD_TYPE[1],

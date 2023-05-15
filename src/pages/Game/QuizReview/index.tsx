@@ -44,7 +44,12 @@ const QuizReview = () => {
   usePreventGoBackEffect();
   usePreventCloseEffect();
 
+  const { addIncorrectList, isSuccess } = addIncorrectData();
+
   useEffect(() => {
+    if (isEnd) {
+      addIncorrectList(targetSignWord.id);
+    }
     void (async () => {
       const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
       const { pause } = await playAudio(sound);
@@ -53,12 +58,7 @@ const QuizReview = () => {
         pause();
       };
     })();
-  }, []);
-
-  if (isEnd) {
-    const { isLoading, error, data } = addIncorrectData(targetSignWord.id);
-    console.log(data);
-  }
+  }, [isEnd]);
 
   if (isLoading) {
     return <LoadingSpinner />;
