@@ -18,15 +18,6 @@ const getQuizList = async (solvedQuestion: number[], categoryId: number) => {
   return response.data;
 };
 
-const getQuizInfo = async (quizId: number) => {
-  const response = await axios.get("signlanguage/info/", {
-    params: {
-      sign_id: quizId,
-    },
-  });
-  return response.data;
-};
-
 export const loadNewQuestion = (
   solvedQuestion: number[],
   categoryId: number
@@ -38,13 +29,25 @@ export const loadNewQuestion = (
     async () => await getQuizList(solvedQuestion, categoryId),
     {
       retry: 0,
+      refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        dispatch(getNextQuestion(data.answer));
+        dispatch(getNextQuestion(data.state === "clear" ? -1 : data.answer));
       },
     }
   );
 
-  return { isLoading, error, data };
+  const allQuestionsSolved: boolean = Boolean(data) && data.state === "clear";
+
+  return { isLoading, error, data, allQuestionsSolved };
+};
+
+const getQuizInfo = async (quizId: number) => {
+  const response = await axios.get("signlanguage/info/", {
+    params: {
+      sign_id: quizId,
+    },
+  });
+  return response.data;
 };
 
 export const reviewQuizData = (quizId: number) => {
@@ -53,6 +56,7 @@ export const reviewQuizData = (quizId: number) => {
     async () => await getQuizInfo(quizId),
     {
       retry: 0,
+      refetchOnWindowFocus: false,
     }
   );
 
