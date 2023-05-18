@@ -34,8 +34,8 @@ function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
     centerPadding: "0px", // 0px 하면 슬라이드 끝쪽 이미지가 안잘림
   };
 
-  const clickModal = (open: boolean) => {
-    setOpenModal(open);
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   const handleClick = (signId: number) => {
@@ -67,7 +67,7 @@ function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
       {openModal ? (
         <DetailModal
           open={true}
-          clickModal={clickModal}
+          closeAction={handleCloseModal}
           signId={signId}
           word={data?.sign_language_info.word}
           img={data?.sign_language_info.photo_url}

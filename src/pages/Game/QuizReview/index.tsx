@@ -30,8 +30,9 @@ const QuizReview = () => {
   );
 
   const { submitRank } = useUpdateRank(redirectToRankPage);
-  const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
-
+  const { isLoading, error, data, isSuccess } = reviewQuizData(
+    targetSignWord.id
+  );
   const handleMove = () => {
     if (isEnd) {
       submitRank(score);
@@ -42,21 +43,23 @@ const QuizReview = () => {
 
   usePreventGoBackEffect();
 
+  const { addIncorrectList } = addIncorrectData();
+
+  useEffect(() => {
+    if (isSuccess && isEnd) {
+      addIncorrectList(targetSignWord.id);
+    }
+  }, [isSuccess]);
+
   useEffect(() => {
     void (async () => {
       const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
       const { pause } = await playAudio(sound);
-
       return () => {
         pause();
       };
     })();
   }, []);
-
-  if (isEnd) {
-    const { isLoading, error, data } = addIncorrectData(targetSignWord.id);
-    console.log(data);
-  }
 
   if (isLoading) {
     return <LoadingSpinner />;

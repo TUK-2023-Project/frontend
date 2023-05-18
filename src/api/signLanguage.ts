@@ -51,7 +51,7 @@ const getQuizInfo = async (quizId: number) => {
 };
 
 export const reviewQuizData = (quizId: number) => {
-  const { isLoading, error, data } = useQuery(
+  const { isLoading, error, data, isSuccess } = useQuery(
     ["getQuizInfo", quizId],
     async () => await getQuizInfo(quizId),
     {
@@ -60,5 +60,5 @@ export const reviewQuizData = (quizId: number) => {
     }
   );
 
-  return { isLoading, error, data };
+  return { isLoading, error, data, isSuccess };
 };
