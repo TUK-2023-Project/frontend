@@ -4,7 +4,7 @@ import { deleteIncorrectData } from "api/incorrectNote";
 
 interface DetailProps {
   open: boolean;
-  clickModal: (open: boolean) => void;
+  closeAction: () => void;
   signId: number;
   word?: string;
   img?: string;
@@ -14,7 +14,7 @@ interface DetailProps {
 // 오답노트 상세내용(모달)
 function DetailModal({
   open,
-  clickModal,
+  closeAction,
   signId,
   word,
   img,
@@ -24,8 +24,7 @@ function DetailModal({
 
   // 모달 상태 변경
   const openModalHandler = () => {
-    setIsOpen(!isOpen);
-    clickModal(!isOpen);
+    closeAction();
   };
 
   const { deleteIncorrectList, isSuccess, isError } = deleteIncorrectData();
@@ -40,10 +39,10 @@ function DetailModal({
   useEffect(() => {
     if (isSuccess) {
       alert("삭제되었습니다.");
-      clickModal(!isOpen);
+      closeAction();
     } else if (isError) {
       alert("삭제를 실패하였습니다.");
-      clickModal(!isOpen);
+      closeAction();
     }
   }, [isSuccess, isError]);
 

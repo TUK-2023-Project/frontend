@@ -26,8 +26,8 @@ function MainPage() {
     console.log(modalOpen);
   }, [modalOpen]);
 
-  const clickModal = (open: boolean) => {
-    setModalOpen(open);
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -94,7 +94,7 @@ function MainPage() {
           </div>
         )}
       </div>
-      <AboutModal open={modalOpen} clickModal={clickModal} />
+      <AboutModal open={modalOpen} closeAction={handleCloseModal} />
     </>
   );
 }

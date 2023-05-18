@@ -3,13 +3,13 @@ import styles from "./AboutModal.module.scss";
 
 interface AboutModalProps {
   open: boolean;
-  clickModal: (open: boolean) => void;
+  closeAction: () => void;
 }
 
-function AboutModal({ open, clickModal }: AboutModalProps) {
+function AboutModal({ open, closeAction }: AboutModalProps) {
   // 모달 상태 변경
   const openModalHandler = () => {
-    clickModal(!open);
+    closeAction();
   };
   return (
     <>
