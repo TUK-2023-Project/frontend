@@ -30,9 +30,10 @@ const QuizReview = () => {
       state.SignQuiz.targetSignWord
   );
 
-  const { submitRank } = useUpdateRank(redirectToRankPage);
-  const { isLoading, error, data } = reviewQuizData(targetSignWord.id);
-
+  const { submitRank, isSuccess2 } = useUpdateRank(redirectToRankPage);
+  const { isLoading, error, data, isSuccess } = reviewQuizData(
+    targetSignWord.id
+  );
   const handleMove = () => {
     if (isEnd) {
       submitRank(score);
@@ -44,21 +45,25 @@ const QuizReview = () => {
   usePreventGoBackEffect();
   usePreventCloseEffect();
 
-  const { addIncorrectList, isSuccess } = addIncorrectData();
+  const { addIncorrectList } = addIncorrectData();
+  console.log("호출몇번이나되는거냐");
 
   useEffect(() => {
-    if (isEnd) {
+    if (isSuccess && isEnd) {
       addIncorrectList(targetSignWord.id);
     }
+  }, [isSuccess]);
+
+  useEffect(() => {
     void (async () => {
       const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
       const { pause } = await playAudio(sound);
-
       return () => {
+        console.log("dd");
         pause();
       };
     })();
-  }, [isEnd]);
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;

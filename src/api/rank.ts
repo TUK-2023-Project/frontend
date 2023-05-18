@@ -18,7 +18,12 @@ const getSelfRank = async () => {
 };
 
 export const useUpdateRank = (onSuccess: () => void) => {
-  const { isLoading, error, mutate } = useMutation(updateRankInfo, {
+  const {
+    isLoading,
+    error,
+    mutate,
+    isSuccess: isSuccess2,
+  } = useMutation(updateRankInfo, {
     onError: (error) => {
       console.log("랭킹 등록 실패", error);
     },
@@ -32,7 +37,7 @@ export const useUpdateRank = (onSuccess: () => void) => {
     mutate(gameScore);
   };
 
-  return { isLoading, error, submitRank };
+  return { isLoading, error, submitRank, isSuccess2 };
 };
 
 export const loadRankList = () => {
