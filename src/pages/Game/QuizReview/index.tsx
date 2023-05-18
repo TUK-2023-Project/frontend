@@ -30,7 +30,7 @@ const QuizReview = () => {
       state.SignQuiz.targetSignWord
   );
 
-  const { submitRank, isSuccess2 } = useUpdateRank(redirectToRankPage);
+  const { submitRank } = useUpdateRank(redirectToRankPage);
   const { isLoading, error, data, isSuccess } = reviewQuizData(
     targetSignWord.id
   );
@@ -46,7 +46,6 @@ const QuizReview = () => {
   usePreventCloseEffect();
 
   const { addIncorrectList } = addIncorrectData();
-  console.log("호출몇번이나되는거냐");
 
   useEffect(() => {
     if (isSuccess && isEnd) {
@@ -59,7 +58,6 @@ const QuizReview = () => {
       const sound = isEnd ? "/sounds/wrong.mp3" : "/sounds/answer.mp3";
       const { pause } = await playAudio(sound);
       return () => {
-        console.log("dd");
         pause();
       };
     })();
