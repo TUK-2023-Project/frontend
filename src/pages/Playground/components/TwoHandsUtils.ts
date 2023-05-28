@@ -57,45 +57,7 @@ const setHandDetector = async () => {
     maxHands: 2,
   };
 
-  const detector = await handPoseDetection.createDetector(
-    hands,
-    detectorConfig
-  );
-
-  return detector;
-
-  // const modifiedDetector = {
-  //   ...detector,
-  //   estimateHands: async (image: any) => {
-  //     const result = await detector.estimateHands(image);
-  //     let leftHand, rightHand;
-
-  //     // hands 배열의 길이에 따라 처리를 진행
-  //     switch (result.length) {
-  //       case 0:
-  //         leftHand = new Array(21).fill(0); // 왼손 배열 생성
-  //         rightHand = new Array(21).fill(0); // 오른손 배열 생성
-  //         break;
-  //       case 1:
-  //         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  //         leftHand = (result[0] as any).landmarks || new Array(21).fill(0); // 왼손 배열 생성
-  //         rightHand = new Array(21).fill(0); // 오른손 배열 생성
-  //         break;
-  //       case 2:
-  //         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  //         leftHand = (result[0] as any)?.landmarks || new Array(21).fill(0); // 왼손 배열 생성
-  //         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  //         rightHand = (result[0] as any)?.landmarks || new Array(21).fill(0); // 오른손 배열 생성
-  //         return result;
-  //       default:
-  //         return result;
-  //     }
-
-  //     return [leftHand, rightHand];
-  //   },
-  // };
-
-  // return modifiedDetector;
+  return await handPoseDetection.createDetector(hands, detectorConfig);
 };
 
 const drawhand = (predictions: any, ctx: any) => {

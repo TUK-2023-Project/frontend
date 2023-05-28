@@ -8,6 +8,11 @@ interface HandTypeProps {
   right: TwoHandProps[];
 }
 
+interface HandResult {
+  handedness: string;
+  keypoints3D: TwoHandProps[];
+}
+
 interface TwoHandProps {
   x: number;
   y: number;
@@ -77,7 +82,6 @@ function TwoHands() {
   const runHandpose = async () => {
     const net = await setHandDetector();
     console.log("Handpose model Loaded twohand");
-    console.log(net);
 
     setInterval(() => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -87,6 +91,61 @@ function TwoHands() {
 
   // 미디어파이프를 이용하여 손 좌표값 뽑아내기
   const detect = async (net: any) => {
+    const modifiedDetector = {
+      ...net,
+      estimateHands: async (video: any) => {
+        const result = await net.estimateHands(video);
+        let leftH: HandResult = {
+          handedness: "",
+          keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+        };
+        let rightH: HandResult = {
+          handedness: "",
+          keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+        };
+        // hands 배열의 길이에 따라 처리를 진행
+        switch (result.length) {
+          case 0:
+            leftH = {
+              handedness: "",
+              keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+            }; // 왼손 배열 생성
+            rightH = {
+              handedness: "",
+              keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+            }; // 오른손 배열 생성
+            break;
+          case 1:
+            if (result[0].handedness === "Left") {
+              leftH = result[0]; // 왼손 배열 생성
+              rightH = {
+                handedness: "Right",
+                keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+              }; // 오른손 배열 생성
+            } else if (result[0].handedness === "Right") {
+              leftH = {
+                handedness: "Left",
+                keypoints3D: Array(21).fill({ x: 0, y: 0, z: 0 }),
+              }; // 왼손 배열 생성
+              rightH = result[0]; // 오른손 배열 생성
+            }
+
+            break;
+          case 2:
+            if (result[0].handedness === "Left") {
+              leftH = result[0]; // 왼손 배열 생성
+              rightH = result[1]; // 오른손 배열 생성
+            } else if (result[0].handedness === "Right") {
+              rightH = result[0]; // 오른손 배열 생성
+              leftH = result[1]; // 왼손 배열 생성
+            }
+            break;
+          default:
+            return result;
+        }
+        return [leftH, rightH];
+      },
+    };
     // Check data is available
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -105,86 +164,40 @@ function TwoHands() {
       // Set canvas height and width
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
-      // 주석처리한 부분이 아까 보여준 결과값대로 니옴
-      // 키포인트 개수
-      const numKeypoints = 21;
-      // Make Detections
-      // const hand = await net.estimateHands(video);
 
-      /* chatGPT가 제안한 해결법 */
-      const modifiedDetector = {
-        ...net,
-        estimateHands: async (video: any) => {
-          const result = await net.estimateHands(video);
-          let leftHand, rightHand;
-          console.log("left", leftHand);
-          console.log("right", rightHand);
+      const [leftH, rightH] = await modifiedDetector.estimateHands(video);
 
-          // hands 배열의 길이에 따라 처리를 진행
-          switch (result.length) {
-            case 0:
-              leftHand = new Array(21).fill(0); // 왼손 배열 생성
-              rightHand = new Array(21).fill(0); // 오른손 배열 생성
-              break;
-            case 1:
-              // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-              leftHand = result[0].landmarks || new Array(21).fill(0); // 왼손 배열 생성
-              rightHand = new Array(21).fill(0); // 오른손 배열 생성
-              break;
-            case 2:
-              // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-              leftHand = result[0]?.landmarks || new Array(21).fill(0); // 왼손 배열 생성
-              // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-              rightHand = result[0]?.landmarks || new Array(21).fill(0); // 오른손 배열 생성
-              return result;
-            default:
-              return result;
+      // console.log("LeftHand:", leftH, "//", "RightHand:", rightH);
+
+      if (leftH !== undefined && rightH !== undefined) {
+        if (leftH?.handedness !== "" && rightH?.handedness !== "") {
+          for (let i = 0; i < 21; i++) {
+            setLeftHand((oldArray: any) => [
+              ...oldArray,
+              {
+                x: leftH.keypoints3D[i]?.x,
+                y: leftH.keypoints3D[i]?.y,
+                z: leftH.keypoints3D[i]?.z,
+              },
+            ]);
+            setRightHand((oldArray: any) => [
+              ...oldArray,
+              {
+                x: rightH.keypoints3D[i]?.x,
+                y: rightH.keypoints3D[i]?.y,
+                z: rightH.keypoints3D[i]?.z,
+              },
+            ]);
           }
-          return [leftHand, rightHand];
-        },
-      };
-
-      // if (hand.length !== 0) {
-      //   for (let i = 0; i < hand.length; i++) {
-      //     console.log(hand[i]);
-      //     if (hand[i].handedness === "Left") {
-      //       setLeftHand((oldArray: any) => [
-      //         ...oldArray,
-      //         {
-      //           x: hand[i].keypoints3D[i].x,
-      //           y: hand[i].keypoints3D[i].y,
-      //           z: hand[i].keypoints3D[i].z,
-      //         },
-      //       ]);
-      //       setRightHand((oldArray: any) => [
-      //         ...oldArray,
-      //         {
-      //           x: 0,
-      //           y: 0,
-      //           z: 0,
-      //         },
-      //       ]);
-      //     } else if (hand[i].handedness === "Right") {
-      //       setRightHand((oldArray: any) => [
-      //         ...oldArray,
-      //         {
-      //           x: hand[i].keypoints3D[i].x,
-      //           y: hand[i].keypoints3D[i].y,
-      //           z: hand[i].keypoints3D[i].z,
-      //         },
-      //       ]);
-      //     }
-      //   }
-      // }
+        }
+      }
       // Draw mesh
-      const ctx = canvasRef.current.getContext("2d");
+      // const ctx = canvasRef.current.getContext("2d");
       // drawhand(hand, ctx);
     }
   };
 
-  if (leftHand.length > 19 || rightHand.length > 19) {
-    setLeftHand([]);
-    setRightHand([]);
+  if (leftHand.length > 20 || rightHand.length > 20) {
     setMediaPipe((oldArray: any) => [
       ...oldArray,
       {
@@ -192,8 +205,11 @@ function TwoHands() {
         right: rightHand,
       },
     ]);
+    setLeftHand([]);
+    setRightHand([]);
   }
   // landmark 20개씩 모으기
+
   if (mediaPipe.length > 2) {
     console.log(mediaPipe);
     setMediaPipe([]);
