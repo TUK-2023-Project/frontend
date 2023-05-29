@@ -204,9 +204,9 @@ function TwoHands() {
     setLeftHand([]);
     setRightHand([]);
   }
-  // landmark 20개씩 모으기
 
-  if (mediaPipe.length > 3) {
+  // landmark 50개씩 모으기
+  if (mediaPipe.length > 49) {
     console.log(mediaPipe);
     setMediaPipe([]);
   }
