@@ -53,17 +53,19 @@ function TwoHands() {
   // 웹소켓 연결 후, 20개씩 손좌표값 보내기
   useEffect(() => {
     if (ws.current.readyState === WebSocket.OPEN) {
-      if (mediaPipe.length < 19) return;
-      console.log(mediaPipe.length);
-      console.log("send");
-
-      ws.current.send(
-        JSON.stringify({
-          message: mediaPipe,
-          categoryId: 1,
-        })
-      );
-      setSendMsg(true);
+      // landmark 50개씩 모으기
+      if (mediaPipe.length > 49) {
+        console.log("send");
+        console.log(mediaPipe);
+        ws.current.send(
+          JSON.stringify({
+            message: mediaPipe,
+            categoryId: 1,
+          })
+        );
+        setSendMsg(true);
+        setMediaPipe([]);
+      }
     }
   }, [mediaPipe, socketConnected]);
 
@@ -203,12 +205,6 @@ function TwoHands() {
     ]);
     setLeftHand([]);
     setRightHand([]);
-  }
-
-  // landmark 50개씩 모으기
-  if (mediaPipe.length > 49) {
-    console.log(mediaPipe);
-    setMediaPipe([]);
   }
 
   useEffect(() => {
