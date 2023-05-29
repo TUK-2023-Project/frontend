@@ -167,28 +167,24 @@ function TwoHands() {
 
       const [leftH, rightH] = await modifiedDetector.estimateHands(video);
 
-      // console.log("LeftHand:", leftH, "//", "RightHand:", rightH);
-
       if (leftH !== undefined && rightH !== undefined) {
         if (leftH?.handedness !== "" && rightH?.handedness !== "") {
+          const newLeftHand: TwoHandProps[] = [];
+          const newRightHand: TwoHandProps[] = [];
           for (let i = 0; i < 21; i++) {
-            setLeftHand((oldArray: any) => [
-              ...oldArray,
-              {
-                x: leftH.keypoints3D[i]?.x,
-                y: leftH.keypoints3D[i]?.y,
-                z: leftH.keypoints3D[i]?.z,
-              },
-            ]);
-            setRightHand((oldArray: any) => [
-              ...oldArray,
-              {
-                x: rightH.keypoints3D[i]?.x,
-                y: rightH.keypoints3D[i]?.y,
-                z: rightH.keypoints3D[i]?.z,
-              },
-            ]);
+            newLeftHand.push({
+              x: leftH.keypoints3D[i]?.x,
+              y: leftH.keypoints3D[i]?.y,
+              z: leftH.keypoints3D[i]?.z,
+            });
+            newRightHand.push({
+              x: rightH.keypoints3D[i]?.x,
+              y: rightH.keypoints3D[i]?.y,
+              z: rightH.keypoints3D[i]?.z,
+            });
           }
+          setLeftHand(newLeftHand);
+          setRightHand(newRightHand);
         }
       }
       // Draw mesh
@@ -210,7 +206,7 @@ function TwoHands() {
   }
   // landmark 20개씩 모으기
 
-  if (mediaPipe.length > 2) {
+  if (mediaPipe.length > 3) {
     console.log(mediaPipe);
     setMediaPipe([]);
   }
