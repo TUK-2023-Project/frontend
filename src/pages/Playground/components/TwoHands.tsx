@@ -60,7 +60,7 @@ function TwoHands() {
         ws.current.send(
           JSON.stringify({
             message: mediaPipe,
-            categoryId: 1,
+            categoryId: 3,
           })
         );
         setSendMsg(true);
