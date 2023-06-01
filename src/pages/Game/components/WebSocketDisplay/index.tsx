@@ -54,7 +54,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
     }
   }, []);
 
-  // 웹소켓 연결 후, 30개씩 손좌표값 보내기
+  // 웹소켓 연결 후, 20개씩 손좌표값 보내기
   useEffect(() => {
     if (open && ws.current.readyState === WebSocket.OPEN) {
       if (mediaPipe.length < 19) return;
@@ -131,7 +131,7 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
     }
   };
 
-  // landmark 30개씩 모으기
+  // landmark 20개씩 모으기
   if (mediaPipe.length > 19) {
     setMediaPipe([]);
   }
