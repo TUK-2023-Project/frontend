@@ -3,6 +3,9 @@ import { setHandDetector, drawhand } from "./TwoHandsUtils";
 import Webcam from "react-webcam";
 import styles from "../handDetection.module.scss";
 
+import { useDispatch } from "react-redux";
+import { correctQuestion } from "redux/actions/SignQuizActions";
+
 interface HandTypeProps {
   left: TwoHandProps[];
   right: TwoHandProps[];
@@ -19,7 +22,12 @@ interface TwoHandProps {
   z: number;
 }
 
-function TwoHands() {
+interface propsType {
+  open: boolean;
+  targetWord: string;
+}
+
+function TwoHands({ open, targetWord }: propsType) {
   const webcamRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
   const [leftHand, setLeftHand] = useState<TwoHandProps[]>([]);
@@ -29,6 +37,12 @@ function TwoHands() {
   const [sendMsg, setSendMsg] = useState<boolean>(false);
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
+
+  const dispatch = useDispatch();
+
+  const handleSucess = () => {
+    dispatch(correctQuestion());
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -52,7 +66,7 @@ function TwoHands() {
 
   // 웹소켓 연결 후, 50개씩 손좌표값 보내기
   useEffect(() => {
-    if (ws.current.readyState === WebSocket.OPEN) {
+    if (open && ws.current.readyState === WebSocket.OPEN) {
       // landmark 50개씩 모으기
       if (mediaPipe.length > 49) {
         console.log("send");
@@ -76,9 +90,13 @@ function TwoHands() {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
+        if (data.message === targetWord) {
+          console.log("정답입니다!");
+          handleSucess();
+        }
       };
     }
-  }, [sendMsg]);
+  }, [sendMsg, targetWord]);
 
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {

@@ -28,3 +28,7 @@ export const selectCategory = (id: number) => ({
   type: "SET_CATEGORY",
   id,
 });
+
+export const usingTwoHandsMode = () => ({
+  type: "SET_TWOHANDS_MODEL",
+});

@@ -4,7 +4,11 @@ import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
 import { useSelector, useDispatch } from "react-redux";
 
-import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
+import {
+  correctQuestion,
+  moveNextStage,
+  usingTwoHandsMode,
+} from "redux/actions/SignQuizActions";
 
 import styles from "../handDetection.module.scss";
 
@@ -25,11 +29,16 @@ function OneHand({ open, targetWord, isInit }: propsType) {
   const categoryId = useSelector(
     (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
   );
+
   const dispatch = useDispatch();
 
   const handleSucess = () => {
     if (!isInit) {
       dispatch(correctQuestion());
+    }
+
+    if (categoryId === 3) {
+      dispatch(usingTwoHandsMode());
     }
     dispatch(moveNextStage());
   };

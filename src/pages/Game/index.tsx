@@ -5,7 +5,8 @@ import QuizReview from "./QuizReview";
 import CategorySelection from "./CategorySelection";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
-import WebSocketDisplay from "./components/HandDetection/OneHand";
+import OneHand from "./components/HandDetection/OneHand";
+import TwoHands from "./components/HandDetection/TwoHands";
 
 const gamePage = (): JSX.Element => {
   const [scoreValue, setScoreValue] = useState(0);
@@ -23,6 +24,11 @@ const gamePage = (): JSX.Element => {
 
   const categoryId = useSelector(
     (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
+  );
+
+  const useTwoHandsModal = useSelector(
+    (state: { SignQuiz: { useTwoHandsModal: boolean } }) =>
+      state.SignQuiz.useTwoHandsModal
   );
 
   const handleCameraOpen = (): boolean => {
@@ -84,17 +90,39 @@ const gamePage = (): JSX.Element => {
       <div>{renderPage()}</div>
 
       {categoryId !== -1 && (
-        <div
-          className={`${styles["camera-wrapper"]} ${
-            stageState === -1 ? styles["camera-wrapper--first"] : ""
-          } ${handleCameraOpen() ? styles["camera-wrapper--visible"] : ""}`}
-        >
-          <WebSocketDisplay
-            open={Boolean(handleCameraOpen())}
-            targetWord={targetSignWord}
-            isInit={stageState === -1}
-          />
-        </div>
+        <>
+          <div
+            className={`${styles["camera-wrapper"]} ${
+              stageState === -1 ? styles["camera-wrapper--first"] : ""
+            } ${
+              handleCameraOpen() && !useTwoHandsModal
+                ? styles["camera-wrapper--visible"]
+                : ""
+            }`}
+          >
+            <OneHand
+              open={Boolean(handleCameraOpen())}
+              targetWord={targetSignWord}
+              isInit={stageState === -1}
+            />
+            {/* <TwoHands open={Boolean(false)} targetWord={targetSignWord} /> */}
+          </div>
+
+          <div
+            className={`${styles["camera-wrapper"]} ${
+              stageState === -1 ? styles["camera-wrapper--first"] : ""
+            } ${
+              handleCameraOpen() && useTwoHandsModal
+                ? styles["camera-wrapper--visible"]
+                : ""
+            }`}
+          >
+            <TwoHands
+              open={Boolean(handleCameraOpen())}
+              targetWord={targetSignWord}
+            />
+          </div>
+        </>
       )}
     </div>
   );
