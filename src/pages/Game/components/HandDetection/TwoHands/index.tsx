@@ -3,7 +3,7 @@ import { setHandDetector, drawhand } from "./TwoHandsUtils";
 import Webcam from "react-webcam";
 import styles from "../handDetection.module.scss";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
 interface HandTypeProps {
@@ -38,6 +38,9 @@ function TwoHands({ open, targetWord }: propsType) {
   const webSocketUrl = `ws://0.0.0.0:8000/ws/signlanguage/`;
   const ws = useRef<any>(null);
 
+  const stageState = useSelector(
+    (state: { SignQuiz: { stageState: number } }) => state.SignQuiz.stageState
+  );
   const dispatch = useDispatch();
 
   const handleSucess = () => {
@@ -91,7 +94,7 @@ function TwoHands({ open, targetWord }: propsType) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
-        if (data.message === targetWord) {
+        if (data.message === targetWord && stageState === 1) {
           console.log("정답입니다!");
           handleSucess();
         }
