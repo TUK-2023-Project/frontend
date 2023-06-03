@@ -8,10 +8,22 @@ const CategorySelection = () => {
   const dispatch = useDispatch();
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(-1);
+  const [infoMessage, setInfoMessage] = useState("");
+
   const handleClick = (index: number) => {
     if (selectedButtonIndex !== index) {
       setSelectedButtonIndex(index);
       dispatch(selectCategory(index + 1));
+    }
+
+    if (index === 2) {
+      setInfoMessage(
+        "단어&문장의 경우 두 손을 활용해 게임을 진행해주세요 (두 손)"
+      );
+    } else {
+      setInfoMessage(
+        "자음, 모음의 경우 오른손을 이용해 게임을 진행해주세요 (한 손)"
+      );
     }
   };
 
@@ -41,7 +53,7 @@ const CategorySelection = () => {
             fontWeight: "bold",
           }}
         >
-          {"자음, 모음의 경우 오른손을 이용해 게임을 진행해주세요 (한 손)"}
+          {infoMessage}
         </h1>
       </div>
 
