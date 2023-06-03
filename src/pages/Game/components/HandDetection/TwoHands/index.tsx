@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 import styles from "../handDetection.module.scss";
 
 import { useDispatch } from "react-redux";
-import { correctQuestion } from "redux/actions/SignQuizActions";
+import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
 
 interface HandTypeProps {
   left: TwoHandProps[];
@@ -42,6 +42,7 @@ function TwoHands({ open, targetWord }: propsType) {
 
   const handleSucess = () => {
     dispatch(correctQuestion());
+    dispatch(moveNextStage());
   };
 
   useEffect(() => {
