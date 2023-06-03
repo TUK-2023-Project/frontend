@@ -2,19 +2,6 @@ import * as handPoseDetection from "@tensorflow-models/hand-pose-detection";
 import "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
 
-// interface fingerJointsProps {
-//   thumb: number[];
-//   indexFinger: number[];
-//   middleFinger: number[];
-//   ringFinger: number[];
-//   pinky: number[];
-// }
-
-// interface styleProps {
-//   color: string;
-//   size: number;
-// }
-
 // Points for fingers
 const fingerJoints = {
   thumb: [0, 1, 2, 3, 4],
