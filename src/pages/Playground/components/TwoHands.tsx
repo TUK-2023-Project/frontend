@@ -50,7 +50,7 @@ function TwoHands() {
     }
   }, []);
 
-  // 웹소켓 연결 후, 20개씩 손좌표값 보내기
+  // 웹소켓 연결 후, 50개씩 손좌표값 보내기
   useEffect(() => {
     if (ws.current.readyState === WebSocket.OPEN) {
       // landmark 50개씩 모으기
@@ -190,8 +190,8 @@ function TwoHands() {
         }
       }
       // Draw mesh
-      // const ctx = canvasRef.current.getContext("2d");
-      // drawhand(hand, ctx);
+      const ctx = canvasRef.current.getContext("2d");
+      drawhand(leftH.keypoints, rightH.keypoints, ctx);
     }
   };
 

@@ -49,7 +49,6 @@ export const drawHand = (predictions, ctx) => {
           // Get pairs of joints
           const firstJointIndex = fingerJoints[finger][k];
           const secondeJointIndex = fingerJoints[finger][k + 1];
-
           // Draw path
           ctx.beginPath();
           ctx.moveTo(
