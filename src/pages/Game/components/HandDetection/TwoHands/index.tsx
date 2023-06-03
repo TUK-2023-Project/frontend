@@ -94,13 +94,13 @@ function TwoHands({ open, targetWord }: propsType) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
-        if (data.message === targetWord && stageState === 1) {
+        if (stageState === 1 && data.message === targetWord) {
           console.log("정답입니다!");
           handleSucess();
         }
       };
     }
-  }, [sendMsg, targetWord]);
+  }, [sendMsg, targetWord, stageState]);
 
   // 0.1초마다 손움직임 감지
   const runHandpose = async () => {
