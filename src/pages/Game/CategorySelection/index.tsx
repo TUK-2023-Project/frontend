@@ -61,7 +61,7 @@ const CategorySelection = () => {
           isSelected={selectedButtonIndex === 1}
         />
         <CommonButton
-          buttonName={"알파벳"}
+          buttonName={"단어&문장"}
           handleClick={() => {
             handleClick(2);
           }}
