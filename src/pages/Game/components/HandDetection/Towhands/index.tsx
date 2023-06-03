@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { setHandDetector, drawhand } from "./TwoHandsUtils";
 import Webcam from "react-webcam";
-import styles from "../../Game/components/WebSocketDisplay/WebSocketDisplay.module.scss";
+import styles from "../handDetection.module.scss";
 
 interface HandTypeProps {
   left: TwoHandProps[];

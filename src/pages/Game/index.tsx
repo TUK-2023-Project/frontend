@@ -5,7 +5,7 @@ import QuizReview from "./QuizReview";
 import CategorySelection from "./CategorySelection";
 import { useSelector } from "react-redux";
 import styles from "./game.module.scss";
-import WebSocketDisplay from "./components/WebSocketDisplay";
+import WebSocketDisplay from "./components/HandDetection/OneHand";
 
 const gamePage = (): JSX.Element => {
   const [scoreValue, setScoreValue] = useState(0);

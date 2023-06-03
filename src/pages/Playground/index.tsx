@@ -1,6 +1,6 @@
 import React from "react";
 import "./PlaygroundPage.scss"; // scss 임포트
-import TwoHands from "./components/TwoHands";
+import TwoHands from "pages/Game/components/HandDetection/Towhands";
 
 function PlaygroudPage() {
   return (
