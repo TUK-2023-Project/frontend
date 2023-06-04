@@ -32,6 +32,10 @@ function IncorrectNotePage() {
           labelName: WORD_TYPE[2],
           labelList: data.filter((item: any) => item.wordtype === "2"),
         },
+        {
+          labelName: WORD_TYPE[3],
+          labelList: data.filter((item: any) => item.wordtype === "3"),
+        },
       ]);
     }
   }, [data]);
