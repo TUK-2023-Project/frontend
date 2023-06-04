@@ -4,9 +4,13 @@ import Webcam from "react-webcam";
 import { drawHand } from "utils/FingerLandmarks";
 import { useSelector, useDispatch } from "react-redux";
 
-import { correctQuestion, moveNextStage } from "redux/actions/SignQuizActions";
+import {
+  correctQuestion,
+  moveNextStage,
+  usingTwoHandsMode,
+} from "redux/actions/SignQuizActions";
 
-import styles from "./WebSocketDisplay.module.scss";
+import styles from "../handDetection.module.scss";
 
 interface propsType {
   open: boolean;
@@ -14,7 +18,7 @@ interface propsType {
   isInit: boolean;
 }
 
-function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
+function OneHand({ open, targetWord, isInit }: propsType) {
   const webcamRef = useRef<any>(null);
   const canvasRef = useRef<any>(null);
   const [mediaPipe, setMediaPipe] = useState([] as any);
@@ -25,11 +29,16 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
   const categoryId = useSelector(
     (state: { SignQuiz: { categoryId: number } }) => state.SignQuiz.categoryId
   );
+
   const dispatch = useDispatch();
 
   const handleSucess = () => {
     if (!isInit) {
       dispatch(correctQuestion());
+    }
+
+    if (categoryId === 3) {
+      dispatch(usingTwoHandsMode());
     }
     dispatch(moveNextStage());
   };
@@ -158,4 +167,4 @@ function WebSocketDisplay({ open, targetWord, isInit }: propsType) {
     </div>
   );
 }
-export default WebSocketDisplay;
+export default OneHand;

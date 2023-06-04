@@ -10,6 +10,7 @@ const InitialState = {
   stageState: -1,
   stageLevel: 1,
   isEnd: false,
+  useTwoHandsModal: false,
   solvedQuestion: [] as number[],
 };
 
@@ -60,6 +61,12 @@ export const SignQuizReducer = (state = InitialState, action: any) => {
       return {
         ...state,
         categoryId: action.id,
+      };
+
+    case "SET_TWOHANDS_MODEL":
+      return {
+        ...state,
+        useTwoHandsModal: true,
       };
 
     default:

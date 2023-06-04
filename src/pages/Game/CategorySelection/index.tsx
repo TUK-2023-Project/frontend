@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectCategory } from "redux/actions/SignQuizActions";
 import CommonButton from "components/CommonButton";
@@ -8,10 +8,22 @@ const CategorySelection = () => {
   const dispatch = useDispatch();
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(-1);
+  const [infoMessage, setInfoMessage] = useState("");
+
   const handleClick = (index: number) => {
     if (selectedButtonIndex !== index) {
       setSelectedButtonIndex(index);
       dispatch(selectCategory(index + 1));
+    }
+
+    if (index === 2) {
+      setInfoMessage(
+        "단어&문장의 경우 두 손을 활용해 게임을 진행해주세요 (두 손)"
+      );
+    } else {
+      setInfoMessage(
+        "자음, 모음의 경우 오른손을 이용해 게임을 진행해주세요 (한 손)"
+      );
     }
   };
 
@@ -41,7 +53,7 @@ const CategorySelection = () => {
             fontWeight: "bold",
           }}
         >
-          {"자음, 모음의 경우 오른손을 이용해 게임을 진행해주세요 (한 손)"}
+          {infoMessage}
         </h1>
       </div>
 
@@ -61,7 +73,7 @@ const CategorySelection = () => {
           isSelected={selectedButtonIndex === 1}
         />
         <CommonButton
-          buttonName={"알파벳"}
+          buttonName={"단어&문장"}
           handleClick={() => {
             handleClick(2);
           }}
