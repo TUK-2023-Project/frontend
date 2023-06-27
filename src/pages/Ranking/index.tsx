@@ -6,14 +6,13 @@ import styles from "./Ranking.module.scss";
 import CommonButton from "components/CommonButton";
 import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
-import { loadRankList, loadSelfRank } from "api/rank";
+import { loadRankData } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
 import { shareKakao } from "../../utils/shareKakaoLink";
 import { playAudio } from "utils/audioPlayer";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
-import IsLogin from "utils/auth";
 
 interface Rank {
   rank: number;
@@ -59,23 +58,9 @@ const Ranking = () => {
     };
   }, []);
 
-  // TODO 두 useQuery 묶어서 처리해야합니다 [6/27]
-  const { isLoading, error, data } = loadRankList();
-  const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank(
-    IsLogin()
-  );
-
-  //   import IsLogin from "./IsLogin";
-  // import MainPage from "pages/MainPage";
-
-  // export default function PrivatePage({ Component, text, link }: any) {
-  //   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (!IsLogin()) {
-  //       navigate(link, { replace: true });
-  //       alert(text);
-  //     }
-  //   }, [IsLogin]);
+  const [rankListResult, selfRankResult] = loadRankData(isEnd);
+  const { isLoading: rankListLoading, data: rankList } = rankListResult;
+  const { isLoading: selfRankLoading, data: selfRank } = selfRankResult;
 
   useEffect(() => {
     if (isEnd) {
@@ -90,7 +75,7 @@ const Ranking = () => {
     }
   }, []);
 
-  if (isLoading || selfRankLoading) {
+  if (rankListLoading || (isEnd && selfRankLoading)) {
     return <LoadingSpinner />;
   }
   return (
@@ -128,7 +113,7 @@ const Ranking = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((item: Rank) => (
+              {rankList?.map((item: Rank) => (
                 <tr key={item.user_name}>
                   <td>{item.rank}</td>
                   <td>{item.user_name}</td>
