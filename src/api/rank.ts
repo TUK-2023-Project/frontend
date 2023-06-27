@@ -49,13 +49,14 @@ export const loadRankList = () => {
   return { isLoading, error, data };
 };
 
-export const loadSelfRank = () => {
+export const loadSelfRank = (isLogin: boolean) => {
   const { isLoading, error, data } = useQuery(
     ["getSelfRank"],
     async () => {
       return await getSelfRank();
     },
     {
+      enabled: isLogin,
       retry: 0,
     }
   );

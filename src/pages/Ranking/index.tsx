@@ -13,6 +13,7 @@ import handLottie from "lotties/rank.json";
 import { shareKakao } from "../../utils/shareKakaoLink";
 import { playAudio } from "utils/audioPlayer";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import IsLogin from "utils/auth";
 
 interface Rank {
   rank: number;
@@ -58,8 +59,23 @@ const Ranking = () => {
     };
   }, []);
 
+  // TODO 두 useQuery 묶어서 처리해야합니다 [6/27]
   const { isLoading, error, data } = loadRankList();
-  const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank();
+  const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank(
+    IsLogin()
+  );
+
+  //   import IsLogin from "./IsLogin";
+  // import MainPage from "pages/MainPage";
+
+  // export default function PrivatePage({ Component, text, link }: any) {
+  //   const navigate = useNavigate();
+  //   useEffect(() => {
+  //     if (!IsLogin()) {
+  //       navigate(link, { replace: true });
+  //       alert(text);
+  //     }
+  //   }, [IsLogin]);
 
   useEffect(() => {
     if (isEnd) {
