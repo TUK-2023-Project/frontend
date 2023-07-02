@@ -6,7 +6,7 @@ import styles from "./Ranking.module.scss";
 import CommonButton from "components/CommonButton";
 import { useNavigate } from "react-router-dom";
 import FlowerEfftect from "../Game/components/FlowerEffect";
-import { loadRankList, loadSelfRank } from "api/rank";
+import { loadRankData } from "api/rank";
 import LoadingSpinner from "components/LoadingSpinner";
 import { getLottieOptions } from "utils/lottie";
 import handLottie from "lotties/rank.json";
@@ -58,8 +58,9 @@ const Ranking = () => {
     };
   }, []);
 
-  const { isLoading, error, data } = loadRankList();
-  const { isLoading: selfRankLoading, data: selfRank } = loadSelfRank();
+  const [rankListResult, selfRankResult] = loadRankData(isEnd);
+  const { isLoading: rankListLoading, data: rankList } = rankListResult;
+  const { isLoading: selfRankLoading, data: selfRank } = selfRankResult;
 
   useEffect(() => {
     if (isEnd) {
@@ -74,7 +75,7 @@ const Ranking = () => {
     }
   }, []);
 
-  if (isLoading || selfRankLoading) {
+  if (rankListLoading || (isEnd && selfRankLoading)) {
     return <LoadingSpinner />;
   }
   return (
@@ -112,7 +113,7 @@ const Ranking = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((item: Rank) => (
+              {rankList?.map((item: Rank) => (
                 <tr key={item.user_name}>
                   <td>{item.rank}</td>
                   <td>{item.user_name}</td>

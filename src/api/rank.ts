@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueries } from "@tanstack/react-query";
 import axios from "./baseAxios";
 
 const updateRankInfo = async (gameScore: number) => {
@@ -35,30 +35,22 @@ export const useUpdateRank = (onSuccess: () => void) => {
   return { isLoading, error, submitRank };
 };
 
-export const loadRankList = () => {
-  const { isLoading, error, data } = useQuery(
-    ["getRankInfo"],
-    async () => {
-      return await getRankInfo();
-    },
-    {
-      retry: 0,
-    }
-  );
+export const loadRankData = (isEnd: boolean) => {
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["getRankInfo"],
+        queryFn: getRankInfo,
+        retry: 0,
+      },
+      {
+        queryKey: ["getSelfRank"],
+        queryFn: getSelfRank,
+        retry: 0,
+        enabled: isEnd,
+      },
+    ],
+  });
 
-  return { isLoading, error, data };
-};
-
-export const loadSelfRank = () => {
-  const { isLoading, error, data } = useQuery(
-    ["getSelfRank"],
-    async () => {
-      return await getSelfRank();
-    },
-    {
-      retry: 0,
-    }
-  );
-
-  return { isLoading, error, data };
+  return results;
 };

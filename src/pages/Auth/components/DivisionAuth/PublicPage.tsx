@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import IsLogin from "./IsLogin";
+import IsLogin from "utils/auth";
 import MainPage from "pages/MainPage";
 
 export default function PublicPage({ Component, text, link }: any) {
