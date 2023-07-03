@@ -11,6 +11,7 @@ import {
 } from "redux/actions/SignQuizActions";
 
 import styles from "../handDetection.module.scss";
+import { SIGN_WORD } from "utils/constants";
 
 interface propsType {
   open: boolean;
@@ -69,11 +70,13 @@ function OneHand({ open, targetWord, isInit }: propsType) {
       if (mediaPipe.length < 19) return;
       console.log(mediaPipe.length);
       console.log("send");
+      console.log(SIGN_WORD.INIT_VALUE);
 
       ws.current.send(
         JSON.stringify({
           message: mediaPipe,
           categoryId: isInit ? 1 : categoryId,
+          word: isInit ? SIGN_WORD.INIT_VALUE : targetWord,
         })
       );
       setSendMsg(true);
@@ -87,8 +90,7 @@ function OneHand({ open, targetWord, isInit }: propsType) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
         console.log(data.message);
-        console.log("target :", targetWord);
-        if (data.message === targetWord) {
+        if (data.message === true) {
           console.log("정답입니다!");
           handleSucess();
         }

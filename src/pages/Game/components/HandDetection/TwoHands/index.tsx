@@ -79,6 +79,7 @@ function TwoHands({ open, targetWord }: propsType) {
           JSON.stringify({
             message: mediaPipe,
             categoryId: 3,
+            word: targetWord,
           })
         );
         setSendMsg(true);
@@ -93,10 +94,8 @@ function TwoHands({ open, targetWord }: propsType) {
       ws.current.onmessage = function (e: { data: string }) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = JSON.parse(e.data);
-        console.log("AI인식 결과: ", data.message);
-        console.log("맞춰야 하는 정답: ", targetWord);
-
-        if (stageState === 1 && data.message === targetWord) {
+        console.log(data.message);
+        if (stageState === 1 && data.message === true) {
           console.log("정답입니다!");
           handleSucess();
         }
