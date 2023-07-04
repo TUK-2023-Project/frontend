@@ -38,7 +38,7 @@ function OneHand({ open, targetWord, isInit }: propsType) {
       dispatch(correctQuestion());
     }
 
-    if (categoryId === 3) {
+    if (categoryId >= 3) {
       dispatch(usingTwoHandsMode());
     }
     dispatch(moveNextStage());

@@ -29,7 +29,7 @@ const QuizSolve = () => {
         <QuizTimer time={categoryId === 3 ? 20 : 10} />
       </div>
       <div className={styles.bottom}>
-        {categoryId === 3 && (
+        {categoryId >= 3 && (
           <h3
             className={`${styles.bottom__text} ${styles["bottom__text--blink"]}`}
           >

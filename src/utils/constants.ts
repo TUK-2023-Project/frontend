@@ -7,7 +7,8 @@ export const CATEGORY_MULTIPLIER: Record<number, number> = {
 export const WORD_TYPE: Record<number, string> = {
   1: "자음",
   2: "모음",
-  3: "단어&문장",
+  3: "단어&문장(일상)",
+  4: "단어&문장(음식)",
 };
 
 export const SIGN_WORD: Record<string, string> = {
