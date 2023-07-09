@@ -6,7 +6,7 @@ function PlaygroudPage() {
   return (
     <div>
       <h1>낙서장 페이지</h1>
-      <TwoHands targetWord="asd" open />
+      <TwoHands targetWord="커피" open />
     </div>
   );
 }

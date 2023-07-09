@@ -1,10 +1,10 @@
-import { CATEGORY_MULTIPLIER } from "utils/constants";
+import { CATEGORY_MULTIPLIER, SIGN_WORD } from "utils/constants";
 
 const InitialState = {
   score: 0,
   categoryId: -1,
   targetSignWord: {
-    data: "ㅊ",
+    data: SIGN_WORD.INIT_VALUE,
     id: 9,
   },
   stageState: -1,

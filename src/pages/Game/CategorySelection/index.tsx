@@ -16,7 +16,7 @@ const CategorySelection = () => {
       dispatch(selectCategory(index + 1));
     }
 
-    if (index === 2) {
+    if (index >= 2) {
       setInfoMessage(
         "단어&문장의 경우 두 손을 활용해 게임을 진행해주세요 (두 손)"
       );
@@ -73,11 +73,18 @@ const CategorySelection = () => {
           isSelected={selectedButtonIndex === 1}
         />
         <CommonButton
-          buttonName={"단어&문장"}
+          buttonName={"단어&문장(일상)"}
           handleClick={() => {
             handleClick(2);
           }}
           isSelected={selectedButtonIndex === 2}
+        />
+        <CommonButton
+          buttonName={"단어&문장(음식)"}
+          handleClick={() => {
+            handleClick(3);
+          }}
+          isSelected={selectedButtonIndex === 3}
         />
       </div>
     </div>
