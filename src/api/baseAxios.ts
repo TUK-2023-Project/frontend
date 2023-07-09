@@ -31,27 +31,27 @@ baseAxios.interceptors.response.use(
      * 에러코드를 업데이트하면 맞춰서 수정작업을 진행해야합니다.
      */
 
-    if (
-      error.response.status === 401 &&
-      error.response.data.code !== "token_not_valid"
-    ) {
-      const refreshToken = localStorage.getItem("refreshToken");
+    if (error.response.status === 401) {
+      if (error.response.data.code !== "token_not_valid") {
+        const refreshToken = localStorage.getItem("refreshToken");
 
-      if (refreshToken != null) {
-        const refreshedAccessToken = await updateAccessToken(refreshToken);
+        if (refreshToken != null) {
+          const refreshedAccessToken = await updateAccessToken(refreshToken);
 
-        if (
-          refreshedAccessToken !== null &&
-          refreshedAccessToken !== undefined
-        ) {
-          originalRequest.headers.access = `Bearer ${
-            refreshedAccessToken as string
-          }`;
+          if (
+            refreshedAccessToken !== null &&
+            refreshedAccessToken !== undefined
+          ) {
+            originalRequest.headers.access = `Bearer ${
+              refreshedAccessToken as string
+            }`;
 
-          localStorage.setItem("accessToken", refreshedAccessToken);
-          return await baseAxios(originalRequest);
+            localStorage.setItem("accessToken", refreshedAccessToken);
+            return await baseAxios(originalRequest);
+          }
         }
       }
+      console.log("??");
       localStorage.clear();
       alert("로그인 정보가 만료되었습니다. 다시 로그인해주세요");
       window.location.href = "/";
