@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { selectCategory } from "redux/actions/SignQuizActions";
 import CommonButton from "components/CommonButton";
 import styles from "./CategorySelection.module.scss";
-
+import { WORD_TYPE } from "utils/constants";
 const CategorySelection = () => {
   const dispatch = useDispatch();
 
@@ -59,32 +59,39 @@ const CategorySelection = () => {
 
       <div className={styles["category-wrapper"]}>
         <CommonButton
-          buttonName={"자음"}
+          buttonName={WORD_TYPE[1]}
           handleClick={() => {
             handleClick(0);
           }}
           isSelected={selectedButtonIndex === 0}
         />
         <CommonButton
-          buttonName={"모음"}
+          buttonName={WORD_TYPE[2]}
           handleClick={() => {
             handleClick(1);
           }}
           isSelected={selectedButtonIndex === 1}
         />
         <CommonButton
-          buttonName={"단어&문장(일상)"}
+          buttonName={WORD_TYPE[3]}
           handleClick={() => {
             handleClick(2);
           }}
           isSelected={selectedButtonIndex === 2}
         />
         <CommonButton
-          buttonName={"단어&문장(음식)"}
+          buttonName={WORD_TYPE[4]}
           handleClick={() => {
             handleClick(3);
           }}
           isSelected={selectedButtonIndex === 3}
+        />
+        <CommonButton
+          buttonName={WORD_TYPE[5]}
+          handleClick={() => {
+            handleClick(4);
+          }}
+          isSelected={selectedButtonIndex === 4}
         />
       </div>
     </div>
