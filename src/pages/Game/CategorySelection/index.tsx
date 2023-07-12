@@ -81,6 +81,7 @@ const CategorySelection = () => {
               handleClick(2);
             }}
             isSelected={selectedButtonIndex === 2}
+            color="orange"
           />
           <CommonButton
             buttonName={WORD_TYPE[4]}
@@ -88,6 +89,7 @@ const CategorySelection = () => {
               handleClick(3);
             }}
             isSelected={selectedButtonIndex === 3}
+            color="orange"
           />
           <CommonButton
             buttonName={WORD_TYPE[5]}
@@ -95,6 +97,7 @@ const CategorySelection = () => {
               handleClick(4);
             }}
             isSelected={selectedButtonIndex === 4}
+            color="orange"
           />
         </div>
       </div>
