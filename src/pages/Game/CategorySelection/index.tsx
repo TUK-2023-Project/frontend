@@ -33,25 +33,11 @@ const CategorySelection = () => {
         <h1 className={styles.header__title}>
           {"풀이하고자 하는 퀴즈의 카테고리를 선택해주세요"}
         </h1>
-        <h1
-          className={
-            selectedButtonIndex !== null
-              ? styles["header__sub-title"]
-              : styles["header__sub-title"]
-          }
-        >
+        <h1 className={styles["header__sub-title"]}>
           {"선택이 완료되었다면 오른손을 활짝 펼쳐 카메라에 비춰주세요"}
         </h1>
         <h1
-          className={
-            selectedButtonIndex !== null
-              ? styles["header__sub-title"]
-              : styles["header__sub-title"]
-          }
-          style={{
-            color: "red",
-            fontWeight: "bold",
-          }}
+          className={`${styles["header__sub-title"]} ${styles["header__sub-title--highlight"]}`}
         >
           {infoMessage}
         </h1>

@@ -19,8 +19,9 @@
     font-size: 1.2rem;
   }
 
-  &__sub-title--invisible {
-    display: hidden;
+  &__sub-title--highlight {
+    color: red;
+    font-weight: bold;
   }
 }
 
