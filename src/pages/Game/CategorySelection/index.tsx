@@ -58,41 +58,45 @@ const CategorySelection = () => {
       </div>
 
       <div className={styles["category-wrapper"]}>
-        <CommonButton
-          buttonName={WORD_TYPE[1]}
-          handleClick={() => {
-            handleClick(0);
-          }}
-          isSelected={selectedButtonIndex === 0}
-        />
-        <CommonButton
-          buttonName={WORD_TYPE[2]}
-          handleClick={() => {
-            handleClick(1);
-          }}
-          isSelected={selectedButtonIndex === 1}
-        />
-        <CommonButton
-          buttonName={WORD_TYPE[3]}
-          handleClick={() => {
-            handleClick(2);
-          }}
-          isSelected={selectedButtonIndex === 2}
-        />
-        <CommonButton
-          buttonName={WORD_TYPE[4]}
-          handleClick={() => {
-            handleClick(3);
-          }}
-          isSelected={selectedButtonIndex === 3}
-        />
-        <CommonButton
-          buttonName={WORD_TYPE[5]}
-          handleClick={() => {
-            handleClick(4);
-          }}
-          isSelected={selectedButtonIndex === 4}
-        />
+        <div className={styles["category-wrapper__row"]}>
+          <CommonButton
+            buttonName={WORD_TYPE[1]}
+            handleClick={() => {
+              handleClick(0);
+            }}
+            isSelected={selectedButtonIndex === 0}
+          />
+          <CommonButton
+            buttonName={WORD_TYPE[2]}
+            handleClick={() => {
+              handleClick(1);
+            }}
+            isSelected={selectedButtonIndex === 1}
+          />
+        </div>
+        <div className={styles["category-wrapper__row"]}>
+          <CommonButton
+            buttonName={WORD_TYPE[3]}
+            handleClick={() => {
+              handleClick(2);
+            }}
+            isSelected={selectedButtonIndex === 2}
+          />
+          <CommonButton
+            buttonName={WORD_TYPE[4]}
+            handleClick={() => {
+              handleClick(3);
+            }}
+            isSelected={selectedButtonIndex === 3}
+          />
+          <CommonButton
+            buttonName={WORD_TYPE[5]}
+            handleClick={() => {
+              handleClick(4);
+            }}
+            isSelected={selectedButtonIndex === 4}
+          />
+        </div>
       </div>
     </div>
   );
