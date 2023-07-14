@@ -12,6 +12,7 @@ export const WORD_TYPE: Record<number, string> = {
   2: "모음",
   3: "단어&문장(일상)",
   4: "단어&문장(음식)",
+  5: "단어&문자(동물)",
 };
 
 export const SIGN_WORD: Record<string, string> = {
