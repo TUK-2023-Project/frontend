@@ -5,7 +5,7 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  padding: 30px;
+  padding: 10px;
   margin: auto;
   width: 90%;
 
@@ -19,16 +19,33 @@
     font-size: 1.2rem;
   }
 
-  &__sub-title--invisible {
-    display: hidden;
+  &__sub-title--highlight {
+    color: red;
+    font-weight: bold;
   }
 }
 
 .category-wrapper {
-  padding-top: 50px;
+  padding-top: 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  &__row {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    &:first-child {
+      justify-content: space-around;
+    }
+
+    &:last-child {
+      justify-content: space-between;
+    }
+  }
 }
