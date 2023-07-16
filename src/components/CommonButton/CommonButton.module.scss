@@ -1,23 +1,32 @@
-$yellowbutton: #fad795; //공통 버튼 색
+$yellowButton: #ffdc9b; //공통 버튼 색
+$orangeButton: #fdc65f;
 
 .common-btn {
   width: 12rem;
   height: 4.4rem;
   border-radius: 1.5rem;
-  background: $yellowbutton;
   font-size: 1.5rem;
   font-weight: 900;
   border: 1.8px solid black;
+
+  &.yellow {
+    background: $yellowButton;
+  }
+
+  &.orange {
+    background: $orangeButton;
+  }
+
   &:hover {
-    background: darken($yellowbutton, 10%);
+    background: darken($yellowButton, 20%);
   }
   &:focus {
     outline: none;
     box-shadow: none;
   }
 
-  &--selected {
-    background: darken($yellowbutton, 10%);
-    border: 3px solid #ffc21b;
+  &.common-btn--selected {
+    background: darken($yellowButton, 30%);
+    border: 3px solid #f76504;
   }
 }
