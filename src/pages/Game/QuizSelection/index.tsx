@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
@@ -7,6 +7,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import AllProblemsSolved from "./AllProblemsSolved";
 import { loadNewQuestion } from "api/signLanguage";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import VideoModal from "../components/VideoModal";
 
 const QuizSelection = () => {
   usePreventGoBackEffect();
@@ -15,6 +16,18 @@ const QuizSelection = () => {
 
   const handleMove = () => {
     dispatch(moveNextStage());
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
+
+  const openModalWithVideo = (url: string) => {
+    setVideoUrl(url);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const level = useSelector(
@@ -43,6 +56,12 @@ const QuizSelection = () => {
 
   return (
     <div>
+      <VideoModal
+        open={isModalOpen}
+        closeAction={closeModal}
+        videoUrl={videoUrl}
+      />
+
       <div className={styles.header}>
         <h1 className={styles.header__title}>{level}번 문제 입니다.</h1>
         <h1 className={styles["header__sub-title"]}>
@@ -56,6 +75,9 @@ const QuizSelection = () => {
             className={styles["content__card-wrapper__image"]}
             src={data.questions[0].photo_url}
             alt="Image 1"
+            onClick={() => {
+              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+            }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
             {data.questions[0].word}
@@ -66,6 +88,9 @@ const QuizSelection = () => {
             src={data.questions[1].photo_url}
             alt="Image 2"
             className={styles["content__card-wrapper__image"]}
+            onClick={() => {
+              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+            }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
             {" "}
@@ -77,6 +102,9 @@ const QuizSelection = () => {
             src={data.questions[2].photo_url}
             alt="Image 3"
             className={styles["content__card-wrapper__image"]}
+            onClick={() => {
+              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+            }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
             {" "}
