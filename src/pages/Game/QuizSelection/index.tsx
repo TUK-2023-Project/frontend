@@ -7,7 +7,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import AllProblemsSolved from "./AllProblemsSolved";
 import { loadNewQuestion } from "api/signLanguage";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
-import VideoModal from "../components/VideoModal";
+import VideoModal from "components/VideoModal";
 
 const QuizSelection = () => {
   usePreventGoBackEffect();
