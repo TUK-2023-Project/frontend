@@ -8,7 +8,6 @@ interface VideoModalProps {
 }
 
 const VideoModal = ({ open, closeAction, videoUrl }: VideoModalProps) => {
-  // 모달 상태 변경
   const closeModalHandler = () => {
     closeAction();
   };
@@ -30,7 +29,7 @@ const VideoModal = ({ open, closeAction, videoUrl }: VideoModalProps) => {
               <img src="images/closebtn.svg" alt="closeBtn" />
             </div>
             <div className={styles["modal-backdrop__modal-view__content"]}>
-              <video width="640" height="480" controls>
+              <video controls>
                 <source src={videoUrl} type="video/mp4" />
                 비디오를 지원하지 않는 브라우저입니다
               </video>
