@@ -76,7 +76,9 @@ const QuizSelection = () => {
             src={data.questions[0].photo_url}
             alt="Image 1"
             onClick={() => {
-              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+              openModalWithVideo(
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+              );
             }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
@@ -89,7 +91,9 @@ const QuizSelection = () => {
             alt="Image 2"
             className={styles["content__card-wrapper__image"]}
             onClick={() => {
-              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+              openModalWithVideo(
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+              );
             }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
@@ -103,7 +107,9 @@ const QuizSelection = () => {
             alt="Image 3"
             className={styles["content__card-wrapper__image"]}
             onClick={() => {
-              openModalWithVideo("https://youtu.be/hQh-ngIL_To");
+              openModalWithVideo(
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+              );
             }}
           />
           <h2 className={styles["content__card-wrapper__label"]}>
@@ -120,5 +126,3 @@ const QuizSelection = () => {
 };
 
 export default QuizSelection;
-
-// TODO: 개선사항 1. 각 이미지를 클릭했을때 상세 정보가 표현되면 좋을 듯
