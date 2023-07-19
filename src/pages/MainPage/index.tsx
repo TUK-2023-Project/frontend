@@ -90,6 +90,11 @@ function MainPage() {
           </div>
         )}
       </div>
+      <footer className={styles.footer}>
+        {
+          "본 저작물은 국립국어원 한국수어사전에서 제공한 수형사진과 영상정보를 활용하였으며 해당 저작물은 https://sldict.korean.go.kr/front/main/main.do에서 무료로 다운받으실수 있습니다. \n © 2023 [한국공학대학교 S-13] All Rights Reserved."
+        }
+      </footer>
       <AboutModal open={modalOpen} closeAction={handleCloseModal} />
     </>
   );
