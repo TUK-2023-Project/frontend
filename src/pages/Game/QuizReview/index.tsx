@@ -81,9 +81,7 @@ const QuizReview = () => {
       <VideoModal
         open={isModalOpen}
         closeAction={closeModal}
-        videoUrl={
-          "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
-        }
+        videoUrl={data.video_url}
       />
       <div className={styles.header}>
         <h1 className={styles.header__title}>{targetSignWord.data}</h1>

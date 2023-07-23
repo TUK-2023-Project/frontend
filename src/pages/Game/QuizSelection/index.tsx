@@ -76,9 +76,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(
-              "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
-            );
+            openModalWithVideo(data.video_url);
           }}
         >
           <img
@@ -93,9 +91,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(
-              "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
-            );
+            openModalWithVideo(data.video_url);
           }}
         >
           <img
@@ -111,9 +107,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(
-              "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
-            );
+            openModalWithVideo(data.video_url);
           }}
         >
           <img
