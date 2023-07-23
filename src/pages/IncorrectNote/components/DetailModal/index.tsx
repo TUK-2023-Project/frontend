@@ -7,7 +7,7 @@ interface DetailProps {
   closeAction: () => void;
   signId: number;
   word?: string;
-  img?: string;
+  video?: string;
   contents?: string;
 }
 
@@ -17,7 +17,7 @@ function DetailModal({
   closeAction,
   signId,
   word,
-  img,
+  video,
   contents,
 }: DetailProps) {
   const [isOpen, setIsOpen] = useState<boolean>(open);
@@ -67,11 +67,18 @@ function DetailModal({
             </div>
 
             <div className={styles["modal-backdrop__modal-view__bottom"]}>
-              <img
-                src={img}
+              <video
+                muted
+                autoPlay
+                loop
                 className={styles["modal-backdrop__modal-view__bottom__image"]}
-                alt="수어 이미지"
-              />
+              >
+                <source
+                  // src={video}
+                  src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+                  type="video/mp4"
+                />
+              </video>
 
               <div
                 className={

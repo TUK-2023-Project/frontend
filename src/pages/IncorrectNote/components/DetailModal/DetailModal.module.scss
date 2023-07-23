@@ -77,13 +77,13 @@
       &__image {
         width: 40%;
         object-fit: contain;
-        border: 2px solid black;
+        border: none;
         height: 80%;
         margin-right: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        img {
+        source {
           width: 40%;
         }
       }
