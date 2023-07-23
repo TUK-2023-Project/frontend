@@ -76,7 +76,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(data.video_url);
+            openModalWithVideo(data.questions[0].video_url);
           }}
         >
           <img
@@ -91,7 +91,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(data.video_url);
+            openModalWithVideo(data.questions[1].video_url);
           }}
         >
           <img
@@ -107,7 +107,7 @@ const QuizSelection = () => {
         <div
           className={styles["content__card-wrapper"]}
           onClick={() => {
-            openModalWithVideo(data.video_url);
+            openModalWithVideo(data.questions[2].video_url);
           }}
         >
           <img
