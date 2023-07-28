@@ -27,22 +27,14 @@ export const registerUserData = () => {
     data,
     isSuccess: isSuccess2,
   } = useMutation(registerUser, {
-    onMutate: (variable) => {
-      console.log("onMutate", variable);
-    },
-    onError: (error, variable, context) => {
-      console.log(error);
-      console.log(variable);
-      console.log(context);
+    onMutate: (variable) => {},
+    onError: () => {
       alert("회원 등록을 실패하였습니다. 다시 이용해주세요!");
     },
     onSuccess: (data, variables, context) => {
-      console.log("success", data, variables, context);
       moveLogin("/signin");
     },
-    onSettled: () => {
-      console.log("end");
-    },
+    onSettled: () => {},
   });
 
   const submitUserData = ({ username, mail, pw }: UserDataType) => {
@@ -76,13 +68,8 @@ export const checkDuplicateEmail = () => {
     isSuccess: isSuccess1,
     data,
   } = useMutation(duplicateEmail, {
-    onError: (error) => {
-      console.log("중복 확인 실패", error);
-    },
-    onSuccess: (data, variables) => {
-      console.log("중복 확인 성공");
-      console.log("success", data, variables);
-    },
+    onError: () => {},
+    onSuccess: (data, variables) => {},
   });
 
   const checkDupliEmail = (email: string) => {
@@ -114,13 +101,8 @@ export const checkDuplicateNickname = () => {
     data: dataNickname,
     isSuccess: isSuccess3,
   } = useMutation(duplicateNickname, {
-    onError: (error) => {
-      console.log("중복 확인 실패", error);
-    },
-    onSuccess: (data, variables) => {
-      console.log("중복 확인 성공");
-      console.log("success", data, variables);
-    },
+    onError: () => {},
+    onSuccess: (data, variables) => {},
   });
   const checkDupliNickname = (nickname: string) => {
     mutate(nickname);
@@ -156,18 +138,11 @@ export const loginUserData = () => {
   const { mutate, isLoading, isError, error, isSuccess, data } = useMutation(
     loginUser,
     {
-      onMutate: (variable) => {
-        console.log("onMutate", variable);
-      },
-      onError: (error, variable, context) => {
-        console.log(error);
-        console.log(variable);
-        console.log(context);
+      onMutate: (variable) => {},
+      onError: () => {
         alert("존재하지 않는 정보입니다. 다시 입력해주세요!");
       },
       onSuccess: (data, variables, context) => {
-        console.log("success", data, variables, context);
-        console.log(data.CODE);
         if (data.CODE === "004") {
           alert("이메일이 일치하지 않습니다. 다시 입력해주세요!");
         } else if (data.CODE === "003") {
@@ -178,10 +153,7 @@ export const loginUserData = () => {
           localStorage.setItem("refreshToken", data.refresh);
         }
       },
-      onSettled: (data, error, variables, context) => {
-        console.log("end");
-        console.log("settled", data, error, variables, context);
-      },
+      onSettled: (data, error, variables, context) => {},
     }
   );
 

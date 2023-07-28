@@ -22,9 +22,7 @@ function MainPage() {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    console.log(modalOpen);
-  }, [modalOpen]);
+  useEffect(() => {}, [modalOpen]);
 
   const handleCloseModal = () => {
     setModalOpen(false);
