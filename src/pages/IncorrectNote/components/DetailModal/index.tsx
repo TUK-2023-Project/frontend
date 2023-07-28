@@ -45,6 +45,7 @@ function DetailModal({
       closeAction();
     }
   }, [isSuccess, isError]);
+  console.log(video);
 
   return (
     <>
@@ -73,11 +74,13 @@ function DetailModal({
                 loop
                 className={styles["modal-backdrop__modal-view__bottom__image"]}
               >
-                <source
-                  // src={video}
-                  src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
-                  type="video/mp4"
-                />
+                {video !== undefined && video !== null && (
+                  <source
+                    // src={video}
+                    src={`${video}`}
+                    type="video/mp4"
+                  />
+                )}
               </video>
 
               <div

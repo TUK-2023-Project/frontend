@@ -86,7 +86,9 @@ export const getIncorrectItemData = (signId: number) => {
     {
       enabled: signId !== -1,
       retry: 0,
-      onSuccess: () => {},
+      onSuccess: (data) => {
+        console.log(data);
+      },
     }
   );
   return { isLoading, error, data };

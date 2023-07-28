@@ -70,7 +70,7 @@ function IncorrectNoteBox({ label, item }: IncorrectNoteBoxProps) {
           closeAction={handleCloseModal}
           signId={signId}
           word={data?.sign_language_info.word}
-          video={data?.sign_language_info.photo_url}
+          video={data?.sign_language_info.video_url}
           contents={data?.sign_language_info.context}
         />
       ) : null}
