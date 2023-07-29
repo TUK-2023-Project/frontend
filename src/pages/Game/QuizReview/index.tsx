@@ -81,7 +81,7 @@ const QuizReview = () => {
       <VideoModal
         open={isModalOpen}
         closeAction={closeModal}
-        videoUrl={data.video_url}
+        videoUrl={data.sign_language_info.video_url}
       />
       <div className={styles.header}>
         <h1 className={styles.header__title}>{targetSignWord.data}</h1>
