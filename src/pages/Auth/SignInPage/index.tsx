@@ -49,12 +49,10 @@ function SignInPage() {
   };
   // 비밀번호 유효성 체크
   const ckeckPassword = () => {
-    console.log(password);
     if (password === "") {
       setPasswordValid(false);
       setPwErrorMsg("비밀번호를 입력해주세요!");
     } else {
-      console.log(passwordRegex.test(password));
       if (passwordRegex.test(password)) {
         setPasswordValid(true);
         setPwErrorMsg("");
@@ -79,10 +77,7 @@ function SignInPage() {
   const { submitLogin, isSuccess } = loginUserData();
 
   const sendLogin = () => {
-    console.log("클릭");
-    console.log(notAllow);
     if (!notAllow) {
-      console.log("로그인 전송");
       submitLogin({ mail: email, pw: password });
     }
   };

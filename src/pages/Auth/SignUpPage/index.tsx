@@ -73,12 +73,11 @@ function SignUpPage() {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (data) {
       if (data.CODE === "001") {
-        console.log("중복");
         setEmailValid(false);
         setEmailErrorMsg(data.message);
       } else {
         setEmailValid(true);
-        console.log("중복아님");
+
         setEmailErrorMsg("");
       }
     }
@@ -117,7 +116,6 @@ function SignUpPage() {
         setNickNameValid(false);
         setNicknameErrorMsg(dataNickname.message);
       } else {
-        console.log(dataNickname.status);
         setNickNameValid(true);
         setNicknameErrorMsg("");
       }
@@ -138,12 +136,10 @@ function SignUpPage() {
   );
   // 비밀번호 유효성 체크
   const ckeckPassword = () => {
-    console.log(password);
     if (password === "") {
       setPasswordValid(false);
       setPwErrorMsg("비밀번호를 입력해주세요!");
     } else {
-      console.log(passwordRegex.test(password));
       if (passwordRegex.test(password)) {
         setPasswordValid(true);
         setPwErrorMsg("");
@@ -166,7 +162,6 @@ function SignUpPage() {
   );
   // 비밀번호 재확인 유효성 체크
   const ckeckPasswordConfirm = () => {
-    console.log(passwordConfrim);
     if (passwordConfrim === "") {
       setPasswordConfirmValid(false);
       setPwConfirmErrorMsg("비밀번호를 재확인 해주세요!");
@@ -184,11 +179,7 @@ function SignUpPage() {
   const { submitUserData, isSuccess2 } = registerUserData();
 
   const sendRegister = () => {
-    console.log("클릭");
-    console.log(notAllow);
-    console.log(isSuccess2);
     if (!notAllow) {
-      console.log("회원가입 전송");
       submitUserData({ username: nickname, mail: email, pw: password });
     }
   };

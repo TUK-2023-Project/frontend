@@ -22,10 +22,6 @@ function MainPage() {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    console.log(modalOpen);
-  }, [modalOpen]);
-
   const handleCloseModal = () => {
     setModalOpen(false);
   };
