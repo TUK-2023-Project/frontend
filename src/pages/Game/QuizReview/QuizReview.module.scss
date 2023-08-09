@@ -24,6 +24,13 @@
   height: 100%;
   background-color: #ebffdb;
 
+  &:hover {
+    border: 1px solid green;
+    transform: scale(1.01);
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
   &__info {
     margin-top: 10px;
     flex: 1;

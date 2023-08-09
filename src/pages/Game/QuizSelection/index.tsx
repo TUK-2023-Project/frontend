@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import styles from "./QuizSelection.module.scss";
@@ -7,6 +7,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import AllProblemsSolved from "./AllProblemsSolved";
 import { loadNewQuestion } from "api/signLanguage";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
+import VideoModal from "components/VideoModal";
 
 const QuizSelection = () => {
   usePreventGoBackEffect();
@@ -15,6 +16,18 @@ const QuizSelection = () => {
 
   const handleMove = () => {
     dispatch(moveNextStage());
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
+
+  const openModalWithVideo = (url: string) => {
+    setVideoUrl(url);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const level = useSelector(
@@ -43,15 +56,29 @@ const QuizSelection = () => {
 
   return (
     <div>
+      <VideoModal
+        open={isModalOpen}
+        closeAction={closeModal}
+        videoUrl={videoUrl}
+      />
+
       <div className={styles.header}>
         <h1 className={styles.header__title}>{level}번 문제 입니다.</h1>
         <h1 className={styles["header__sub-title"]}>
           {"세 단어의 수어 동작을 모두 학습해주세요"}
         </h1>
+        <h1 className={styles["header__sub-title"]}>
+          {"[각 단어를 눌러 상세한 영상정보를 확인할 수 있습니다]"}
+        </h1>
       </div>
 
       <div className={styles.content}>
-        <div className={styles["content__card-wrapper"]}>
+        <div
+          className={styles["content__card-wrapper"]}
+          onClick={() => {
+            openModalWithVideo(data.questions[0].video_url);
+          }}
+        >
           <img
             className={styles["content__card-wrapper__image"]}
             src={data.questions[0].photo_url}
@@ -61,7 +88,12 @@ const QuizSelection = () => {
             {data.questions[0].word}
           </h2>
         </div>
-        <div className={styles["content__card-wrapper"]}>
+        <div
+          className={styles["content__card-wrapper"]}
+          onClick={() => {
+            openModalWithVideo(data.questions[1].video_url);
+          }}
+        >
           <img
             src={data.questions[1].photo_url}
             alt="Image 2"
@@ -72,7 +104,12 @@ const QuizSelection = () => {
             {data.questions[1].word}
           </h2>
         </div>
-        <div className={styles["content__card-wrapper"]}>
+        <div
+          className={styles["content__card-wrapper"]}
+          onClick={() => {
+            openModalWithVideo(data.questions[2].video_url);
+          }}
+        >
           <img
             src={data.questions[2].photo_url}
             alt="Image 3"
@@ -92,5 +129,3 @@ const QuizSelection = () => {
 };
 
 export default QuizSelection;
-
-// TODO: 개선사항 1. 각 이미지를 클릭했을때 상세 정보가 표현되면 좋을 듯

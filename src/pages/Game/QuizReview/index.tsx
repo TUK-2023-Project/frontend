@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextStage } from "redux/actions/SignQuizActions";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,11 @@ import LoadingSpinner from "components/LoadingSpinner";
 import { playAudio } from "utils/audioPlayer";
 import { usePreventGoBackEffect } from "hooks/usePreventGoBackEffect";
 import { addIncorrectData } from "api/incorrectNote";
+import VideoModal from "components/VideoModal";
 
 const QuizReview = () => {
+  usePreventGoBackEffect();
+
   const navigate = useNavigate();
   const redirectToRankPage = () => {
     navigate("/rank");
@@ -41,8 +44,6 @@ const QuizReview = () => {
     }
   };
 
-  usePreventGoBackEffect();
-
   const { addIncorrectList } = addIncorrectData();
 
   useEffect(() => {
@@ -61,12 +62,27 @@ const QuizReview = () => {
     })();
   }, []);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModalWithVideo = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   return (
     <div>
+      <VideoModal
+        open={isModalOpen}
+        closeAction={closeModal}
+        videoUrl={data.sign_language_info.video_url}
+      />
       <div className={styles.header}>
         <h1 className={styles.header__title}>{targetSignWord.data}</h1>
       </div>
@@ -81,7 +97,12 @@ const QuizReview = () => {
           </p>
         </div>
 
-        <div className={styles.content__info}>
+        <div
+          className={styles.content__info}
+          onClick={() => {
+            openModalWithVideo();
+          }}
+        >
           <img
             src={data.sign_language_info.photo_url}
             alt="이미지 설명"
